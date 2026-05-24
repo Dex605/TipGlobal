@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iIzFhNTJjYyIvPjx0ZXh0IHg9IjMyIiB5PSIzOCIgZm9udC1mYW1pbHk9IkFyaWFsIEJsYWNrLHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjYiIGZvbnQtd2VpZ2h0PSI5MDAiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5URzwvdGV4dD48cmVjdCB4PSI0MCIgeT0iOCIgd2lkdGg9IjIwIiBoZWlnaHQ9IjE2IiByeD0iMyIgZmlsbD0iI2NjMTUxNSIvPjx0ZXh0IHg9IjUwIiB5PSIyMSIgZm9udC1mYW1pbHk9IkFyaWFsIEJsYWNrLHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iOSIgZm9udC13ZWlnaHQ9IjkwMCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPlBURTwvdGV4dD48L3N2Zz4=">
+<link rel="shortcut icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iIzFhNTJjYyIvPjx0ZXh0IHg9IjMyIiB5PSIzOCIgZm9udC1mYW1pbHk9IkFyaWFsIEJsYWNrLHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjYiIGZvbnQtd2VpZ2h0PSI5MDAiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5URzwvdGV4dD48cmVjdCB4PSI0MCIgeT0iOCIgd2lkdGg9IjIwIiBoZWlnaHQ9IjE2IiByeD0iMyIgZmlsbD0iI2NjMTUxNSIvPjx0ZXh0IHg9IjUwIiB5PSIyMSIgZm9udC1mYW1pbHk9IkFyaWFsIEJsYWNrLHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iOSIgZm9udC13ZWlnaHQ9IjkwMCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPlBURTwvdGV4dD48L3N2Zz4=">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tip Global PTE.LTD</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0a1833;--blue:#1a52cc;--blue2:#2563eb;--red:#cc1515;--red2:#e82828;--white:#fff;--offwhite:#f0f4ff;--gray:#e2e8f0;--tgray:#8a8a8a;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Barlow',sans-serif;background:var(--offwhite);color:var(--navy);overflow-x:hidden;}
+.page{display:none;min-height:100vh;}
+.page.active{display:block;}
+
+/* LOGO */
+.lb{background:var(--blue);color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:-1px;display:inline-block;}
+.lb span{background:var(--red);color:#fff;padding:0 4px;margin-left:2px;border-radius:2px;}
+.lw{font-family:'Barlow Condensed',sans-serif;font-weight:400;letter-spacing:4px;}
+
+/* LANDING */
+#page-landing{position:relative;background:var(--navy);overflow-x:hidden;}
+.lbg{position:absolute;top:0;left:0;right:0;height:100vh;z-index:0;}
+.lbg img{width:100%;height:100%;object-fit:cover;object-position:center 30%;}
+.lbg::after{content:'';position:absolute;inset:0;background:linear-gradient(160deg,rgba(10,24,51,0.82) 0%,rgba(10,24,51,0.45) 50%,rgba(10,24,51,0.78) 100%);}
+.lcontent{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:2rem;text-align:center;width:100%;}
+.llogo{display:flex;align-items:center;gap:8px;justify-content:center;margin-bottom:2.5rem;}
+.lh1{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,5vw,4.5rem);font-weight:900;color:#fff;line-height:1.05;margin-bottom:1rem;max-width:700px;}
+.lh1 em{color:#ff6b6b;font-style:normal;}
+.lsub{font-size:1.05rem;color:rgba(255,255,255,0.72);margin-bottom:2.5rem;line-height:1.7;max-width:540px;}
+.lbtns{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;}
+.bred{background:var(--red);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:14px 44px;border:none;border-radius:2px;cursor:pointer;transition:all .25s;}
+.bred:hover{background:var(--red2);transform:translateY(-2px);}
+.bghost{background:transparent;color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:14px 44px;border:2px solid rgba(255,255,255,0.45);border-radius:2px;cursor:pointer;transition:all .25s;}
+.bghost:hover{border-color:#ff6b6b;color:#ff6b6b;}
+
+/* AUTH */
+#page-signin,#page-signup{background:var(--navy);position:relative;overflow-y:auto;}
+.abg{position:fixed;inset:0;z-index:0;pointer-events:none;}
+.abg img{width:100%;height:100%;object-fit:cover;opacity:0.08;}
+.awrap{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:2rem;}
+.awrap-top{justify-content:flex-start;padding-top:2rem;padding-bottom:2rem;}
+.acard{background:rgba(255,255,255,0.06);backdrop-filter:blur(20px);border:1px solid rgba(204,21,21,0.3);border-radius:16px;padding:2.5rem 2rem;width:100%;max-width:420px;}
+.alogo{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:1.75rem;}
+.atitle{font-family:'Playfair Display',serif;font-size:1.6rem;color:#fff;text-align:center;margin-bottom:0.3rem;}
+.asub{font-size:0.85rem;color:rgba(255,255,255,0.5);text-align:center;margin-bottom:1.75rem;}
+.fg{margin-bottom:1.2rem;}
+.fl{display:block;font-size:0.77rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:6px;}
+.fw{position:relative;}
+.fi{width:100%;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.18);border-radius:8px;padding:12px 16px;color:#fff;font-size:0.95rem;font-family:'Barlow',sans-serif;outline:none;transition:border-color .2s;}
+.fi:focus{border-color:var(--red);}
+.fi::placeholder{color:rgba(255,255,255,0.3);}
+.fi.pt{padding-right:46px;}
+.eye{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;color:rgba(255,255,255,0.45);cursor:pointer;font-size:15px;padding:4px;line-height:1;}
+.eye:hover{color:#ff6b6b;}
+.bauth{width:100%;background:var(--red);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:1.15rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:14px;border:none;border-radius:8px;cursor:pointer;margin-top:0.5rem;transition:background .2s;}
+.bauth:hover{background:var(--red2);}
+.aswitch{text-align:center;margin-top:1.2rem;font-size:0.87rem;color:rgba(255,255,255,0.5);}
+.aswitch a{color:#ff6b6b;cursor:pointer;}
+.aback{text-align:center;margin-top:10px;}
+.aback a{font-size:0.8rem;color:rgba(255,255,255,0.32);cursor:pointer;}
+.tchk{display:flex;align-items:flex-start;gap:10px;margin-bottom:1.2rem;}
+.tchk input{width:16px;height:16px;margin-top:2px;accent-color:var(--red);flex-shrink:0;cursor:pointer;}
+.tchk label{font-size:0.83rem;color:rgba(255,255,255,0.6);line-height:1.5;cursor:pointer;}
+.tchk label a{color:#ff6b6b;}
+.err-msg{font-size:0.78rem;color:#ff8080;display:none;margin-top:4px;}
+.scc{display:flex;gap:8px;}
+.scc select{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.18);border-radius:8px;padding:12px 8px;color:#fff;font-size:0.9rem;width:100px;outline:none;}
+.scc .fi{flex:1;}
+
+/* TOP NAV */
+.tnav{background:#fff;border-bottom:1px solid var(--gray);display:flex;align-items:center;justify-content:space-between;padding:0 1.25rem;height:56px;position:sticky;top:0;z-index:100;}
+.tlogo{display:flex;align-items:center;gap:6px;cursor:pointer;}
+.icbtn{width:36px;height:36px;border-radius:50%;border:none;background:var(--offwhite);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--navy);transition:background .2s;}
+.icbtn:hover{background:var(--gray);}
+
+/* BOTTOM NAV */
+.bnav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:680px;background:var(--navy);display:flex;z-index:200;height:60px;}
+.bi{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;color:rgba(255,255,255,0.4);font-size:10px;font-weight:500;letter-spacing:0.5px;text-transform:uppercase;transition:color .2s;padding:8px 0;border:none;background:none;}
+.bi.active{color:#ff6b6b;}
+.bi svg{width:20px;height:20px;}
+
+/* HOME */
+#page-home{padding-bottom:70px;}
+.hhero{position:relative;height:400px;overflow:hidden;}
+.hhero-img{width:100%;height:100%;object-fit:cover;object-position:center 30%;}
+.hhero-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,24,51,0.92) 0%,rgba(10,24,51,0.35) 55%,rgba(10,24,51,0.1) 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:2rem;}
+.hhero-title{font-family:'Playfair Display',serif;font-size:1.85rem;color:#fff;font-weight:900;line-height:1.2;margin-bottom:1rem;}
+.abt-btn{display:inline-flex;align-items:center;gap:8px;color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:0.95rem;letter-spacing:2px;text-transform:uppercase;cursor:pointer;background:rgba(255,255,255,0.14);border:1px solid rgba(255,255,255,0.4);padding:9px 20px;border-radius:22px;transition:all .2s;}
+.abt-btn:hover{background:rgba(255,255,255,0.25);}
+.abt-arr{width:22px;height:22px;border-radius:50%;border:1px solid rgba(255,255,255,0.5);display:flex;align-items:center;justify-content:center;font-size:12px;}
+.hintro{padding:1.75rem 1.5rem;background:#fff;border-bottom:1px solid var(--gray);}
+.hintro p{font-size:0.87rem;color:var(--tgray);line-height:1.8;margin-bottom:0.9rem;text-align:center;}
+.hintro p:last-child{margin-bottom:0;}
+.stitle{font-family:'Playfair Display',serif;font-size:1.55rem;font-weight:700;color:var(--navy);padding:1.5rem 1.5rem 1rem;}
+.wcard{margin:0 1.25rem 1.25rem;border-radius:12px;overflow:hidden;border:1px solid var(--gray);background:#fff;}
+.wcard-img{width:100%;height:175px;object-fit:cover;}
+.wcard-body{padding:1rem 1.2rem;}
+.wcard-body h3{font-family:'Barlow Condensed',sans-serif;font-size:1.25rem;font-weight:700;color:var(--navy);margin-bottom:0.4rem;}
+.wcard-body p{font-size:0.84rem;color:var(--tgray);line-height:1.7;}
+.csec{padding:1.5rem;background:#fff;margin-bottom:8px;}
+.csec h3{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--navy);margin-bottom:0.75rem;font-weight:700;}
+.csec p{font-size:0.86rem;color:#555;line-height:1.75;margin-bottom:0.7rem;}
+.asec{background:var(--navy);padding:2rem 1.5rem;color:#fff;}
+.asec h2{font-family:'Playfair Display',serif;font-size:1.75rem;color:#ff6b6b;margin-bottom:1rem;}
+.asec p{font-size:0.87rem;color:rgba(255,255,255,0.76);line-height:1.8;margin-bottom:1rem;}
+.asec h3{font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;letter-spacing:1.5px;color:rgba(255,255,255,0.9);margin:1.2rem 0 0.5rem;text-transform:uppercase;}
+.covlist{list-style:none;}
+.covlist li{font-size:0.86rem;color:rgba(255,255,255,0.68);padding:6px 0 6px 16px;position:relative;border-bottom:1px solid rgba(255,255,255,0.07);}
+.covlist li::before{content:'›';position:absolute;left:0;color:#ff6b6b;font-weight:700;}
+
+/* POPUP */
+.pop-ov{position:fixed;inset:0;background:rgba(0,0,0,0.65);z-index:900;display:flex;align-items:center;justify-content:center;padding:1rem;}
+.pop-box{background:#fff;border-radius:14px;overflow:hidden;max-width:340px;width:100%;position:relative;}
+.pop-x{position:absolute;top:10px;right:10px;z-index:10;width:30px;height:30px;border-radius:50%;background:rgba(0,0,0,0.55);border:none;color:#fff;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;}
+.pop-inner{padding:1.25rem;background:linear-gradient(135deg,var(--navy) 0%,var(--blue) 100%);}
+.pop-brands{display:flex;gap:8px;margin-bottom:12px;justify-content:center;}
+.pop-brand-logo{width:72px;height:72px;background:#fff;border-radius:10px;display:flex;align-items:center;justify-content:center;padding:8px;}
+.pop-brand-logo img{max-width:100%;max-height:100%;object-fit:contain;}
+.pop-card{background:#fff;border-radius:8px;padding:1rem;text-align:center;}
+.pop-logopill{display:inline-flex;align-items:center;gap:4px;margin-bottom:8px;}
+.pop-msg{font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:600;color:var(--navy);line-height:1.45;}
+.pop-msg strong{color:var(--red);}
+.pop-fine{font-size:0.68rem;color:var(--tgray);margin-top:6px;}
+
+/* STARTING */
+#page-starting{padding-bottom:70px;background:#f0f2ff;}
+.shdr{background:#fff;padding:1rem 1.25rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--gray);}
+.urow{display:flex;align-items:center;gap:10px;}
+.av{width:40px;height:40px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:0.95rem;border:2px solid var(--red);}
+.ugn{font-size:0.95rem;font-weight:600;color:var(--navy);}
+.ugs{font-size:0.76rem;color:var(--tgray);}
+.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:1rem 1.25rem;background:#fff;border-bottom:1px solid var(--gray);}
+.sc{background:var(--navy);border-radius:10px;padding:1rem;}
+.sch{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;}
+.scl{font-size:0.78rem;color:rgba(255,255,255,0.68);font-weight:500;}
+.sci{width:26px;height:26px;border-radius:50%;background:rgba(204,21,21,0.2);display:flex;align-items:center;justify-content:center;font-size:13px;}
+.scv{font-family:'Barlow Condensed',sans-serif;font-size:1.55rem;font-weight:700;color:#ff6b6b;}
+.scu{font-size:0.72rem;color:rgba(255,255,255,0.45);margin-left:2px;}
+.scd{font-size:0.66rem;color:rgba(255,255,255,0.38);line-height:1.4;margin-top:4px;}
+.psec2{padding:0.75rem 0 0.5rem;}
+.phead{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;padding:0 1.25rem;}
+.plbl{font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;color:var(--navy);letter-spacing:1px;text-transform:uppercase;}
+.pcnt{font-family:'Barlow Condensed',sans-serif;font-size:1rem;color:var(--red);font-weight:700;}
+.cthumbs{display:flex;gap:10px;overflow-x:auto;padding:12px 1rem 10px;scrollbar-width:none;align-items:flex-end;}
+.cthumbs::-webkit-scrollbar{display:none;}
+.cth{min-width:70px;width:70px;height:70px;border-radius:12px;object-fit:contain;padding:8px;cursor:pointer;border:2.5px solid rgba(180,180,180,0.3);background:#fff;flex-shrink:0;transition:all .35s cubic-bezier(0.34,1.56,0.64,1);box-shadow:0 4px 12px rgba(0,0,0,0.08);}
+.cth.active{min-width:84px;width:84px;height:84px;border-color:var(--red);box-shadow:0 10px 28px rgba(0,0,0,0.18),0 0 0 2.5px var(--red);transform:translateY(-10px);}
+.farea{padding:1rem;display:flex;justify-content:center;overflow:hidden;background:#f0f2ff;min-height:380px;}
+.fwrap{width:100%;max-width:100%;display:flex;align-items:center;justify-content:center;position:relative;}
+.brand-showcase{display:flex;flex-direction:column;align-items:center;justify-content:center;background:#fff;border-radius:24px;padding:2rem 2.5rem;width:calc(100% - 1rem);max-width:340px;box-shadow:0 8px 40px rgba(26,82,204,0.13);border:1px solid rgba(26,82,204,0.08);min-height:320px;}
+.brand-logo-wrap{width:160px;height:160px;display:flex;align-items:center;justify-content:center;margin-bottom:1.2rem;}
+.brand-logo-main{max-width:100%;max-height:100%;object-fit:contain;}
+.brand-feat-name{font-family:'Barlow Condensed',sans-serif;font-size:1.6rem;font-weight:700;color:var(--navy);letter-spacing:0.5px;text-align:center;}
+.brand-feat-cat{font-size:0.78rem;color:var(--tgray);letter-spacing:2px;text-transform:uppercase;margin-top:4px;text-align:center;}
+@keyframes brandSlideOut{0%{opacity:1;transform:scale(1) translateX(0);}100%{opacity:0;transform:scale(0.88) translateX(-70px);}}
+@keyframes brandSlideIn{0%{opacity:0;transform:scale(0.88) translateX(70px);}100%{opacity:1;transform:scale(1) translateX(0);}}
+.brand-showcase.exit-brand{animation:brandSlideOut 0.48s cubic-bezier(0.4,0,0.2,1) forwards;}
+.brand-showcase.enter-brand{animation:brandSlideIn 0.5s cubic-bezier(0.34,1.56,0.64,1) forwards;}
+.mbtnw{padding:1rem 1.25rem 0.5rem;display:flex;justify-content:center;}
+.mbtn{width:100%;max-width:340px;padding:16px;background:linear-gradient(135deg,var(--blue),var(--red));color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:1.25rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;border:none;border-radius:12px;cursor:pointer;box-shadow:0 6px 24px rgba(26,82,204,0.3);transition:all .25s;}
+.mbtn:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(204,21,21,0.35);}
+.mtag{text-align:center;font-size:0.78rem;color:var(--tgray);padding:0.5rem 1.5rem;line-height:1.6;}
+.inotes{margin:0.75rem 1.25rem;background:rgba(26,82,204,0.05);border-left:3px solid var(--blue);border-radius:0 8px 8px 0;padding:0.75rem 1rem;}
+.inotes h4{font-size:0.8rem;color:var(--blue);margin-bottom:4px;}
+.inotes p{font-size:0.75rem;color:var(--tgray);line-height:1.6;}
+
+/* DEPOSIT REQUIRED MODAL */
+.dr-ov{position:fixed;inset:0;background:rgba(0,0,0,0.65);z-index:9999;display:flex;align-items:center;justify-content:center;padding:1rem;}
+.dr-mod{background:#fff;border-radius:20px;padding:2rem 1.5rem;max-width:320px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.25);}
+.dr-ic{font-size:2.5rem;margin-bottom:0.75rem;}
+.dr-mod h3{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--navy);margin-bottom:0.6rem;}
+.dr-mod p{font-size:0.85rem;color:#555;line-height:1.65;margin-bottom:0.75rem;}
+.dr-amt{font-family:'Barlow Condensed',sans-serif;font-size:2rem;font-weight:700;color:var(--red);margin:0.5rem 0;}
+.dr-btns{display:flex;gap:10px;margin-top:1rem;}
+.bdn{flex:1;padding:12px;background:var(--blue);color:#fff;border:none;border-radius:10px;font-weight:700;font-size:0.9rem;cursor:pointer;}
+.bdc{flex:1;padding:12px;background:#f0f0f0;color:#555;border:none;border-radius:10px;font-weight:600;font-size:0.9rem;cursor:pointer;}
+
+/* RECORDS */
+.rtabs{display:flex;border-bottom:2px solid var(--gray);background:#fff;padding:0 1rem;}
+.rt{padding:12px 18px;font-size:0.88rem;font-weight:600;color:var(--tgray);cursor:pointer;border-bottom:2.5px solid transparent;margin-bottom:-2px;transition:all .2s;}
+.rt.active{color:var(--red);border-bottom-color:var(--red);}
+.rbody{padding:1rem 1rem 80px;}
+.nodata{text-align:center;color:var(--tgray);padding:3rem 1rem;font-size:0.9rem;}
+.rec-card{background:#fff;border-radius:14px;margin-bottom:12px;overflow:hidden;box-shadow:0 2px 16px rgba(26,82,204,0.08);border:1px solid var(--gray);}
+.rec-card-header{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--navy);gap:8px;}
+.rec-badge-name{font-family:'Barlow Condensed',sans-serif;font-size:0.8rem;font-weight:700;color:#fff;background:var(--red);padding:2px 8px;border-radius:4px;letter-spacing:1px;}
+.rec-date{font-size:0.72rem;color:rgba(255,255,255,0.55);flex:1;text-align:center;}
+.rec-status-badge{font-size:0.75rem;font-weight:700;padding:3px 10px;border-radius:20px;}
+.rs-done{background:rgba(40,200,100,0.15);color:#28c864;}
+.rs-pend{background:rgba(255,150,0,0.15);color:#ff9600;}
+.rec-card-body{display:flex;gap:12px;padding:12px 14px;align-items:center;}
+.rec-brand-logo-wrap{width:70px;height:70px;background:var(--offwhite);border-radius:10px;display:flex;align-items:center;justify-content:center;padding:8px;flex-shrink:0;}
+.rec-brand-logo{max-width:100%;max-height:100%;object-fit:contain;}
+.rec-car-info{flex:1;}
+.rec-car-name2{font-family:'Barlow Condensed',sans-serif;font-size:1.15rem;font-weight:700;color:var(--navy);}
+.rec-price{font-family:'Barlow Condensed',sans-serif;font-size:1.15rem;font-weight:700;color:var(--blue);margin-bottom:4px;}
+.rec-stars{font-size:1rem;letter-spacing:2px;}
+.rec-card-footer{display:flex;padding:10px 14px;border-top:1px solid var(--gray);gap:4px;}
+.rec-footer-item{flex:1;text-align:center;}
+.rfl{font-size:0.7rem;color:var(--tgray);margin-bottom:2px;}
+.rfv{font-size:0.9rem;font-weight:700;}
+
+/* MY PAGE */
+.myhdr{background:linear-gradient(135deg,var(--navy),var(--blue));padding:1.5rem 1.25rem 1rem;}
+.myurow{display:flex;align-items:center;gap:12px;margin-bottom:1rem;}
+.myav{width:52px;height:52px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:1.1rem;border:2px solid rgba(255,255,255,0.4);}
+.myun{font-size:1rem;font-weight:700;color:#fff;}
+.myic{font-size:0.78rem;color:rgba(255,255,255,0.6);margin-top:2px;}
+.myic strong{color:rgba(255,255,255,0.9);}
+.crrow{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
+.crlbl{font-size:0.78rem;color:rgba(255,255,255,0.6);}
+.crpct{font-size:0.78rem;color:#ff6b6b;font-weight:700;}
+.crbar{height:5px;background:rgba(255,255,255,0.15);border-radius:10px;}
+.crfill{width:100%;height:100%;background:linear-gradient(90deg,var(--red),#ff6b6b);border-radius:10px;}
+.mysbar{display:flex;background:#fff;border-bottom:1px solid var(--gray);}
+.myst{flex:1;padding:1rem;text-align:center;border-right:1px solid var(--gray);}
+.myst:last-child{border-right:none;}
+.msl{font-size:0.72rem;color:var(--tgray);margin-bottom:4px;}
+.msv{font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:700;color:var(--navy);}
+.msu{font-size:0.8rem;color:var(--tgray);margin-left:2px;}
+.msect{background:#fff;margin-bottom:8px;}
+.msect-t{font-size:0.72rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--tgray);padding:0.75rem 1.25rem 0.4rem;}
+.mlist{border-top:1px solid var(--gray);}
+.mi{display:flex;align-items:center;justify-content:space-between;padding:14px 1.25rem;border-bottom:1px solid var(--gray);cursor:pointer;transition:background .15s;}
+.mi:hover{background:var(--offwhite);}
+.mil{display:flex;align-items:center;gap:12px;}
+.mic{width:32px;height:32px;background:var(--offwhite);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;}
+.min{font-size:0.9rem;font-weight:500;color:var(--navy);}
+.mch{color:var(--tgray);font-size:1rem;}
+.lout{width:calc(100% - 2.5rem);margin:1rem 1.25rem 80px;padding:14px;background:#fff;color:var(--red);border:1.5px solid var(--red);border-radius:10px;font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;letter-spacing:2px;cursor:pointer;text-transform:uppercase;transition:all .2s;}
+.lout:hover{background:var(--red);color:#fff;}
+
+/* SUB PAGES */
+.subhdr{background:var(--navy);display:flex;align-items:center;padding:14px 1.25rem;position:sticky;top:0;z-index:50;}
+.subback{background:none;border:none;color:#fff;font-size:1.5rem;cursor:pointer;padding:0 8px 0 0;line-height:1;}
+.subtit{font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;color:#fff;letter-spacing:2px;text-transform:uppercase;flex:1;text-align:center;}
+.subsp{width:30px;}
+.subbody{padding:1.25rem;}
+.amtc{background:var(--navy);border-radius:14px;padding:1.25rem;text-align:center;margin-bottom:1.25rem;}
+.amtl{font-size:0.78rem;color:rgba(255,255,255,0.55);margin-bottom:4px;letter-spacing:1px;text-transform:uppercase;}
+.amtv{font-family:'Barlow Condensed',sans-serif;font-size:2.2rem;font-weight:700;color:#ff6b6b;}
+.amtv em{font-style:normal;font-size:1.2rem;color:rgba(255,255,255,0.6);margin-right:4px;}
+.amtn{font-size:0.75rem;color:rgba(255,255,255,0.45);margin-top:6px;}
+.field{margin-bottom:1rem;}
+.fieldl{display:block;font-size:0.78rem;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;color:var(--tgray);margin-bottom:6px;}
+.fieldw{position:relative;}
+.fieldi{width:100%;padding:12px 16px;border-radius:10px;border:1.5px solid var(--gray);font-size:0.95rem;font-family:'Barlow',sans-serif;outline:none;transition:border-color .2s;}
+.fieldi:focus{border-color:var(--blue);}
+.alltag{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:var(--blue);color:#fff;border:none;border-radius:6px;padding:4px 10px;font-size:0.78rem;font-weight:700;cursor:pointer;}
+.bwith{width:100%;padding:14px;background:linear-gradient(135deg,var(--blue),var(--red));color:#fff;border:none;border-radius:12px;font-family:'Barlow Condensed',sans-serif;font-size:1.15rem;font-weight:700;letter-spacing:2px;cursor:pointer;margin-top:0.5rem;transition:all .2s;}
+.bwith:hover{opacity:0.9;}
+.bcs{width:100%;padding:14px;background:var(--red);color:#fff;border:none;border-radius:12px;font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;letter-spacing:2px;cursor:pointer;transition:background .2s;}
+.bcs:hover{background:var(--red2);}
+.tabs2{display:flex;gap:6px;}
+.t2{flex:1;padding:9px;text-align:center;font-size:0.82rem;font-weight:600;border-radius:8px;background:var(--offwhite);color:var(--tgray);cursor:pointer;}
+.t2.active{background:var(--blue);color:#fff;}
+
+/* VIP / MEMBERSHIP */
+.vbg{background:linear-gradient(135deg,#0a1833,#1a52cc);padding:1.5rem 1.25rem;}
+.vtit{font-family:'Playfair Display',serif;font-size:1.3rem;color:#fff;margin-bottom:1rem;font-weight:700;}
+.vthead{display:grid;grid-template-columns:1.2fr 0.8fr 1fr 1.2fr;gap:6px;padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.15);margin-bottom:0.5rem;}
+.vth{font-size:0.7rem;font-weight:700;color:rgba(255,255,255,0.55);letter-spacing:0.8px;text-transform:uppercase;}
+.vrow{display:grid;grid-template-columns:1.2fr 0.8fr 1fr 1.2fr;gap:6px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.07);align-items:center;}
+.vbdg{font-size:0.72rem;font-weight:700;padding:3px 7px;border-radius:4px;}
+.vjr{background:#5c7cfa;color:#fff;}
+.vpr{background:#cc1515;color:#fff;}
+.vex{background:#f59300;color:#fff;}
+.vel{background:#9b59b6;color:#fff;}
+.vc{font-size:0.85rem;font-weight:700;color:#ff6b6b;}
+.vd{font-size:0.78rem;color:rgba(255,255,255,0.7);font-weight:600;}
+.fn{font-size:0.68rem;color:rgba(255,255,255,0.35);margin-top:1rem;text-align:center;}
+.sbg{background:linear-gradient(135deg,#1a2a5c,#0a1833);padding:1.5rem 1.25rem;}
+.stit2{font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;color:rgba(255,255,255,0.7);letter-spacing:3px;text-transform:uppercase;margin-bottom:1rem;}
+.srow{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.07);}
+.slft{display:flex;flex-direction:column;}
+.sl{font-size:0.75rem;color:rgba(255,255,255,0.55);}
+.sv{font-size:0.9rem;font-weight:700;color:#fff;margin-top:2px;}
+.srgt{text-align:right;}
+.rl{font-size:0.7rem;color:rgba(255,255,255,0.45);}
+.rv{font-size:1rem;font-weight:700;color:#ff6b6b;}
+.snote{font-size:0.75rem;color:rgba(255,255,255,0.5);line-height:1.65;margin-top:1rem;}
+.hwbg{background:var(--navy);padding:1.5rem 1.25rem;}
+.hwcard{display:flex;gap:12px;background:rgba(255,255,255,0.06);border-radius:12px;padding:1rem;margin-bottom:10px;align-items:flex-start;}
+.hwcar{width:60px;height:60px;border-radius:8px;object-fit:cover;flex-shrink:0;}
+.hwt h4{font-size:0.88rem;font-weight:700;color:#fff;margin-bottom:4px;}
+.hwt p{font-size:0.78rem;color:rgba(255,255,255,0.55);line-height:1.6;}
+
+/* PERSONAL / PAYMENT */
+.pstit{font-size:0.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--tgray);padding:0.75rem 1.25rem 0.4rem;background:var(--offwhite);}
+.psec3{background:#fff;border-top:1px solid var(--gray);border-bottom:1px solid var(--gray);}
+.prow2{display:flex;align-items:center;justify-content:space-between;padding:14px 1.25rem;border-bottom:1px solid var(--gray);}
+.prwl{font-size:0.9rem;color:var(--navy);}
+.prwr{font-size:0.9rem;color:var(--tgray);}
+
+/* NOTIFICATIONS */
+.ni{display:flex;gap:12px;padding:14px 1.25rem;background:#fff;border-bottom:1px solid var(--gray);}
+.nidot{width:8px;height:8px;border-radius:50%;background:var(--blue);margin-top:5px;flex-shrink:0;}
+.nidot.r{background:var(--red);}
+.nitit{font-size:0.88rem;font-weight:600;color:var(--navy);margin-bottom:3px;}
+.nibod{font-size:0.8rem;color:var(--tgray);line-height:1.6;}
+.nitm{font-size:0.72rem;color:#bbb;margin-top:4px;}
+
+/* FAQ */
+.fqtit{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--navy);padding:1.25rem;font-weight:700;}
+.fqwrap{padding:0 1.25rem 2rem;}
+.fi2{background:#fff;border-radius:10px;margin-bottom:8px;overflow:hidden;border:1px solid var(--gray);}
+.fq2{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;font-size:0.88rem;font-weight:600;color:var(--navy);cursor:pointer;}
+.fc2{color:var(--tgray);transition:transform .25s;}
+.fc2.open{transform:rotate(180deg);}
+.fa2{display:none;padding:0 14px 12px;font-size:0.83rem;color:#555;line-height:1.7;}
+.fa2.open{display:block;}
+
+/* CONTACT */
+.cc2{display:flex;align-items:center;gap:14px;padding:14px 1.25rem;background:#fff;border-bottom:1px solid var(--gray);cursor:pointer;transition:background .15s;}
+.cc2:hover{background:var(--offwhite);}
+.ccic{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;}
+.cs{background:rgba(26,82,204,0.1);}
+.wa{background:rgba(37,211,102,0.1);}
+.em{background:rgba(204,21,21,0.1);}
+.cctit{font-size:0.9rem;font-weight:600;color:var(--navy);}
+.ccsub{font-size:0.8rem;color:var(--tgray);}
+.hbox{background:var(--offwhite);margin:1rem 1.25rem;border-radius:10px;padding:1rem;}
+.hbox h4{font-size:0.85rem;font-weight:700;color:var(--navy);margin-bottom:0.5rem;}
+.hbox p{font-size:0.82rem;color:var(--tgray);line-height:1.7;}
+
+/* CC POPUP */
+.cc-popup{position:fixed;bottom:-100%;left:50%;transform:translateX(-50%);width:100%;max-width:680px;background:#fff;border-radius:20px 20px 0 0;z-index:1000;padding:1.5rem;box-shadow:0 -8px 40px rgba(0,0,0,0.18);transition:bottom .35s cubic-bezier(0.34,1.56,0.64,1);}
+.cc-popup.show{bottom:0;}
+.cc-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:999;display:none;}
+.cc-overlay.show{display:block;}
+.cc-handle{width:40px;height:4px;background:var(--gray);border-radius:2px;margin:0 auto 1rem;}
+.cc-title{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--navy);text-align:center;margin-bottom:0.4rem;}
+.cc-sub{font-size:0.82rem;color:var(--tgray);text-align:center;margin-bottom:1.2rem;}
+.cc-deposit-msg{background:#fff3cd;border:1px solid #ffc107;border-radius:10px;padding:0.75rem 1rem;font-size:0.82rem;color:#856404;text-align:center;margin-bottom:1rem;display:none;}
+.cc-option{display:flex;align-items:center;gap:14px;padding:14px;background:var(--offwhite);border-radius:12px;margin-bottom:10px;cursor:pointer;text-decoration:none;color:inherit;transition:background .15s;}
+.cc-option:hover{background:var(--gray);}
+.cc-option-ic{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.cc-option-text{font-size:0.9rem;font-weight:700;color:var(--navy);}
+.cc-option-sub{font-size:0.78rem;color:var(--tgray);}
+
+/* TERMS MODAL */
+#terms-modal{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9000;display:flex;align-items:center;justify-content:center;padding:1rem;}
+#terms-modal .tbox{background:#fff;border-radius:14px;max-width:440px;width:100%;max-height:80vh;overflow-y:auto;padding:1.5rem;}
+#terms-modal h3{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--navy);margin-bottom:1rem;}
+#terms-modal p{font-size:0.82rem;color:#555;line-height:1.7;margin-bottom:0.8rem;}
+#terms-modal button{width:100%;padding:12px;background:var(--blue);color:#fff;border:none;border-radius:8px;font-weight:700;cursor:pointer;margin-top:0.5rem;}
+
+/* VLOGROW */
+.vlogrow{margin-bottom:1rem;}
+</style>
+</head>
+<body>
+
+<!-- LANDING -->
+<div id="page-landing" class="page active">
+  <div class="lbg">
+    <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1200&auto=format&fit=crop&q=90" onerror="this.style.background='#0a1833'" alt="bg">
+  </div>
+  <div class="lcontent">
+    <div class="llogo">
+      <div class="lb" style="font-size:1.5rem;color:#fff;padding:4px 7px 4px 9px;">TIP<span>G</span></div>
+      <div class="lw" style="color:#fff;font-size:1.4rem;">LOBAL PTE.LTD</div>
+    </div>
+
+    <h1 class="lh1">Promote <em>Global Brands.</em><br>Earn Real Commissions.</h1>
+    <p class="lsub">Partner with the world's most recognised brands. Manage campaigns for Coca-Cola, Nike, Toyota and 37 more — and earn commissions on every promotion you complete.</p>
+    <div class="lbtns">
+      <button class="bred" onclick="goTo('page-signup')">GET STARTED</button>
+      <button class="bghost" onclick="scrollAbout()">LEARN MORE</button>
+    </div>
+  </div>
+</div>
+
+<!-- SIGN IN -->
+<div id="page-signin" class="page">
+  <div class="abg"><img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&auto=format&fit=crop" alt="bg"></div>
+  <div class="awrap">
+    <div class="acard">
+      <div class="alogo">
+        <div class="lb" style="font-size:1.2rem;color:#fff;padding:3px 6px 3px 8px;">TIP<span>G</span></div>
+        <div class="lw" style="color:rgba(255,255,255,0.8);font-size:1.1rem;">LOBAL PTE.LTD</div>
+      </div>
+      <h2 class="atitle">Sign In</h2>
+      <p class="asub">Welcome back to Tip Global</p>
+      <div class="fg">
+        <label class="fl">Email or Phone</label>
+        <input class="fi" type="text" id="si-u" placeholder="Email address or phone number">
+        <div class="err-msg" id="si-err-u"></div>
+      </div>
+      <div class="fg">
+        <label class="fl">Password</label>
+        <div class="fw">
+          <input class="fi pt" type="password" id="si-p" placeholder="Your password">
+          <button class="eye" onclick="eyeT('si-p',this)">👁</button>
+        </div>
+        <div class="err-msg" id="si-err-p"></div>
+      </div>
+      <div class="err-msg" id="si-err-g" style="margin-bottom:8px;"></div>
+      <button class="bauth" onclick="doSignIn()">SIGN IN</button>
+      <div class="aswitch">Don't have an account? <a onclick="goTo('page-signup')">Sign up</a></div>
+      <div class="aback"><a onclick="goTo('page-landing')">Back to home</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- SIGN UP -->
+<div id="page-signup" class="page">
+  <div class="abg"><img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&auto=format&fit=crop" alt="bg"></div>
+  <div class="awrap awrap-top">
+    <div class="acard">
+      <div class="alogo">
+        <div class="lb" style="font-size:1.2rem;color:#fff;padding:3px 6px 3px 8px;">TIP<span>G</span></div>
+        <div class="lw" style="color:rgba(255,255,255,0.8);font-size:1.1rem;">LOBAL PTE.LTD</div>
+      </div>
+      <h2 class="atitle">Create Account</h2>
+      <p class="asub">Join Tip Global as a brand promoter</p>
+      <div class="fg">
+        <label class="fl">Username</label>
+        <input class="fi" type="text" id="su-u" placeholder="Choose a username">
+        <div class="err-msg" id="su-err-u"></div>
+      </div>
+      <div class="fg">
+        <label class="fl">Email Address</label>
+        <input class="fi" type="email" id="su-e" placeholder="Your email address">
+        <div class="err-msg" id="su-err-e"></div>
+      </div>
+      <div class="fg">
+        <label class="fl">Phone Number</label>
+        <div class="scc">
+          <select id="su-cc">
+            <option value="+1">🇺🇸 +1</option>
+            <option value="+44">🇬🇧 +44</option>
+            <option value="+254">🇰🇪 +254</option>
+            <option value="+65">🇸🇬 +65</option>
+            <option value="+61">🇦🇺 +61</option>
+            <option value="+91">🇮🇳 +91</option>
+            <option value="+27">🇿🇦 +27</option>
+            <option value="+234">🇳🇬 +234</option>
+          </select>
+          <input class="fi" type="tel" id="su-ph" placeholder="Phone number">
+        </div>
+        <div class="err-msg" id="su-err-ph"></div>
+      </div>
+      <div class="fg">
+        <label class="fl">Password</label>
+        <div class="fw">
+          <input class="fi pt" type="password" id="su-p" placeholder="Min 6 characters">
+          <button class="eye" onclick="eyeT('su-p',this)">👁</button>
+        </div>
+        <div class="err-msg" id="su-err-p"></div>
+      </div>
+      <div class="fg">
+        <label class="fl">Confirm Password</label>
+        <div class="fw">
+          <input class="fi pt" type="password" id="su-p2" placeholder="Repeat your password">
+          <button class="eye" onclick="eyeT('su-p2',this)">👁</button>
+        </div>
+        <div class="err-msg" id="su-err-p2"></div>
+      </div>
+      <div class="fg">
+        <label class="fl">Invitation Code</label>
+        <input class="fi" type="text" id="su-c" placeholder="Enter your invitation code">
+        <div class="err-msg" id="su-err-c"></div>
+      </div>
+      <div class="tchk">
+        <input type="checkbox" id="su-t">
+        <label for="su-t">I agree to the <a onclick="showTerms()">Terms and Conditions</a> of Tip Global PTE.LTD</label>
+      </div>
+      <div class="err-msg" id="su-err-t" style="margin-bottom:8px;"></div>
+      <button class="bauth" onclick="doSignUp()">CREATE ACCOUNT</button>
+      <div class="aswitch">Already have an account? <a onclick="goTo('page-signin')">Sign in</a></div>
+      <div class="aback"><a onclick="goTo('page-landing')">Back to home</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- HOME -->
+<div id="page-home" class="page">
+  <div class="tnav">
+    <div class="tlogo" onclick="goTo('page-home')">
+      <div class="lb" style="font-size:1.15rem;color:#fff;padding:3px 5px 3px 7px;">TIP<span>G</span></div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;letter-spacing:3px;color:var(--navy);margin-left:5px;">LOBAL PTE.LTD</div>
+    </div>
+    <button class="icbtn" onclick="openCC()">🎧</button>
+  </div>
+  <div class="hhero">
+    <img class="hhero-img" src="https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=800&auto=format&fit=crop&q=90" onerror="this.style.background='#0a1833'" alt="Singapore">
+    <div class="hhero-ov">
+      <h2 class="hhero-title">Singapore's Leading<br>Global Brand Promotion Platform</h2>
+      <button class="abt-btn" onclick="scrollAbout()">About Us <div class="abt-arr">›</div></button>
+    </div>
+  </div>
+  <div class="hintro">
+    <p>Tip Global PTE.LTD connects dedicated promotion specialists with the world's most recognised brands. Each completed brand campaign earns you a real dollar commission — directly into your wallet.</p>
+    <p>Our platform partners with 40 global brands across beverages, technology, automotive, fashion, and finance. Every day is a new opportunity to grow your earnings.</p>
+  </div>
+  <div class="stitle">Featured Campaigns</div>
+  <div class="wcard">
+    <img class="wcard-img" src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=600&auto=format&fit=crop" onerror="this.style.background='#e2e8f0'" alt="consumer brands">
+    <div class="wcard-body">
+      <h3>Consumer Goods Campaigns</h3>
+      <p>Promote iconic names like Coca-Cola, Pepsi, Starbucks, Nestle and more. Consumer goods campaigns reward consistent daily promoters with competitive commission rates.</p>
+    </div>
+  </div>
+  <div class="wcard">
+    <img class="wcard-img" src="https://images.unsplash.com/photo-1550355291-bbee04a92027?w=600&auto=format&fit=crop" onerror="this.style.background='#e2e8f0'" alt="luxury brands">
+    <div class="wcard-body">
+      <h3>Luxury and Fashion Campaigns</h3>
+      <p>Work with Gucci, Louis Vuitton, Rolex, Chanel and Prada. Luxury brand campaigns offer premium placement in our high-value promoter tier.</p>
+    </div>
+  </div>
+  <div class="wcard">
+    <img class="wcard-img" src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&auto=format&fit=crop" onerror="this.style.background='#e2e8f0'" alt="technology brands">
+    <div class="wcard-body">
+      <h3>Technology Campaigns</h3>
+      <p>Promote Apple, Google, Microsoft, Samsung, NVIDIA, Intel and more. Tech brand campaigns keep you at the cutting edge of digital promotion.</p>
+    </div>
+  </div>
+  <div class="csec">
+    <h3>Efficient Digital Distribution</h3>
+    <p>Our digital platform enables brands to reach new audiences quickly and cost-effectively. Promoters work directly within the platform to complete campaigns with just a few taps.</p>
+    <p>Tip Global's network spans 60 countries, with thousands of active promoters driving real engagement for partner brands every single day.</p>
+  </div>
+  <div class="csec">
+    <h3>Transparent Commission Earnings</h3>
+    <p>Every promotion earns a real dollar commission credited instantly to your wallet. No hidden fees, no delays. Withdraw your balance any time through our secure payment system.</p>
+    <p>Our platform simplifies campaign management so you can focus entirely on completing promotions and growing your daily income.</p>
+  </div>
+  <div class="asec" id="about-sec">
+    <h2>About Tip Global PTE.LTD</h2>
+    <p>Headquartered in Singapore, Tip Global PTE.LTD is an integrated global brand promotion platform that connects businesses with powerful advertising campaigns across digital, broadcast, and out-of-home channels. As a Private Limited company registered under Singapore law, we operate across 60 countries with a network of thousands of active brand promoters.</p>
+    <p>By leveraging both qualitative and quantitative consumer insights, we implement advanced brand strategies that generate exposure, drive engagement, and enhance visibility for partner brands worldwide. Our solution is specifically designed for consumer brands, luxury houses, technology companies, and financial institutions.</p>
+    <p>We provide comprehensive brand promotion solutions encompassing campaign management, audience targeting, promoter networks, and performance analytics — eliminating the need for fragmented tools and streamlining execution.</p>
+    <h3>Why Singapore?</h3>
+    <p>Singapore's position as Asia's premier financial and business hub makes it the ideal home for a global brand promotion platform. Our Singapore incorporation allows us to operate with transparency, regulatory compliance, and the trust of international partner brands across every major market.</p>
+    <h3>Our Coverage</h3>
+    <ul class="covlist">
+      <li>Global brand positioning and campaign storytelling</li>
+      <li>Consumer acquisition and brand awareness generation</li>
+      <li>Campaign retention, engagement, and loyalty programs</li>
+      <li>Brand monetisation strategies and ROI optimisation</li>
+    </ul>
+  </div>
+  <div class="bnav">
+    <button class="bi active" onclick="switchTab('page-home')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>Home</button>
+    <button class="bi" onclick="switchTab('page-starting')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2zm7 3l-5 9h4v3l5-9h-4V6z"/></svg>Starting</button>
+    <button class="bi" onclick="switchTab('page-records')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>Records</button>
+    <button class="bi" onclick="switchTab('page-my')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>My</button>
+  </div>
+</div>
+
+<!-- STARTING -->
+<div id="page-starting" class="page">
+  <div class="tnav">
+    <div class="tlogo">
+      <div class="lb" style="font-size:1.15rem;color:#fff;padding:3px 5px 3px 7px;">TIP<span>G</span></div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;letter-spacing:3px;color:var(--navy);margin-left:5px;">LOBAL PTE.LTD</div>
+    </div>
+    <button class="icbtn" onclick="openCC()">🎧</button>
+  </div>
+  <div class="shdr">
+    <div class="urow">
+      <div class="av" id="av1">U</div>
+      <div><div class="ugn">Hi, <span id="un1">User</span></div><div class="ugs">Welcome back</div></div>
+    </div>
+    <button class="icbtn" onclick="openCC()">🎧</button>
+  </div>
+  <div class="sgrid">
+    <div class="sc"><div class="sch"><span class="scl">Wallet Balance</span><div class="sci">💳</div></div><div class="scv" id="wallet-disp">$0</div><div class="scd">Total balance including deposited amount and earned profits</div></div>
+    <div class="sc"><div class="sch"><span class="scl">Commission</span><div class="sci">💰</div></div><div class="scv" id="comm-disp">$0</div><div class="scd">Daily profit resets at midnight and recalculates for the next day</div></div>
+  </div>
+  <div class="psec2">
+    <div class="phead"><span class="plbl">Start Promoting</span><span class="pcnt" id="pcnt">0 / 40</span></div>
+    <div class="cthumbs" id="cthumbs"></div>
+  </div>
+  <div class="farea">
+    <div class="fwrap">
+      <div class="brand-showcase" id="brand-showcase">
+        <div class="brand-logo-wrap">
+          <img id="fcar" class="brand-logo-main" src="" alt="Brand Logo" onerror="this.style.opacity='0.15'">
+        </div>
+        <div class="brand-feat-name" id="brand-feat-name">Brand</div>
+        <div class="brand-feat-cat" id="brand-feat-cat">Category</div>
+      </div>
+    </div>
+  </div>
+  <div class="mbtnw"><button class="mbtn" onclick="doMatch()">MATCH (<span id="mcnt">0</span>/40)</button></div>
+  <div class="mtag">Partnering with global brands to drive career development and shape the future of brand promotion</div>
+  <div class="inotes"><h4>Important Notes</h4><p>Online Support Hours 08:00 to 21:00<br>For any further questions please contact Online Customer Service</p></div>
+  <div class="bnav">
+    <button class="bi" onclick="switchTab('page-home')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>Home</button>
+    <button class="bi active" onclick="switchTab('page-starting')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2zm7 3l-5 9h4v3l5-9h-4V6z"/></svg>Starting</button>
+    <button class="bi" onclick="switchTab('page-records')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>Records</button>
+    <button class="bi" onclick="switchTab('page-my')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>My</button>
+  </div>
+</div>
+
+<!-- DEPOSIT REQUIRED MODAL -->
+<div id="dreq" class="dr-ov" style="display:none;">
+  <div class="dr-mod">
+    <div class="dr-ic">⚠️</div>
+    <h3>Deposit Required</h3>
+    <p>To continue with your remaining matches, please make a deposit to proceed.</p>
+    <div class="dr-amt">$50</div>
+    <p style="font-size:0.78rem;color:#bbb;">Contact customer service to complete your deposit and unlock remaining matches.</p>
+    <div class="dr-btns">
+      <button class="bdn" onclick="openSub('page-deposit');document.getElementById('dreq').style.display='none'">Deposit Now</button>
+      <button class="bdc" onclick="document.getElementById('dreq').style.display='none'">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- RECORDS -->
+<div id="page-records" class="page">
+  <div class="tnav">
+    <div class="tlogo"><div class="lb" style="font-size:1.15rem;color:#fff;padding:3px 5px 3px 7px;">TIP<span>G</span></div><div style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;letter-spacing:3px;color:var(--navy);margin-left:5px;">LOBAL PTE.LTD</div></div>
+    <button class="icbtn" onclick="openCC()">🎧</button>
+  </div>
+  <div class="rtabs"><div class="rt active" id="rt-all" onclick="setRTab('all')">All</div><div class="rt" id="rt-pending" onclick="setRTab('pending')">Pending</div><div class="rt" id="rt-completed" onclick="setRTab('completed')">Completed</div></div>
+  <div class="rbody" id="rbody"><div class="nodata">No records yet...</div></div>
+  <div class="bnav">
+    <button class="bi" onclick="switchTab('page-home')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>Home</button>
+    <button class="bi" onclick="switchTab('page-starting')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2zm7 3l-5 9h4v3l5-9h-4V6z"/></svg>Starting</button>
+    <button class="bi active" onclick="switchTab('page-records')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>Records</button>
+    <button class="bi" onclick="switchTab('page-my')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>My</button>
+  </div>
+</div>
+
+<!-- MY -->
+<div id="page-my" class="page">
+  <div class="myhdr">
+    <div class="myurow"><div class="myav" id="av2">U</div><div><div class="myun" id="un2">User</div><div class="myic">Invitation Code: <strong id="ic2">N/A</strong></div></div></div>
+    <div class="crrow"><span class="crlbl">Credit Score:</span><span class="crpct">100%</span></div>
+    <div class="crbar"><div class="crfill"></div></div>
+  </div>
+  <div style="height:12px;background:var(--offwhite);"></div>
+  <div class="mysbar"><div class="myst"><div class="msl">Wallet Amount</div><div class="msv" id="my-wallet">$0</div></div><div class="myst"><div class="msl">Commission</div><div class="msv" id="my-comm">$0</div></div></div>
+  <div class="msect"><div class="msect-t">My Financial</div><div class="mlist">
+    <div class="mi" onclick="openSub('page-deposit')"><div class="mil"><div class="mic">💳</div><span class="min">Deposit</span></div><span class="mch">›</span></div>
+    <div class="mi" onclick="openSub('page-withdraw')"><div class="mil"><div class="mic">💸</div><span class="min">Withdraw</span></div><span class="mch">›</span></div>
+    <div class="mi" onclick="openSub('page-membership')"><div class="mil"><div class="mic">👑</div><span class="min">Promoter Membership</span></div><span class="mch">›</span></div>
+  </div></div>
+  <div class="msect"><div class="msect-t">My Detail</div><div class="mlist">
+    <div class="mi" onclick="openSub('page-personal')"><div class="mil"><div class="mic">✏️</div><span class="min">Personal Information</span></div><span class="mch">›</span></div>
+    <div class="mi" onclick="openSub('page-payment')"><div class="mil"><div class="mic">🏦</div><span class="min">Payment Methods</span></div><span class="mch">›</span></div>
+  </div></div>
+  <div class="msect"><div class="msect-t">Other</div><div class="mlist">
+    <div class="mi" onclick="openSub('page-contact')"><div class="mil"><div class="mic">💬</div><span class="min">Contact Us</span></div><span class="mch">›</span></div>
+    <div class="mi" onclick="openSub('page-notif')"><div class="mil"><div class="mic">🔔</div><span class="min">Notifications</span></div><span class="mch">›</span></div>
+    <div class="mi" onclick="openSub('page-faqs')"><div class="mil"><div class="mic">❓</div><span class="min">FAQs</span></div><span class="mch">›</span></div>
+    <div class="mi" onclick="openSub('page-cert')"><div class="mil"><div class="mic">📜</div><span class="min">Certificate</span></div><span class="mch">›</span></div>
+  </div></div>
+  <button class="lout" onclick="doLogout()">LOGOUT</button>
+  <div class="bnav">
+    <button class="bi" onclick="switchTab('page-home')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>Home</button>
+    <button class="bi" onclick="switchTab('page-starting')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2zm7 3l-5 9h4v3l5-9h-4V6z"/></svg>Starting</button>
+    <button class="bi" onclick="switchTab('page-records')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>Records</button>
+    <button class="bi active" onclick="switchTab('page-my')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>My</button>
+  </div>
+</div>
+
+<!-- DEPOSIT -->
+<div id="page-deposit" class="page">
+  <div class="subhdr"><button class="subback" onclick="closeSub()">‹</button><span class="subtit">Deposit</span><div class="subsp"></div></div>
+  <div class="tabs2" style="margin:0 1.25rem 1rem;"><div class="t2 active">Deposit</div><div class="t2">History</div></div>
+  <div class="subbody" style="padding-top:0;">
+    <div class="amtc"><div class="amtl">Account Amount</div><div class="amtv"><em>$</em><span id="dep-bal">0</span></div></div>
+    <button class="bcs" onclick="openCC()">Contact Customer Service</button>
+  </div>
+</div>
+
+<!-- WITHDRAW -->
+<div id="page-withdraw" class="page">
+  <div class="subhdr"><button class="subback" onclick="closeSub()">‹</button><span class="subtit">Withdraw</span><div class="subsp"></div></div>
+  <div class="tabs2" style="margin:0 1.25rem 1rem;"><div class="t2 active">Withdraw</div><div class="t2">History</div></div>
+  <div class="subbody" style="padding-top:0;">
+    <div class="amtc"><div class="amtl">Account Amount</div><div class="amtv"><em>$</em><span id="with-bal">0</span></div><div class="amtn">You will receive your withdrawal within an hour</div></div>
+    <div class="field"><label class="fieldl">Withdraw Amount</label><div class="fieldw"><input class="fieldi" id="with-amt" type="number" value="0" style="padding-right:62px;background:#f5f5f5;color:#333;border:1.5px solid #e0e0e0;"><button class="alltag" onclick="document.getElementById('with-amt').value=document.getElementById('with-bal').textContent">ALL</button></div></div>
+    <div class="field"><label class="fieldl">Transaction Password</label><input class="fieldi" id="with-txpw" type="password" placeholder="Transaction Password" style="background:#f5f5f5;color:#333;border:1.5px solid #e0e0e0;"></div>
+    <button class="bwith" onclick="doWithdraw()">Withdraw</button>
+    <div id="with-processing" style="display:none;margin-top:1.2rem;background:#fff3f3;border:1.5px solid var(--red);border-radius:12px;padding:1rem 1.2rem;text-align:center;">
+      <div style="font-size:1.6rem;margin-bottom:0.4rem;">⏳</div>
+      <div style="font-weight:700;color:var(--red);font-size:1rem;margin-bottom:0.3rem;">Withdrawal is Processing</div>
+      <div style="font-size:0.83rem;color:#666;line-height:1.6;">Your withdrawal request has been submitted. You will receive your funds within an hour. Please contact customer service if you need assistance.</div>
+    </div>
+  </div>
+</div>
+
+<!-- MEMBERSHIP -->
+<div id="page-membership" class="page" style="padding-bottom:20px;">
+  <div class="subhdr"><button class="subback" onclick="closeSub()">‹</button><span class="subtit">Job Details</span><div class="subsp"></div></div>
+  <div class="vbg">
+    <div class="vlogrow"><div style="display:inline-flex;align-items:center;gap:4px;background:rgba(255,255,255,0.12);border-radius:6px;padding:6px 14px;"><div class="lb" style="font-size:1rem;color:#fff;padding:3px 5px 3px 7px;">TIP<span>G</span></div><span style="font-size:0.72rem;color:rgba(255,255,255,0.6);margin-left:4px;">LOBAL PTE.LTD</span></div></div>
+    <div class="vtit">VIP Level</div>
+    <div class="vthead"><div class="vth">VIP Level</div><div class="vth">Profit</div><div class="vth">Assignments</div><div class="vth">First Deposit</div></div>
+    <div class="vrow"><div><span class="vbdg vjr">Junior</span><div style="font-size:0.63rem;color:rgba(255,255,255,0.5);margin-top:2px;">Promoter</div></div><div class="vc">0.4%</div><div class="vc">40</div><div class="vd"><strong>$100 to $499</strong><span style="font-size:0.67rem;opacity:0.65;display:block;">3 sets daily</span></div></div>
+    <div class="vrow"><div><span class="vbdg vpr">Professional</span><div style="font-size:0.63rem;color:rgba(255,255,255,0.5);margin-top:2px;">Promoter</div></div><div class="vc">0.6%</div><div class="vc">45</div><div class="vd"><strong>$500 to $1,499</strong><span style="font-size:0.67rem;opacity:0.65;display:block;">3 sets daily</span></div></div>
+    <div class="vrow"><div><span class="vbdg vex">Expert</span><div style="font-size:0.63rem;color:rgba(255,255,255,0.5);margin-top:2px;">Promoter</div></div><div class="vc">0.8%</div><div class="vc">50</div><div class="vd"><strong>$1,500 to $4,999</strong><span style="font-size:0.67rem;opacity:0.65;display:block;">3 sets daily</span></div></div>
+    <div class="vrow"><div><span class="vbdg vel">Elite</span><div style="font-size:0.63rem;color:rgba(255,255,255,0.5);margin-top:2px;">Promoter</div></div><div class="vc">1%</div><div class="vc">55</div><div class="vd"><strong>Over $5,000</strong><span style="font-size:0.67rem;opacity:0.65;display:block;">3 sets daily</span></div></div>
+    <div class="fn">Final interpretation rights are reserved by Tip Global PTE.LTD.</div>
+  </div>
+  <div class="sbg">
+    <div class="vlogrow"><div style="display:inline-flex;align-items:center;gap:4px;background:rgba(255,255,255,0.12);border-radius:6px;padding:6px 14px;"><div class="lb" style="font-size:1rem;color:#fff;padding:3px 5px 3px 7px;">TIP<span>G</span></div><span style="font-size:0.72rem;color:rgba(255,255,255,0.6);margin-left:4px;">LOBAL PTE.LTD</span></div></div>
+    <div class="stit2">Base Salary</div>
+    <div class="srow"><div class="slft"><div class="sl">Continuous Work</div><div class="sv">5 Days</div></div><div class="srgt"><div class="rl">Receive</div><div class="rv">$900</div></div></div>
+    <div class="srow"><div class="slft"><div class="sl">Continuous Work</div><div class="sv">10 Days</div></div><div class="srgt"><div class="rl">Receive</div><div class="rv">$1,800</div></div></div>
+    <div class="srow"><div class="slft"><div class="sl">Continuous Work</div><div class="sv">15 Days</div></div><div class="srgt"><div class="rl">Receive</div><div class="rv">$2,700</div></div></div>
+    <div class="srow"><div class="slft"><div class="sl">Continuous Work</div><div class="sv">20 Days</div></div><div class="srgt"><div class="rl">Receive</div><div class="rv">$3,600</div></div></div>
+    <div class="srow"><div class="slft"><div class="sl">Continuous Work</div><div class="sv">25 Days</div></div><div class="srgt"><div class="rl">Receive</div><div class="rv">$4,500</div></div></div>
+    <div class="srow"><div class="slft"><div class="sl">Continuous Work</div><div class="sv">30 Days</div></div><div class="srgt"><div class="rl">Receive</div><div class="rv">$5,400</div></div></div>
+    <div class="snote">To qualify for the base salary, you are required to complete three assignments per day. Once you reach the specified number of working days, you can receive the corresponding salary.</div>
+    <div class="fn" style="margin-top:1rem;">Final interpretation rights are reserved by Tip Global PTE.LTD.</div>
+  </div>
+  <div class="hwbg">
+    <div class="vlogrow"><div style="display:inline-flex;align-items:center;gap:4px;background:rgba(255,255,255,0.12);border-radius:6px;padding:6px 14px;"><div class="lb" style="font-size:1rem;color:#fff;padding:3px 5px 3px 7px;">TIP<span>G</span></div><span style="font-size:0.72rem;color:rgba(255,255,255,0.6);margin-left:4px;">LOBAL PTE.LTD</span></div></div>
+    <div class="stit2">How It Works</div>
+    <div class="hwcard"><img class="hwcar" src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=200&auto=format&fit=crop" alt="task"><div class="hwt"><h4>Complete 3 Sets of Assignments Daily</h4><p>After completing three assignments each day, contact customer service to sign in on the work day.</p></div></div>
+    <div class="hwcard"><img class="hwcar" src="https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=200&auto=format&fit=crop" alt="earn"><div class="hwt"><h4>Receive $900 After 5 Days</h4><p>Upon completing the 5th sign-in, you will receive a base salary of $900.</p></div></div>
+    <div class="hwcard"><img class="hwcar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&auto=format&fit=crop" alt="cycle"><div class="hwt"><h4>Day Count Resets After 5 Check-ins</h4><p>After every five working days of sign-ins, your day count will reset to 0 and the cycle will restart.</p></div></div>
+    <div class="hwcard"><img class="hwcar" src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=200&auto=format&fit=crop" alt="salary"><div class="hwt"><h4>Earn $900 with Every 5 Check-ins</h4><p>For every additional five working days of sign-ins, you will receive an extra $900 base salary and so on.</p></div></div>
+    <div class="fn">Final interpretation rights are reserved by Tip Global PTE.LTD.</div>
+  </div>
+</div>
+
+<!-- PERSONAL INFO -->
+<div id="page-personal" class="page" style="padding-bottom:20px;">
+  <div class="subhdr"><button class="subback" onclick="closeSub()">‹</button><span class="subtit">Modify Information</span><div class="subsp"></div></div>
+  <div class="pstit">Modify Personal Information</div>
+  <div class="psec3"><div class="prow2"><span class="prwl">Username</span><span class="prwr" id="pu">N/A</span></div><div class="prow2"><span class="prwl">Phone</span><span class="prwr" id="pp">N/A</span></div></div>
+  <div class="pstit" style="margin-top:8px;">Security</div>
+  <div class="psec3"><div class="prow2"><span class="prwl">Update Password</span><span class="mch">›</span></div><div class="prow2"><span class="prwl">Update Transaction Password</span><span class="mch">›</span></div></div>
+</div>
+
+<!-- PAYMENT -->
+<div id="page-payment" class="page" style="padding-bottom:20px;">
+  <div class="subhdr"><button class="subback" onclick="closeSub()">‹</button><span class="subtit">Payment Methods</span><div class="subsp"></div></div>
+  <div class="subbody">
+    <div style="background:#fff;border-radius:14px;padding:1.2rem;margin-bottom:1rem;box-shadow:0 2px 12px rgba(0,0,0,0.07);">
+      <div style="font-weight:700;color:#1a1a1a;margin-bottom:1rem;font-size:0.95rem;">Bind Wallet Address</div>
+      <div class="field"><label class="fieldl">Crypto Wallet</label><input class="fieldi" type="text" id="pm-wallet" placeholder="Crypto Wallet" style="background:#f5f5f5;color:#333;border:1.5px solid #e0e0e0;"></div>
+      <div class="field"><label class="fieldl">BTC / ERC-20 Wallet Address</label><input class="fieldi" type="text" id="pm-address" placeholder="BTC/ERC-20 Wallet Address" style="background:#f5f5f5;color:#333;border:1.5px solid #e0e0e0;"></div>
+      <button onclick="savePaymentWallet()" style="width:100%;padding:14px;background:var(--blue);color:#fff;border:none;border-radius:12px;font-weight:700;font-size:0.95rem;cursor:pointer;margin-top:0.5rem;">Update</button>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT US -->
+<div id="page-contact" class="page" style="padding-bottom:20px;">
+  <div class="subhdr"><button class="subback" onclick="closeSub()">‹</button><span class="subtit">Contact Us</span><div class="subsp"></div></div>
+  <div class="subbody">
+    <div class="cc2"><div class="ccic cs">🎧</div><div><div class="cctit">Online Customer Service</div><div class="ccsub">Chat with our support team</div></div></div>
+    <div class="cc2" onclick="window.open('https://wa.me/16465274020','_blank')"><div class="ccic wa">💬</div><div><div class="cctit">WhatsApp Support</div><div class="ccsub">+1 646-527-4020</div></div></div>
+    <div class="cc2"><div class="ccic em">📧</div><div><div class="cctit">Email Support</div><div class="ccsub">support@tipglobal.com</div></div></div>
+    <div class="hbox"><h4>Support Hours</h4><p>Online Support Hours: 08:00 to 21:00<br>For any further questions, please contact Online Customer Service.<br>Our team is ready to assist you.</p></div>
+  </div>
+</div>
+
+<!-- NOTIFICATIONS -->
+<div id="page-notif" class="page" style="padding-bottom:20px;">
+  <div class="subhdr"><button class="subback" onclick="closeSub()">‹</button><span class="subtit">Notifications</span><div class="subsp"></div></div>
+  <div class="subbody" style="padding:0;">
+    <div class="ni"><div class="nidot"></div><div><div class="nitit">Welcome to Tip Global PTE.LTD!</div><div class="nibod">Your account has been successfully created. Start promoting brands to earn commissions.</div><div class="nitm">Just now</div></div></div>
+    <div class="ni"><div class="nidot"></div><div><div class="nitit">Daily Bonus Available</div><div class="nibod">Complete 3 sets of assignments today to qualify for your base salary bonus.</div><div class="nitm">Today, 08:00</div></div></div>
+    <div class="ni"><div class="nidot r"></div><div><div class="nitit">Support Hours Reminder</div><div class="nibod">Our customer service team is available from 08:00 to 21:00 daily.</div><div class="nitm">Yesterday</div></div></div>
+  </div>
+</div>
+
+<!-- FAQS -->
+<div id="page-faqs" class="page" style="padding-bottom:20px;">
+  <div class="subhdr"><button class="subback" onclick="closeSub()">‹</button><span class="subtit">FAQs</span><div class="subsp"></div></div>
+  <div class="fqtit">Tip Global Advertising Guidelines</div>
+  <div class="fqwrap">
+    <div class="fi2"><div class="fq2" onclick="tFaq(this)">1. Depositing Campaign Funds <span class="fc2">▼</span></div><div class="fa2">Before allocating funds to any brand campaign, clients are advised to contact our online support team to verify and confirm the correct campaign account details. After making a deposit, clients must provide the payment receipt to our support team to ensure that their accounts and campaign budgets are updated promptly.</div></div>
+    <div class="fi2"><div class="fq2" onclick="tFaq(this)">2. Brand Promotion Campaigns <span class="fc2">▼</span></div><div class="fa2">The performance and reach of each brand promotion campaign may vary depending on market conditions, target audiences, and seasonal trends. Campaigns are allocated based on the available promotion budget in each client account.</div></div>
+    <div class="fi2"><div class="fq2" onclick="tFaq(this)">3. Withdrawal of Campaign Funds <span class="fc2">▼</span></div><div class="fa2">Clients may request withdrawal of remaining campaign funds at any time. Standard support hours for processing fund adjustments are from 9:59 AM to 10:00 PM Eastern Time (USA).</div></div>
+    <div class="fi2"><div class="fq2" onclick="tFaq(this)">4. Referral and Partner Program <span class="fc2">▼</span></div><div class="fa2">Clients and promotion partners can invite other brands, agencies, or individuals to join Tip Global. Referring new partners earns a 20% referral commission based on the profits generated by their initial campaigns. Partners may also use referral codes to create a network of sub-agencies, generating a downline.</div></div>
+    <div class="fi2"><div class="fq2" onclick="tFaq(this)">5. Operating Hours <span class="fc2">▼</span></div><div class="fa2">Clients may manage and launch brand promotion campaigns during daily operating hours from 8:59 AM to 9:00 PM Eastern Time (USA).</div></div>
+    <div class="fi2"><div class="fq2" onclick="tFaq(this)">Support <span class="fc2">▼</span></div><div class="fa2">For clarification or assistance regarding campaign setup, budget management, or account issues, please click "Contact Us" on the platform to reach our online support team.</div></div>
+  </div>
+</div>
+
+<!-- CERTIFICATE -->
+<div id="page-cert" class="page" style="padding-bottom:20px;background:#f5f5f0;">
+  <div class="subhdr"><button class="subback" onclick="closeSub()">‹</button><span class="subtit">Certificate</span><div class="subsp"></div></div>
+  <div style="padding:1rem;">
+    <div style="background:#fff;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.10);padding:1.5rem;max-width:600px;margin:0 auto;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.2rem;padding-bottom:1rem;border-bottom:2px solid #e0e0e0;">
+        <div style="width:72px;height:72px;flex-shrink:0;">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="72" height="72">
+            <circle cx="50" cy="50" r="48" fill="none" stroke="#333" stroke-width="2"/>
+            <circle cx="50" cy="50" r="42" fill="none" stroke="#333" stroke-width="1"/>
+            <text x="50" y="22" text-anchor="middle" font-size="7" font-family="serif" fill="#333">DEPARTMENT OF THE</text>
+            <text x="50" y="82" text-anchor="middle" font-size="7" font-family="serif" fill="#333">TREASURY</text>
+            <text x="50" y="92" text-anchor="middle" font-size="7" font-family="serif" fill="#333">1789</text>
+            <circle cx="50" cy="50" r="22" fill="#f0f0e8" stroke="#333" stroke-width="1.5"/>
+            <text x="50" y="46" text-anchor="middle" font-size="9" font-family="serif" fill="#333" font-weight="bold">U.S.</text>
+            <text x="50" y="57" text-anchor="middle" font-size="7" font-family="serif" fill="#333">TREASURY</text>
+          </svg>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;">
+          <div style="display:flex;align-items:center;gap:4px;">
+            <div style="background:var(--blue);padding:4px 8px;border-radius:4px;display:flex;align-items:center;gap:2px;">
+              <span style="color:#fff;font-weight:900;font-size:1.1rem;font-family:'Barlow Condensed',sans-serif;letter-spacing:1px;">TIP</span>
+              <span style="background:var(--red);color:#fff;font-weight:900;font-size:1.1rem;font-family:'Barlow Condensed',sans-serif;padding:0 3px;">G</span>
+            </div>
+          </div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:0.85rem;letter-spacing:3px;color:var(--blue);margin-top:3px;font-weight:600;">LOBAL PTE.LTD</div>
+        </div>
+      </div>
+      <div style="font-family:Georgia,serif;color:#1a1a1a;">
+        <h2 style="font-size:1.4rem;font-weight:700;margin-bottom:1.2rem;">Legal Statement</h2>
+        <h4 style="font-size:0.85rem;font-weight:700;margin-bottom:0.4rem;letter-spacing:0.5px;">ACCEPTANCE OF TERMS</h4>
+        <p style="font-size:0.82rem;line-height:1.7;margin-bottom:0.8rem;color:#333;">Before using or accessing this website, please read the terms and conditions of use and the disclaimer.</p>
+        <p style="font-size:0.82rem;line-height:1.7;margin-bottom:0.8rem;color:#333;">The following terms and conditions apply to all users of the Tip Global PTE.LTD website, including all materials, texts, images, graphics, videos, and other information and content contained or provided on the website. By accessing or using this website, you agree to these terms and conditions of use, as well as all applicable laws regarding the use of this website.</p>
+        <h4 style="font-size:0.85rem;font-weight:700;margin-bottom:0.4rem;letter-spacing:0.5px;">OWNERSHIP AND COPYRIGHT</h4>
+        <p style="font-size:0.82rem;line-height:1.7;margin-bottom:0.8rem;color:#333;">Unless otherwise stated, all content and terms of use are copyrighted &copy; Tip Global PTE.LTD 2020 to 2025, all rights reserved.</p>
+        <p style="font-size:0.82rem;line-height:1.7;margin-bottom:1.5rem;color:#333;">Tip Global PTE.LTD is a registered trademark. The names and logos of other companies, products, or services mentioned on this website are trademarks or service marks of their respective owners.</p>
+        <div style="display:flex;justify-content:flex-end;align-items:flex-end;gap:1rem;margin-bottom:1.5rem;">
+          <div style="text-align:center;">
+            <div style="font-family:Georgia,serif;font-size:1.6rem;color:#1a1a1a;line-height:1;font-style:italic;">Michael Wong</div>
+            <div style="border-top:1.5px solid #333;margin-top:6px;padding-top:4px;">
+              <div style="font-size:0.8rem;font-weight:700;color:#1a1a1a;">Michael Wong</div>
+              <div style="font-size:0.75rem;color:#444;">Chief Executive Officer</div>
+            </div>
+          </div>
+          <div style="width:80px;height:80px;border-radius:50%;border:3px solid var(--blue);display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0.85;flex-shrink:0;">
+            <div style="font-size:0.38rem;color:var(--blue);font-weight:700;letter-spacing:1px;text-align:center;line-height:1.4;">TIP GLOBAL PTE.LTD</div>
+            <div style="display:flex;align-items:center;gap:2px;margin:2px 0;">
+              <div style="background:var(--blue);padding:1px 3px;border-radius:2px;"><span style="color:#fff;font-weight:900;font-size:0.55rem;">TIP</span><span style="background:var(--red);color:#fff;font-weight:900;font-size:0.55rem;padding:0 1px;">G</span></div>
+            </div>
+            <div style="font-size:0.4rem;color:var(--blue);font-weight:700;letter-spacing:2px;">SINGAPORE</div>
+          </div>
+        </div>
+      </div>
+      <div style="border-top:2px solid #e0e0e0;padding-top:1rem;">
+        <div style="display:flex;align-items:center;gap:5px;margin-bottom:0.5rem;">
+          <div style="background:var(--blue);padding:2px 5px;border-radius:3px;display:flex;align-items:center;gap:2px;">
+            <span style="color:#fff;font-weight:900;font-size:0.75rem;font-family:'Barlow Condensed',sans-serif;">TIP</span>
+            <span style="background:var(--red);color:#fff;font-weight:900;font-size:0.75rem;padding:0 2px;">G</span>
+          </div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:0.75rem;letter-spacing:3px;color:var(--blue);font-weight:600;">LOBAL PTE.LTD</div>
+        </div>
+        <p style="font-size:0.68rem;color:#666;line-height:1.6;margin-bottom:0.4rem;">Unless otherwise indicated, this website is intended solely for your reference and commercial use. You may not disclose, copy, modify, distribute, disseminate, display, publish, or create derivative works based on any content obtained from the Tip Global PTE.LTD website without a separate written agreement.</p>
+        <p style="font-size:0.68rem;color:#666;">Copyright &copy; 2025 Tip Global PTE.LTD. All rights reserved.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TERMS MODAL -->
+<div id="terms-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9000;display:none;align-items:center;justify-content:center;padding:1rem;">
+  <div class="tbox" style="background:#fff;border-radius:14px;max-width:440px;width:100%;max-height:80vh;overflow-y:auto;padding:1.5rem;">
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--navy);margin-bottom:1rem;">Terms and Conditions</h3>
+    <p style="font-size:0.82rem;color:#555;line-height:1.7;margin-bottom:0.8rem;">By creating an account on Tip Global PTE.LTD, you agree to use the platform solely for legitimate brand promotion activities.</p>
+    <p style="font-size:0.82rem;color:#555;line-height:1.7;margin-bottom:0.8rem;">You agree not to misuse the platform, attempt to manipulate campaign results, or engage in any fraudulent activity. Tip Global PTE.LTD reserves the right to suspend any account found in violation of these terms.</p>
+    <p style="font-size:0.82rem;color:#555;line-height:1.7;margin-bottom:0.8rem;">Commission earnings are subject to campaign availability and promoter eligibility. Withdrawal requests are processed within one hour during support hours.</p>
+    <p style="font-size:0.82rem;color:#555;line-height:1.7;">All personal data is handled in accordance with applicable data protection regulations. For questions, contact support@tipglobal.com.</p>
+    <button onclick="hideTerms()" style="width:100%;padding:12px;background:var(--blue);color:#fff;border:none;border-radius:8px;font-weight:700;cursor:pointer;margin-top:0.5rem;">I Understand</button>
+  </div>
+</div>
+
+<!-- PROMOTIONAL POPUP -->
+<div id="popup" class="pop-ov" style="display:none;">
+  <div class="pop-box">
+    <button class="pop-x" onclick="document.getElementById('popup').style.display='none'">✕</button>
+    <div class="pop-inner">
+      <div class="pop-brands">
+        <div class="pop-brand-logo"><img src="https://logo.clearbit.com/coca-cola.com?size=80" onerror="this.style.opacity='0.2'" alt="Coca-Cola"></div>
+        <div class="pop-brand-logo"><img src="https://logo.clearbit.com/nike.com?size=80" onerror="this.style.opacity='0.2'" alt="Nike"></div>
+        <div class="pop-brand-logo"><img src="https://logo.clearbit.com/apple.com?size=80" onerror="this.style.opacity='0.2'" alt="Apple"></div>
+      </div>
+      <div class="pop-card">
+        <div class="pop-logopill">
+          <div class="lb" style="font-size:0.95rem;color:#fff;padding:3px 5px 3px 7px;">TIP<span>G</span></div>
+          <span style="font-size:0.72rem;color:var(--tgray);margin-left:4px;">LOBAL PTE.LTD</span>
+        </div>
+        <div class="pop-msg">For each assignment completed, users may contact the platform's customer service to claim a random bonus ranging from <strong>$1 to $1,000</strong>.</div>
+        <div class="pop-fine">Final interpretation rights are reserved by Tip Global PTE.LTD.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CC POPUP -->
+<div class="cc-overlay" id="cc-overlay" onclick="closeCC()"></div>
+<div class="cc-popup" id="cc-popup">
+  <div class="cc-handle"></div>
+  <div class="cc-title">Customer Care</div>
+  <div class="cc-sub">Our team is here to help you</div>
+  <div class="cc-deposit-msg" id="cc-deposit-msg">Please deposit funds to your account to start promoting brands and earning commissions.</div>
+  <a class="cc-option" href="https://wa.me/16465274020" target="_blank">
+    <div class="cc-option-ic" style="background:#25d366;">
+      <svg width="24" height="24" viewBox="0 0 48 48" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M34 13.9A14.1 14.1 0 0010 29.5L8 40l10.8-2.8A14.1 14.1 0 0034 13.9zM24 36.2a11.7 11.7 0 01-6-1.65l-.43-.26-4.45 1.17 1.18-4.33-.28-.45A11.7 11.7 0 1124 36.2zm6.4-8.8c-.35-.18-2.07-1.02-2.39-1.14-.32-.12-.55-.18-.78.18-.23.35-.9 1.14-1.1 1.37-.2.23-.4.26-.75.09-.35-.18-1.48-.55-2.82-1.74-1.04-.93-1.75-2.08-1.95-2.43-.2-.35-.02-.54.15-.71.16-.16.35-.41.53-.62.17-.2.23-.35.35-.58.12-.23.06-.44-.03-.62-.09-.18-.78-1.88-1.07-2.57-.28-.68-.57-.58-.78-.59h-.67c-.23 0-.6.09-.92.44-.32.35-1.2 1.17-1.2 2.86 0 1.69 1.23 3.32 1.4 3.55.18.23 2.42 3.7 5.87 5.19.82.35 1.46.56 1.96.72.82.26 1.57.22 2.16.13.66-.1 2.04-.83 2.32-1.64.29-.8.29-1.49.2-1.63-.08-.15-.3-.23-.64-.4z" fill="white"/></svg>
+    </div>
+    <div><div class="cc-option-text">WhatsApp</div><div class="cc-option-sub">Chat with us on WhatsApp</div></div>
+  </a>
+</div>
+
+<!-- INSUFFICIENT FUNDS POPUP -->
+<div id="insuf-popup" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9999;align-items:center;justify-content:center;">
+  <div style="background:#fff;border-radius:16px;padding:1.5rem;width:88%;max-width:340px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.3);">
+    <div style="font-size:2rem;margin-bottom:0.5rem;">⚠️</div>
+    <div style="font-weight:700;font-size:1rem;color:#1a1a1a;margin-bottom:0.5rem;">Insufficient Funds</div>
+    <div id="insuf-msg" style="font-size:0.85rem;color:#555;margin-bottom:1.2rem;line-height:1.6;"></div>
+    <button onclick="document.getElementById('insuf-popup').style.display='none';openCC();" style="width:100%;padding:12px;background:var(--blue);color:#fff;border:none;border-radius:10px;font-weight:700;font-size:0.95rem;cursor:pointer;margin-bottom:0.6rem;">Contact Customer Care</button>
+    <button onclick="document.getElementById('insuf-popup').style.display='none';" style="width:100%;padding:10px;background:#f0f0f0;color:#555;border:none;border-radius:10px;font-weight:600;font-size:0.9rem;cursor:pointer;">OK</button>
+  </div>
+</div>
+
+<!-- NO FUNDS POPUP -->
+<div id="no-funds-popup" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9999;align-items:center;justify-content:center;">
+  <div style="background:#fff;border-radius:16px;padding:1.5rem;width:88%;max-width:340px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.3);">
+    <div style="font-size:2rem;margin-bottom:0.5rem;">⚠️</div>
+    <div style="font-weight:700;font-size:1rem;color:#1a1a1a;margin-bottom:0.5rem;">Insufficient Funds</div>
+    <div style="font-size:0.85rem;color:#555;margin-bottom:1.2rem;line-height:1.6;">You need funds in your wallet to start matching. Please contact customer care to make a deposit.</div>
+    <button onclick="document.getElementById('no-funds-popup').style.display='none';openCC();" style="width:100%;padding:12px;background:var(--blue);color:#fff;border:none;border-radius:10px;font-weight:700;font-size:0.95rem;cursor:pointer;margin-bottom:0.6rem;">Contact Customer Care</button>
+    <button onclick="document.getElementById('no-funds-popup').style.display='none';" style="width:100%;padding:10px;background:#f0f0f0;color:#555;border:none;border-radius:10px;font-weight:600;font-size:0.9rem;cursor:pointer;">OK</button>
+  </div>
+</div>
+
+<script>
+// Supabase
+const SUPA_URL='https://nhxeazqklaomiztbjnwe.supabase.co';
+const SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5oeGVhenFrbGFvbWl6dGJqbndlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg2MzQyODMsImV4cCI6MjA5NDIxMDI4M30.7OILmJjCcWeFeB5YXVRtgxaRDSeGc4z6NxURdWVJQjE';
+let sb;
+try{sb=supabase.createClient(SUPA_URL,SUPA_KEY);}catch(e){sb=null;}
+
+let cUser=null,mCount=0,subHist=[],recs=[],depUnlocked=false,rTab='all',walletBal=0,commTotal=0;
+
+const BRANDS=[
+  {n:'Coca-Cola',u:'https://logo.clearbit.com/coca-cola.com?size=200',cat:'Beverages'},
+  {n:'Nike',u:'https://logo.clearbit.com/nike.com?size=200',cat:'Sportswear'},
+  {n:'Toyota',u:'https://logo.clearbit.com/toyota.com?size=200',cat:'Automotive'},
+  {n:'Apple',u:'https://logo.clearbit.com/apple.com?size=200',cat:'Technology'},
+  {n:'Samsung',u:'https://logo.clearbit.com/samsung.com?size=200',cat:'Technology'},
+  {n:'McDonald\'s',u:'https://logo.clearbit.com/mcdonalds.com?size=200',cat:'Fast Food'},
+  {n:'Pepsi',u:'https://logo.clearbit.com/pepsi.com?size=200',cat:'Beverages'},
+  {n:'Adidas',u:'https://logo.clearbit.com/adidas.com?size=200',cat:'Sportswear'},
+  {n:'Amazon',u:'https://logo.clearbit.com/amazon.com?size=200',cat:'E-Commerce'},
+  {n:'Google',u:'https://logo.clearbit.com/google.com?size=200',cat:'Technology'},
+  {n:'Microsoft',u:'https://logo.clearbit.com/microsoft.com?size=200',cat:'Technology'},
+  {n:'BMW',u:'https://logo.clearbit.com/bmw.com?size=200',cat:'Automotive'},
+  {n:'Mercedes-Benz',u:'https://logo.clearbit.com/mercedes-benz.com?size=200',cat:'Automotive'},
+  {n:'Gucci',u:'https://logo.clearbit.com/gucci.com?size=200',cat:'Luxury Fashion'},
+  {n:'Louis Vuitton',u:'https://logo.clearbit.com/louisvuitton.com?size=200',cat:'Luxury Fashion'},
+  {n:'Netflix',u:'https://logo.clearbit.com/netflix.com?size=200',cat:'Entertainment'},
+  {n:'Spotify',u:'https://logo.clearbit.com/spotify.com?size=200',cat:'Entertainment'},
+  {n:'Starbucks',u:'https://logo.clearbit.com/starbucks.com?size=200',cat:'Beverages'},
+  {n:'Shell',u:'https://logo.clearbit.com/shell.com?size=200',cat:'Energy'},
+  {n:'Visa',u:'https://logo.clearbit.com/visa.com?size=200',cat:'Finance'},
+  {n:'Mastercard',u:'https://logo.clearbit.com/mastercard.com?size=200',cat:'Finance'},
+  {n:'PayPal',u:'https://logo.clearbit.com/paypal.com?size=200',cat:'Finance'},
+  {n:'Rolex',u:'https://logo.clearbit.com/rolex.com?size=200',cat:'Luxury Watches'},
+  {n:'Chanel',u:'https://logo.clearbit.com/chanel.com?size=200',cat:'Luxury Fashion'},
+  {n:'Prada',u:'https://logo.clearbit.com/prada.com?size=200',cat:'Luxury Fashion'},
+  {n:'Ferrari',u:'https://logo.clearbit.com/ferrari.com?size=200',cat:'Automotive'},
+  {n:'Lamborghini',u:'https://logo.clearbit.com/lamborghini.com?size=200',cat:'Automotive'},
+  {n:'Porsche',u:'https://logo.clearbit.com/porsche.com?size=200',cat:'Automotive'},
+  {n:'Audi',u:'https://logo.clearbit.com/audi.com?size=200',cat:'Automotive'},
+  {n:'Volkswagen',u:'https://logo.clearbit.com/vw.com?size=200',cat:'Automotive'},
+  {n:'Sony',u:'https://logo.clearbit.com/sony.com?size=200',cat:'Electronics'},
+  {n:'Red Bull',u:'https://logo.clearbit.com/redbull.com?size=200',cat:'Beverages'},
+  {n:'Nestle',u:'https://logo.clearbit.com/nestle.com?size=200',cat:'Food and Beverages'},
+  {n:'Unilever',u:'https://logo.clearbit.com/unilever.com?size=200',cat:'Consumer Goods'},
+  {n:'Heineken',u:'https://logo.clearbit.com/heineken.com?size=200',cat:'Beverages'},
+  {n:'Intel',u:'https://logo.clearbit.com/intel.com?size=200',cat:'Technology'},
+  {n:'NVIDIA',u:'https://logo.clearbit.com/nvidia.com?size=200',cat:'Technology'},
+  {n:'Zara',u:'https://logo.clearbit.com/zara.com?size=200',cat:'Fashion'},
+  {n:'H and M',u:'https://logo.clearbit.com/hm.com?size=200',cat:'Fashion'},
+  {n:'IKEA',u:'https://logo.clearbit.com/ikea.com?size=200',cat:'Home and Living'}
+];
+
+function updateWallet(){
+  const perMatch=(100/33);
+  const spent=Math.min(mCount*perMatch,100);
+  const remaining=Math.max(0,walletBal-spent).toFixed(2);
+  const walletEl=document.getElementById('wallet-disp');
+  if(walletEl) walletEl.textContent='$'+remaining;
+  const myWalletEl=document.getElementById('my-wallet');
+  if(myWalletEl) myWalletEl.textContent='$'+remaining;
+  const withBal=document.getElementById('with-bal');
+  if(withBal) withBal.textContent=remaining;
+  const depBal=document.getElementById('dep-bal');
+  if(depBal) depBal.textContent=remaining;
+}
+
+function updateCommDisplay(){
+  const v=parseFloat(commTotal||0).toFixed(2);
+  const cd=document.getElementById('comm-disp');
+  if(cd) cd.textContent='$'+v;
+  const mc=document.getElementById('my-comm');
+  if(mc) mc.textContent='$'+v;
+}
+
+function goTo(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function switchTab(id){
+  goTo(id);
+  document.querySelectorAll('.bi').forEach(b=>{
+    const oc=b.getAttribute('onclick')||'';
+    b.classList.toggle('active',oc.includes("'"+id+"'"));
+  });
+}
+
+function openSub(id){subHist.push(document.querySelector('.page.active').id);goTo(id);}
+function closeSub(){const p=subHist.pop();if(p)goTo(p);else goTo('page-my');}
+
+function eyeT(id,btn){const i=document.getElementById(id);if(i.type==='password'){i.type='text';btn.textContent='🙈';}else{i.type='password';btn.textContent='👁';}}
+
+function genCode(){
+  const chars='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  let code='';for(let i=0;i<6;i++) code+=chars.charAt(Math.floor(Math.random()*chars.length));
+  return code;
+}
+function showErr(id,msg){const el=document.getElementById(id);if(el){el.textContent=msg;el.style.display=msg?'block':'none';}}
+function clearErrs(ids){ids.forEach(id=>showErr(id,''));}
+
+function doSignIn(){
+  const u=document.getElementById('si-u').value.trim();
+  const p=document.getElementById('si-p').value;
+  clearErrs(['si-err-u','si-err-p','si-err-g']);
+  const isPhone=/^\+?\d[\d\s\-]{6,}$/.test(u);
+  const isEmail=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(u);
+  if(!u){showErr('si-err-u','Please enter your email address or phone number.');return;}
+  if(!isPhone&&!isEmail){showErr('si-err-u','Please enter a valid email address or phone number.');return;}
+  if(!p){showErr('si-err-p','Please enter your password.');return;}
+  if(p.length<6){showErr('si-err-p','Password must be at least 6 characters.');return;}
+  if(sb){
+    showErr('si-err-g','Signing in...');
+    sb.from('users').select('*').eq('email',u)
+      .then(({data:dataE,error:errE})=>{
+        const byEmail=(!errE&&dataE&&dataE.length>0)?dataE:[];
+        if(byEmail.length>0){processSignInResult(byEmail,p);}
+        else{
+          sb.from('users').select('*').eq('phone',u)
+            .then(({data:dataP,error:errP})=>{
+              clearErrs(['si-err-g']);
+              if(errP||!dataP||dataP.length===0){showErr('si-err-g','No account found with that email or phone.');return;}
+              processSignInResult(dataP,p);
+            }).catch(()=>{showErr('si-err-g','Connection error. Please try again.');});
+        }
+      }).catch(()=>{showErr('si-err-g','Connection error. Please try again.');});
+  } else {
+    const users=JSON.parse(localStorage.getItem('tg_users')||'[]');
+    const found=users.find(x=>(x.email===u||x.phone===u)&&x.password===p);
+    if(!found){showErr('si-err-g','Incorrect email/phone or password. Please try again.');return;}
+    cUser={username:found.username,email:found.email,phone:found.phone,invitation_code:found.invitation_code||'N/A'};
+    walletBal=parseFloat(found.wallet_balance)||0;
+    mCount=parseInt(found.match_count)||0;
+    depUnlocked=found.deposit_unlocked||false;
+    afterLogin();
+  }
+}
+
+function processSignInResult(data,p){
+  clearErrs(['si-err-g']);
+  const found=data.find(x=>x.password===p);
+  if(!found){showErr('si-err-p','Incorrect password. Please try again.');return;}
+  cUser={username:found.username,email:found.email,phone:found.phone,id:found.id,invitation_code:found.invitation_code||'N/A'};
+  walletBal=parseFloat(found.wallet_balance)||0;
+  mCount=parseInt(found.match_count)||0;
+  depUnlocked=found.deposit_unlocked||false;
+  afterLogin();
+}
+
+function doSignUp(){
+  const u=document.getElementById('su-u').value.trim();
+  const e=document.getElementById('su-e').value.trim();
+  const cc=document.getElementById('su-cc').value;
+  const ph=document.getElementById('su-ph').value.trim();
+  const p=document.getElementById('su-p').value;
+  const p2=document.getElementById('su-p2').value;
+  const c=document.getElementById('su-c').value.trim().toUpperCase();
+  const t=document.getElementById('su-t').checked;
+  clearErrs(['su-err-u','su-err-e','su-err-ph','su-err-p','su-err-p2','su-err-c','su-err-t']);
+  if(!u||u.length<3){showErr('su-err-u','Username must be at least 3 characters.');return;}
+  if(!e||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)){showErr('su-err-e','Please enter a valid email address.');return;}
+  if(!ph||!/^\d{6,}$/.test(ph.replace(/\s/g,''))){showErr('su-err-ph','Please enter a valid phone number.');return;}
+  if(p.length<6){showErr('su-err-p','Password must be at least 6 characters.');return;}
+  if(p!==p2){showErr('su-err-p2','Passwords do not match.');return;}
+  if(!c){showErr('su-err-c','Please enter your invitation code.');return;}
+  if(c!=='TG7R4K'){showErr('su-err-c','Invalid invitation code. Please check and try again.');return;}
+  if(!t){showErr('su-err-t','Please accept the Terms and Conditions to continue.');return;}
+  const fullPhone=cc+ph;
+  const myCode=genCode();
+  if(sb){
+    showErr('su-err-u','Creating account...');
+    sb.from('users').insert([{username:u,email:e,password:p,phone:fullPhone,wallet_balance:0,match_count:0,deposit_unlocked:false,invitation_code:myCode}])
+      .select('*').single()
+      .then(({data,error})=>{
+        clearErrs(['su-err-u']);
+        if(error){showErr('su-err-u',error.code==='23505'?'Username already taken. Please choose another.':'Error: '+error.message);return;}
+        const invCode=(data&&data.invitation_code)?data.invitation_code:myCode;
+        cUser={username:data.username,email:data.email,phone:data.phone,id:data.id,invitation_code:invCode};
+        walletBal=0;mCount=0;depUnlocked=false;
+        afterLogin();
+      }).catch(()=>{showErr('su-err-u','Connection error. Please try again.');});
+  } else {
+    const users=JSON.parse(localStorage.getItem('tg_users')||'[]');
+    if(users.find(x=>x.username===u)){showErr('su-err-u','Username already taken.');return;}
+    users.push({username:u,email:e,password:p,phone:fullPhone,wallet_balance:0,match_count:0,deposit_unlocked:false,invitation_code:myCode});
+    localStorage.setItem('tg_users',JSON.stringify(users));
+    cUser={username:u,email:e,phone:fullPhone,invitation_code:myCode};
+    walletBal=0;mCount=0;depUnlocked=false;
+    afterLogin();
+  }
+}
+
+function afterLogin(){
+  if(!walletBal) walletBal=80;
+  const n=cUser.username,i=n[0].toUpperCase();
+  document.getElementById('av1').textContent=i;
+  document.getElementById('un1').textContent=n;
+  document.getElementById('av2').textContent=i;
+  document.getElementById('un2').textContent=n;
+  document.getElementById('ic2').textContent=cUser.invitation_code||'N/A';
+  document.getElementById('pu').textContent=n;
+  document.getElementById('pp').textContent=cUser.phone||'N/A';
+  recs=[];
+  BRANDS.forEach((brand,idx)=>{
+    const price=Math.floor(Math.random()*500+100);
+    const comm=(Math.random()*1+1.5).toFixed(2);
+    recs.push({brand,date:'Pending',status:'pending',price,comm,stars:0,idx});
+  });
+  buildSlideshow();
+  renderRecs();
+  switchTab('page-home');
+  updateWallet();
+  updateCommDisplay();
+  setTimeout(()=>{document.getElementById('popup').style.display='flex';},700);
+}
+
+function doLogout(){
+  cUser=null;mCount=0;recs=[];depUnlocked=false;subHist=[];walletBal=0;commTotal=0;
+  document.getElementById('mcnt').textContent='0';
+  document.getElementById('pcnt').textContent='0 / 40';
+  goTo('page-landing');
+}
+
+function buildSlideshow(){
+  const el=document.getElementById('cthumbs');
+  el.innerHTML='';
+  BRANDS.forEach((brand,i)=>{
+    const img=document.createElement('img');
+    img.className='cth'+(i===0?' active':'');
+    img.src=brand.u;img.alt=brand.n;img.title=brand.n;
+    img.onerror=function(){this.style.opacity='0.15';};
+    img.onclick=()=>{pickBrand(i);};
+    el.appendChild(img);
+  });
+  pickBrand(0);
+}
+
+function pickBrand(idx){
+  document.querySelectorAll('.cth').forEach((t,i)=>t.classList.toggle('active',i===idx));
+  const showcase=document.getElementById('brand-showcase');
+  showcase.classList.remove('exit-brand','enter-brand');
+  void showcase.offsetWidth;
+  showcase.classList.add('exit-brand');
+  setTimeout(()=>{
+    showcase.classList.remove('exit-brand');
+    document.getElementById('fcar').src=BRANDS[idx].u;
+    document.getElementById('fcar').alt=BRANDS[idx].n;
+    document.getElementById('brand-feat-name').textContent=BRANDS[idx].n;
+    document.getElementById('brand-feat-cat').textContent=BRANDS[idx].cat;
+    void showcase.offsetWidth;
+    showcase.classList.add('enter-brand');
+    showcase.addEventListener('animationend',function h(){
+      showcase.classList.remove('enter-brand');
+      showcase.removeEventListener('animationend',h);
+    });
+  },480);
+}
+
+function doMatch(){
+  if(walletBal<=0){document.getElementById('no-funds-popup').style.display='flex';return;}
+  if(mCount>=33&&!depUnlocked){document.getElementById('dreq').style.display='flex';return;}
+  if(mCount>=40){alert('All 40 matches completed for today!');return;}
+  const carIdx=mCount%BRANDS.length;
+  const now=new Date();
+  const dateStr=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0')+' '+String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0')+':'+String(now.getSeconds()).padStart(2,'0');
+  recs[carIdx].status='completed';
+  recs[carIdx].date=dateStr;
+  recs[carIdx].stars=5;
+  const earned=parseFloat(recs[carIdx].comm);
+  commTotal=parseFloat(((commTotal||0)+earned).toFixed(2));
+  updateCommDisplay();
+  mCount++;
+  document.getElementById('mcnt').textContent=mCount;
+  document.getElementById('pcnt').textContent=mCount+' / 40';
+  updateWallet();
+  renderRecs();
+  const nextIdx=mCount%BRANDS.length;
+  pickBrand(nextIdx);
+  const thumbs=document.querySelectorAll('.cth');
+  const nextThumb=thumbs[nextIdx];
+  if(nextThumb){
+    const container=document.getElementById('cthumbs');
+    container.scrollTo({left:nextThumb.offsetLeft-(container.offsetWidth/2)+(nextThumb.offsetWidth/2),behavior:'smooth'});
+  }
+  if(mCount>=33&&!depUnlocked){setTimeout(()=>{document.getElementById('dreq').style.display='flex';},200);}
+}
+
+function doMatchBrand(idx){
+  if(idx===32&&!depUnlocked){document.getElementById('dreq').style.display='flex';return;}
+  const r=recs[idx];
+  if(!r||r.status==='completed') return;
+  if(walletBal<r.price){
+    document.getElementById('insuf-msg').textContent='Insufficient funds to promote this brand. Required: $'+r.price+', Your balance: $'+walletBal.toFixed(2);
+    document.getElementById('insuf-popup').style.display='flex';
+    return;
+  }
+  const now=new Date();
+  const dateStr=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0')+' '+String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0')+':'+String(now.getSeconds()).padStart(2,'0');
+  recs[idx].status='completed';
+  recs[idx].date=dateStr;
+  recs[idx].stars=5;
+  walletBal+=parseFloat(recs[idx].comm);
+  commTotal=parseFloat(((commTotal||0)+parseFloat(recs[idx].comm)).toFixed(2));
+  mCount++;
+  document.getElementById('mcnt').textContent=mCount;
+  document.getElementById('pcnt').textContent=mCount+' / 40';
+  updateWallet();
+  updateCommDisplay();
+  renderRecs();
+}
+
+function setRTab(tab){
+  rTab=tab;
+  ['all','pending','completed'].forEach(t=>document.getElementById('rt-'+t).classList.toggle('active',t===tab));
+  renderRecs();
+}
+
+function renderRecs(){
+  const b=document.getElementById('rbody');
+  let list;
+  if(rTab==='completed') list=recs.filter(r=>r.status==='completed');
+  else if(rTab==='pending') list=recs.filter(r=>r.status==='pending');
+  else{
+    const completed=recs.filter(r=>r.status==='completed');
+    const pending=recs.filter(r=>r.status==='pending');
+    list=[...completed,...pending];
+  }
+  if(!list.length){b.innerHTML='<div class="nodata">No records yet...</div>';return;}
+  b.innerHTML=list.map(r=>{
+    const isDone=r.status==='completed';
+    const stars='★★★★★';
+    return `<div class="rec-card">
+      <div class="rec-card-header">
+        <span class="rec-badge-name">TG</span>
+        <span class="rec-date">${r.date}</span>
+        <span class="rec-status-badge ${isDone?'rs-done':'rs-pend'}" style="display:flex;align-items:center;gap:6px;">
+          ${!isDone?`<button onclick="doMatchBrand(${r.idx})" style="background:var(--red);color:#fff;border:none;border-radius:8px;padding:4px 12px;font-weight:700;font-size:0.78rem;cursor:pointer;">Submit</button>`:''}
+          ${isDone?'Completed':'Pending'}
+        </span>
+      </div>
+      <div class="rec-card-body">
+        <div class="rec-brand-logo-wrap">
+          <img class="rec-brand-logo" src="${r.brand.u}" onerror="this.style.opacity='0.1'" alt="${r.brand.n}">
+        </div>
+        <div class="rec-car-info">
+          <div class="rec-car-name2">${r.brand.n}</div>
+          <div class="rec-price" style="color:var(--blue)">$${r.price}</div>
+          <div class="rec-stars" style="color:${isDone?'var(--red)':'#ccc'};font-size:1rem;letter-spacing:2px;">${stars}</div>
+        </div>
+      </div>
+      <div class="rec-card-footer">
+        <div class="rec-footer-item"><div class="rfl">Campaign Value</div><div class="rfv" style="color:var(--blue)">$${r.price}</div></div>
+        <div class="rec-footer-item"><div class="rfl">TG Commission</div><div class="rfv" style="color:var(--red)">$${r.comm}</div></div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function savePaymentWallet(){
+  const w=document.getElementById('pm-wallet').value.trim();
+  const a=document.getElementById('pm-address').value.trim();
+  if(!w&&!a){alert('Please enter your wallet details.');return;}
+  const users=JSON.parse(localStorage.getItem('tg_users')||'[]');
+  const idx=users.findIndex(x=>x.username===cUser.username);
+  if(idx>-1){users[idx].pmWallet=w;users[idx].pmAddress=a;localStorage.setItem('tg_users',JSON.stringify(users));}
+  alert('Payment wallet saved successfully!');
+}
+
+function doWithdraw(){
+  const amt=parseFloat(document.getElementById('with-bal').textContent)||0;
+  const entered=parseFloat(document.getElementById('with-amt').value)||0;
+  if(!entered||entered<=0){alert('Please enter a withdrawal amount.');return;}
+  if(entered>amt){alert('Withdrawal amount exceeds your available balance.');return;}
+  document.getElementById('with-processing').style.display='block';
+  const btn=document.querySelector('#page-withdraw .bwith');
+  if(btn){btn.disabled=true;btn.style.opacity='0.5';}
+}
+
+function openCC(){
+  const msg=document.getElementById('cc-deposit-msg');
+  if(msg) msg.style.display=walletBal<=0?'block':'none';
+  document.getElementById('cc-popup').classList.add('show');
+  document.getElementById('cc-overlay').classList.add('show');
+}
+function closeCC(){
+  document.getElementById('cc-popup').classList.remove('show');
+  document.getElementById('cc-overlay').classList.remove('show');
+}
+
+function tFaq(el){const a=el.nextElementSibling,c=el.querySelector('.fc2');a.classList.toggle('open');c.classList.toggle('open');}
+function showTerms(){document.getElementById('terms-modal').style.display='flex';}
+function hideTerms(){document.getElementById('terms-modal').style.display='none';}
+function scrollAbout(){document.getElementById('about-sec').scrollIntoView({behavior:'smooth'});}
+</script>
+</body>
+</html>
