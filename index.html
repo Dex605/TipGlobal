@@ -916,8 +916,8 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);over
 </div>
 
 <script>
-const SUPA_URL='https://nhxeazqklaomiztbjnwe.supabase.co';
-const SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5oeGVhenFrbGFvbWl6dGJqbndlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg2MzQyODMsImV4cCI6MjA5NDIxMDI4M30.7OILmJjCcWeFeB5YXVRtgxaRDSeGc4z6NxURdWVJQjE';
+const SUPA_URL='https://dkbwxdiiwcowgqmdkyyh.supabase.co';
+const SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRrYnd4ZGlpd2Nvd2dxbWRreXloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2NjU5NzEsImV4cCI6MjA5NTI0MTk3MX0.AxxL0nzHPEaRZYh-4IwJMGDnhxDWyoW3cq9FMJ65UO8';
 let sb;try{sb=supabase.createClient(SUPA_URL,SUPA_KEY);}catch(e){sb=null;}
 let cUser=null,mCount=0,currentSet=1,subHist=[],recs=[],lock33=false,lock40=false,rTab='all',walletBal=0,commTotal=0;
 const DEDUCT_PER_MATCH=6.25;
@@ -1299,11 +1299,24 @@ function savePaymentWallet(){
   if(idx>-1){users[idx].pmWallet=w;users[idx].pmAddress=a;localStorage.setItem('tg_users',JSON.stringify(users));}
   alert('Payment wallet saved successfully!');
 }
-function doWithdraw(){
+async function doWithdraw(){
   const amt=parseFloat(document.getElementById('with-bal').textContent)||0;
   const entered=parseFloat(document.getElementById('with-amt').value)||0;
   if(!entered||entered<=0){alert('Please enter a withdrawal amount.');return;}
   if(entered>amt){alert('Withdrawal amount exceeds your available balance.');return;}
+  walletBal=parseFloat((walletBal-entered).toFixed(2));
+  updateWallet();
+  if(sb&&cUser){
+    await sb.from('withdrawals').insert([{
+      user_id:cUser.id||null,
+      username:cUser.username,
+      amount:entered,
+      status:'pending',
+      wallet_address:document.getElementById('with-txpw').value||null,
+      note:'Withdrawal request'
+    }]);
+    if(cUser.id) await sb.from('users').update({wallet_balance:walletBal}).eq('id',cUser.id);
+  }
   document.getElementById('with-processing').style.display='block';
   const btn=document.querySelector('#page-withdraw .bwith');if(btn){btn.disabled=true;btn.style.opacity='0.5';}
 }
