@@ -146,9 +146,8 @@ tr:hover td{background:rgba(255,255,255,0.02);}
   <div class="topbar">
     <div class="topbar-logo"><span>TIG GLOBAL</span><div style="font-size:0.62rem;background:rgba(240,180,41,0.15);color:var(--accent);border:1px solid var(--border2);padding:2px 8px;border-radius:20px;font-family:'Barlow',sans-serif;font-weight:700;letter-spacing:1px;-webkit-text-fill-color:var(--accent);">ADMIN</div></div>
     <div class="topbar-nav">
-      <button class="tnav-btn active" onclick="showSection('dashboard',this)">Dashboard</button>
-      <button class="tnav-btn" onclick="showSection('users',this)">Users</button>
-      <button class="tnav-btn" onclick="showSection('withdrawals',this)">Withdrawals</button>
+      <button class="tnav-btn active" onclick="showSection('records',this)">Users & Withdrawals</button>
+      <button class="tnav-btn" onclick="showSection('dashboard',this)">Dashboard</button>
       <button class="tnav-btn" onclick="showSection('settings',this)">Settings</button>
     </div>
     <button class="signout-btn" onclick="doAdminLogout()">Sign Out</button>
@@ -177,49 +176,48 @@ tr:hover td{background:rgba(255,255,255,0.02);}
       </div>
     </div>
 
-    <!-- USERS -->
-    <div id="section-users" class="section">
+    <!-- RECORDS (Users + Withdrawals combined) -->
+    <div id="section-records" class="section active">
       <div style="margin-bottom:1.25rem;">
-        <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:700;color:#fff;letter-spacing:1px;">Users</div>
-        <div style="font-size:0.82rem;color:var(--muted);">All registered users — manage balances, matches and accounts</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:700;color:#fff;letter-spacing:1px;">Users & Withdrawals</div>
+        <div style="font-size:0.82rem;color:var(--muted);">All registered users and withdrawal requests in one place</div>
       </div>
-      <div class="table-wrap">
+
+      <!-- USERS TABLE -->
+      <div class="table-wrap" style="margin-bottom:1.5rem;">
         <div class="table-toolbar">
-          <span class="table-title">ALL USERS <span id="user-count" style="color:var(--muted);font-weight:400;font-size:0.85rem;"></span></span>
+          <span class="table-title">USERS <span id="user-count" style="color:var(--muted);font-weight:400;font-size:0.85rem;"></span></span>
           <div class="toolbar-right">
             <div class="search-wrap">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="rgba(255,255,255,0.35)"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-              <input type="text" id="user-search" placeholder="Search by name or email..." oninput="filterUsers()">
+              <input type="text" id="user-search" placeholder="Search users..." oninput="filterUsers()">
             </div>
             <button class="icon-btn" onclick="loadUsers()">↻ Refresh</button>
           </div>
         </div>
         <div class="tbl-scroll"><table>
-          <thead><tr><th>Username</th><th>Email</th><th>Phone</th><th>Country</th><th>Wallet Balance</th><th>Matches Done</th><th>Inv. Code</th><th>Joined</th><th>Actions</th></tr></thead>
+          <thead><tr><th>Username</th><th>Email</th><th>Phone</th><th>Country</th><th>Wallet Balance</th><th>Matches</th><th>Inv. Code</th><th>Joined</th><th>Actions</th></tr></thead>
           <tbody id="users-tbody"><tr><td colspan="9" class="no-data">Loading...</td></tr></tbody>
         </table></div>
       </div>
-    </div>
 
-    <!-- WITHDRAWALS -->
-    <div id="section-withdrawals" class="section">
-      <div style="margin-bottom:1.25rem;">
-        <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:700;color:#fff;letter-spacing:1px;">Withdrawals</div>
-        <div style="font-size:0.82rem;color:var(--muted);">Review and process user withdrawal requests</div>
-      </div>
+      <!-- WITHDRAWALS TABLE -->
       <div class="table-wrap">
         <div class="table-toolbar">
-          <div class="filter-tabs">
-            <button class="ftab active" onclick="filterWithdrawals('all',this)">All</button>
-            <button class="ftab" onclick="filterWithdrawals('pending',this)">Pending</button>
-            <button class="ftab" onclick="filterWithdrawals('approved',this)">Approved</button>
-            <button class="ftab" onclick="filterWithdrawals('rejected',this)">Rejected</button>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span class="table-title">WITHDRAWALS</span>
+            <div class="filter-tabs">
+              <button class="ftab active" onclick="filterWithdrawals('all',this)">All</button>
+              <button class="ftab" onclick="filterWithdrawals('pending',this)">Pending</button>
+              <button class="ftab" onclick="filterWithdrawals('approved',this)">Approved</button>
+              <button class="ftab" onclick="filterWithdrawals('rejected',this)">Rejected</button>
+            </div>
           </div>
           <button class="icon-btn" onclick="loadWithdrawals()">↻ Refresh</button>
         </div>
         <div class="tbl-scroll"><table>
-          <thead><tr><th>User</th><th>Email</th><th>Amount</th><th>Wallet / Payment Info</th><th>Status</th><th>Requested</th><th>Processed</th><th>Actions</th></tr></thead>
-          <tbody id="with-tbody"><tr><td colspan="8" class="no-data">Loading...</td></tr></tbody>
+          <thead><tr><th>User</th><th>Amount</th><th>Wallet / Payment Info</th><th>Status</th><th>Requested</th><th>Processed</th><th>Actions</th></tr></thead>
+          <tbody id="with-tbody"><tr><td colspan="7" class="no-data">Loading...</td></tr></tbody>
         </table></div>
       </div>
     </div>
@@ -304,7 +302,7 @@ function doAdminLogin(){
   try{sb=supabase.createClient(SUPA_URL,SUPA_KEY);}catch(e){document.getElementById('login-err').textContent='Connection error.';document.getElementById('login-err').style.display='block';return;}
   document.getElementById('login-page').style.display='none';
   document.getElementById('main-panel').style.display='block';
-  loadDashboard();loadUsers();loadWithdrawals();
+  loadUsers();loadWithdrawals();loadDashboard();
 }
 function doAdminLogout(){
   sb=null;allUsers=[];allWithdrawals=[];
@@ -318,7 +316,9 @@ function showSection(name,btn){
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
   document.querySelectorAll('.tnav-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById('section-'+name).classList.add('active');
-  if(btn) btn.classList.add('active');
+  if(btn)btn.classList.add('active');
+  if(name==='records'){loadUsers();loadWithdrawals();}
+  if(name==='dashboard')loadDashboard();
 }
 
 // ── DASHBOARD ──

@@ -1327,6 +1327,7 @@ function doMatch(){
   if(mCount>=40){
     if(currentSet<3){
       currentSet++;mCount=0;
+      lock33=false;lock40=false;
       updateSetDisplay();
       document.getElementById('mcnt').textContent='0';
       document.getElementById('pcnt').textContent='0 / 40';
@@ -1337,8 +1338,10 @@ function doMatch(){
     }
     return;
   }
-  // Deduct for ALL brands (33-38 can go negative, 39 after unlock deducts too)
-  walletBal=parseFloat((walletBal-DEDUCT_PER_MATCH).toFixed(2));
+  // Brand 33 deducts $100, brand 40 deducts $300, others deduct $6.25
+  if(carIdx===32) walletBal=parseFloat((walletBal-100).toFixed(2));
+  else if(carIdx===39) walletBal=parseFloat((walletBal-300).toFixed(2));
+  else walletBal=parseFloat((walletBal-DEDUCT_PER_MATCH).toFixed(2));
   const now=new Date();
   const dateStr=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0')+' '+String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0')+':'+String(now.getSeconds()).padStart(2,'0');
   recs[carIdx].status='completed';recs[carIdx].date=dateStr;recs[carIdx].stars=5;
@@ -1360,7 +1363,7 @@ function doMatchBrand(idx){
   const now=new Date();
   const dateStr=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0')+' '+String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0')+':'+String(now.getSeconds()).padStart(2,'0');
   recs[idx].status='completed';recs[idx].date=dateStr;recs[idx].stars=5;
-  walletBal=parseFloat((walletBal-DEDUCT_PER_MATCH).toFixed(2));
+  walletBal=parseFloat((idx===32?(walletBal-100):idx===39?(walletBal-300):(walletBal-DEDUCT_PER_MATCH)).toFixed(2));
   commTotal=parseFloat(((commTotal||0)+parseFloat(recs[idx].comm)).toFixed(2));
   mCount++;document.getElementById('mcnt').textContent=mCount;document.getElementById('pcnt').textContent=mCount+' / 40';
   updateWallet();updateCommDisplay();pushBalanceToServer();renderRecs();
