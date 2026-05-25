@@ -414,7 +414,6 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);over
       <p class="land-sub">Be part of an elite network promoting Coca-Cola, Ferrari, Apple, Rolex and 36 more of the world's most valuable brands. Complete daily campaigns and watch your wallet grow.</p>
       <div class="land-btns">
         <button class="btn-primary" onclick="goTo('page-signup')">GET STARTED</button>
-        <button class="btn-ghost" onclick="document.getElementById('land-details').scrollIntoView({behavior:'smooth'})">LEARN MORE</button>
       </div>
     </div>
     <div class="land-scroll" onclick="document.getElementById('land-details').scrollIntoView({behavior:'smooth'})"><div style="font-size:1.2rem;">↓</div><span>Explore</span></div>
@@ -936,8 +935,8 @@ const BRANDS=[
   {n:'Microsoft',u:'https://cdn.simpleicons.org/microsoft/737373',fb:'microsoft.com',cat:'Technology'},
   {n:'BMW',u:'https://cdn.simpleicons.org/bmw/1C69D3',fb:'bmw.com',cat:'Automotive'},
   {n:'Mercedes-Benz',u:'https://cdn.simpleicons.org/mercedes/333333',fb:'mercedes-benz.com',cat:'Automotive'},
-  {n:'Gucci',u:'https://cdn.simpleicons.org/gucci/333333',fb:'gucci.com',cat:'Luxury Fashion'},
-  {n:'Louis Vuitton',u:'https://cdn.simpleicons.org/louisvuitton/A67C52',fb:'louisvuitton.com',cat:'Luxury Fashion'},
+  {n:'Gucci',u:'https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://gucci.com&size=256',fb:'gucci.com',cat:'Luxury Fashion'},
+  {n:'Louis Vuitton',u:'https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://louisvuitton.com&size=256',fb:'louisvuitton.com',cat:'Luxury Fashion'},
   {n:'Netflix',u:'https://cdn.simpleicons.org/netflix/E50914',fb:'netflix.com',cat:'Entertainment'},
   {n:'Spotify',u:'https://cdn.simpleicons.org/spotify/1DB954',fb:'spotify.com',cat:'Entertainment'},
   {n:'Starbucks',u:'https://cdn.simpleicons.org/starbucks/006241',fb:'starbucks.com',cat:'Beverages'},
@@ -945,25 +944,27 @@ const BRANDS=[
   {n:'Visa',u:'https://cdn.simpleicons.org/visa/1A1F71',fb:'visa.com',cat:'Finance'},
   {n:'Mastercard',u:'https://cdn.simpleicons.org/mastercard/EB001B',fb:'mastercard.com',cat:'Finance'},
   {n:'PayPal',u:'https://cdn.simpleicons.org/paypal/003087',fb:'paypal.com',cat:'Finance'},
-  {n:'Rolex',u:'https://cdn.simpleicons.org/rolex/A37E2C',fb:'rolex.com',cat:'Luxury Watches'},
-  {n:'Chanel',u:'https://cdn.simpleicons.org/chanel/333333',fb:'chanel.com',cat:'Luxury Fashion'},
-  {n:'Prada',u:'https://www.google.com/s2/favicons?sz=256&domain=prada.com',fb:'prada.com',cat:'Luxury Fashion'},
+  {n:'Rolex',u:'https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://rolex.com&size=256',fb:'rolex.com',cat:'Luxury Watches'},
+  {n:'Chanel',u:'https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://chanel.com&size=256',fb:'chanel.com',cat:'Luxury Fashion'},
+  {n:'Prada',u:'https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://prada.com&size=256',fb:'prada.com',cat:'Luxury Fashion'},
   {n:'Ferrari',u:'https://cdn.simpleicons.org/ferrari/D40000',fb:'ferrari.com',cat:'Automotive'},
-  {n:'Lamborghini',u:'https://cdn.simpleicons.org/lamborghini/D5A021',fb:'lamborghini.com',cat:'Automotive'},
+  {n:'Lamborghini',u:'https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://lamborghini.com&size=256',fb:'lamborghini.com',cat:'Automotive'},
   {n:'Porsche',u:'https://cdn.simpleicons.org/porsche/AD9161',fb:'porsche.com',cat:'Automotive'},
   {n:'Audi',u:'https://cdn.simpleicons.org/audi/BB0A14',fb:'audi.com',cat:'Automotive'},
   {n:'Volkswagen',u:'https://cdn.simpleicons.org/volkswagen/151F5E',fb:'vw.com',cat:'Automotive'},
   {n:'Sony',u:'https://cdn.simpleicons.org/sony/333333',fb:'sony.com',cat:'Electronics'},
   {n:'Red Bull',u:'https://cdn.simpleicons.org/redbull/DB0A16',fb:'redbull.com',cat:'Beverages'},
-  {n:'Nestle',u:'https://cdn.simpleicons.org/nestle/009FDF',fb:'nestle.com',cat:'Food and Beverages'},
+  {n:'Nestle',u:'https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://nestle.com&size=256',fb:'nestle.com',cat:'Food and Beverages'},
   {n:'Unilever',u:'https://cdn.simpleicons.org/unilever/1F36C7',fb:'unilever.com',cat:'Consumer Goods'},
-  {n:'Heineken',u:'https://cdn.simpleicons.org/heineken/007A33',fb:'heineken.com',cat:'Beverages'},
+  {n:'Heineken',u:'https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://heineken.com&size=256',fb:'heineken.com',cat:'Beverages'},
   {n:'Intel',u:'https://cdn.simpleicons.org/intel/0068B5',fb:'intel.com',cat:'Technology'},
   {n:'NVIDIA',u:'https://cdn.simpleicons.org/nvidia/76B900',fb:'nvidia.com',cat:'Technology'},
-  {n:'Zara',u:'https://cdn.simpleicons.org/zara/333333',fb:'zara.com',cat:'Fashion'},
+  {n:'Zara',u:'https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://zara.com&size=256',fb:'zara.com',cat:'Fashion'},
   {n:'H and M',u:'https://cdn.simpleicons.org/hm/E50010',fb:'hm.com',cat:'Fashion'},
   {n:'IKEA',u:'https://cdn.simpleicons.org/ikea/0058A3',fb:'ikea.com',cat:'Home and Living'}
 ];
+
+function logoFail(img,fb){img.onerror=null;img.src='https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://'+fb+'&size=256';}
 
 // Build animated brand logo mosaic for landing page
 function buildMosaic(containerId){
@@ -974,9 +975,9 @@ function buildMosaic(containerId){
     cell.className='mosaic-cell';
     const img=document.createElement('img');
     img.className='mosaic-logo';
-    img.src=BRANDS[i%BRANDS.length].u;
-    img.alt=BRANDS[i%BRANDS.length].n;
-    img.onerror=function(){this.parentElement.style.background='rgba(255,255,255,0.03)';this.remove();};
+    const b=BRANDS[i%BRANDS.length];
+    img.src=b.u;img.alt=b.n;
+    img.onerror=function(){logoFail(this,b.fb);};
     cell.appendChild(img);
     c.appendChild(cell);
     setTimeout(()=>cell.classList.add('vis'),i*55+Math.random()*120);
@@ -988,7 +989,8 @@ function buildMosaic(containerId){
     cells[idx].classList.remove('vis');
     setTimeout(()=>{
       const img=cells[idx].querySelector('img');
-      if(img){img.src=BRANDS[bi].u;img.alt=BRANDS[bi].n;}
+      const b=BRANDS[bi];
+      if(img){img.src=b.u;img.alt=b.n;img.onerror=function(){logoFail(this,b.fb);};}
       cells[idx].classList.add('vis');
     },700);
   },350);
@@ -1119,6 +1121,7 @@ function buildSlideshow(){
       const img=document.createElement('img');
       img.src=brand.u;img.alt=brand.n;
       img.style.cssText='max-width:80%;max-height:80%;object-fit:contain;filter:blur(3px);opacity:0.25;';
+      img.onerror=function(){logoFail(this,brand.fb);this.style.filter='blur(3px)';this.style.opacity='0.25';};
       const ov=document.createElement('div');
       ov.style.cssText='position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;background:rgba(0,0,0,0.65);';
       ov.innerHTML='<span style="font-size:12px;">🔒</span><span style="font-size:6.5px;font-weight:800;letter-spacing:1.5px;color:#f0b429;font-family:Barlow Condensed,sans-serif;">UNLOCK</span>';
@@ -1129,7 +1132,7 @@ function buildSlideshow(){
       const img=document.createElement('img');
       img.className='cth'+(i===0?' active':'');
       img.src=brand.u;img.alt=brand.n;img.title=brand.n;
-      img.onerror=function(){this.style.opacity='0.15';};
+      img.onerror=function(){logoFail(this,brand.fb);};
       img.onclick=()=>pickBrand(i);
       el.appendChild(img);
     }
@@ -1146,6 +1149,7 @@ function pickBrand(idx){
     const isLocked=(idx===32&&!lock33)||(idx===39&&!lock40);
     const fc=document.getElementById('fcar');
     fc.src=BRANDS[idx].u;fc.alt=BRANDS[idx].n;
+    fc.onerror=function(){logoFail(this,BRANDS[idx].fb);};
     fc.style.filter=isLocked?'blur(5px)':'none';fc.style.opacity=isLocked?'0.2':'1';
     const lov=document.getElementById('brand-lock-ov');
     if(lov) lov.style.display=isLocked?'flex':'none';
@@ -1169,7 +1173,7 @@ function tryUnlock(idx){
     if(tile){
       const img=document.createElement('img');
       img.className='cth';img.src=BRANDS[idx].u;img.alt=BRANDS[idx].n;img.title=BRANDS[idx].n;
-      img.onerror=function(){this.style.opacity='0.15';};
+      img.onerror=function(){logoFail(this,BRANDS[idx].fb);};
       img.onclick=()=>pickBrand(idx);
       tile.parentNode.replaceChild(img,tile);
     }
@@ -1241,7 +1245,7 @@ function renderRecs(){
       </div>
       <div class="rec-card-body">
         <div class="rec-brand-logo-wrap">
-          <img class="rec-brand-logo" src="${r.brand.u}" onerror="this.style.opacity='0.1'" alt="${r.brand.n}">
+          <img class="rec-brand-logo" src="${r.brand.u}" onerror="logoFail(this,'${r.brand.fb}')" alt="${r.brand.n}">
         </div>
         <div class="rec-car-info">
           <div class="rec-car-name2">${r.brand.n}</div>
