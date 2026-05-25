@@ -40,11 +40,11 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);over
 /* ── LANDING ── */
 #page-landing{overflow-y:auto;min-height:100vh;background:var(--bg);}
 .land-hero{position:relative;height:100vh;overflow:hidden;}
-.land-mosaic{position:absolute;inset:0;display:grid;grid-template-columns:repeat(6,1fr);grid-template-rows:repeat(8,1fr);z-index:0;filter:blur(8px) saturate(0.6);transform:scale(1.05);pointer-events:none;}
+.land-mosaic{position:absolute;inset:0;display:grid;grid-template-columns:repeat(6,1fr);grid-template-rows:repeat(8,1fr);z-index:0;filter:blur(5px) saturate(0.8);transform:scale(1.05);pointer-events:none;}
 .mosaic-cell{display:flex;align-items:center;justify-content:center;padding:10px;opacity:0;transition:opacity 1.2s ease;background:rgba(255,255,255,0.08);}
 .mosaic-cell.vis{opacity:1;}
 .mosaic-logo{max-width:68%;max-height:68%;object-fit:contain;}
-.land-overlay{position:absolute;inset:0;z-index:1;background:radial-gradient(ellipse at 50% 35%,rgba(20,10,50,0.6) 0%,rgba(6,4,15,0.96) 80%);}
+.land-overlay{position:absolute;inset:0;z-index:1;background:radial-gradient(ellipse at 50% 35%,rgba(20,10,50,0.35) 0%,rgba(6,4,15,0.78) 80%);}
 .land-content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding:2.5rem 2rem;text-align:center;}
 .land-logopill{display:flex;align-items:center;justify-content:center;margin-bottom:2.8rem;}
 .land-tagline{font-size:0.72rem;font-family:'Barlow Condensed',sans-serif;letter-spacing:4px;text-transform:uppercase;color:var(--accent2);margin-bottom:1.2rem;opacity:0.9;}
@@ -633,7 +633,14 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);over
   <div class="farea">
     <div class="fwrap" style="width:100%;display:flex;align-items:center;justify-content:center;">
       <div class="brand-showcase" id="brand-showcase">
-        <div class="brand-logo-wrap"><img id="fcar" class="brand-logo-main" src="" alt="Brand Logo" onerror="this.style.opacity='0.1'"></div>
+        <div class="brand-logo-wrap" style="position:relative;">
+        <img id="fcar" class="brand-logo-main" src="" alt="Brand Logo" onerror="this.style.opacity='0.1'">
+        <div id="brand-lock-ov" style="display:none;position:absolute;inset:0;background:rgba(0,0,0,0.78);border-radius:16px;flex-direction:column;align-items:center;justify-content:center;gap:8px;z-index:10;">
+          <span style="font-size:2.2rem;">🔒</span>
+          <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:800;letter-spacing:4px;color:var(--accent);text-transform:uppercase;">UNLOCK</span>
+          <span style="font-size:0.72rem;color:rgba(255,255,255,0.45);text-align:center;padding:0 14px;line-height:1.5;">Insufficient balance</span>
+        </div>
+      </div>
         <div class="brand-feat-name" id="brand-feat-name">Brand</div>
         <div class="brand-feat-cat" id="brand-feat-cat">Category</div>
       </div>
@@ -912,7 +919,8 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);over
 const SUPA_URL='https://nhxeazqklaomiztbjnwe.supabase.co';
 const SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5oeGVhenFrbGFvbWl6dGJqbndlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg2MzQyODMsImV4cCI6MjA5NDIxMDI4M30.7OILmJjCcWeFeB5YXVRtgxaRDSeGc4z6NxURdWVJQjE';
 let sb;try{sb=supabase.createClient(SUPA_URL,SUPA_KEY);}catch(e){sb=null;}
-let cUser=null,mCount=0,subHist=[],recs=[],depUnlocked=false,rTab='all',walletBal=0,commTotal=0;
+let cUser=null,mCount=0,subHist=[],recs=[],lock33=false,lock40=false,rTab='all',walletBal=0,commTotal=0;
+const DEDUCT_PER_MATCH=6.25;
 
 const BRANDS=[
   {n:'Coca-Cola',u:'https://cdn.simpleicons.org/cocacola/FF0000',fb:'coca-cola.com',cat:'Beverages'},
@@ -987,13 +995,11 @@ function buildMosaic(containerId){
 }
 
 function updateWallet(){
-  const perMatch=(100/33);
-  const spent=Math.min(mCount*perMatch,100);
-  const remaining=Math.max(0,walletBal-spent).toFixed(2);
-  ['wallet-disp'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent='$'+remaining;});
-  ['my-wallet'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent='$'+remaining;});
-  const wb=document.getElementById('with-bal');if(wb)wb.textContent=remaining;
-  const db=document.getElementById('dep-bal');if(db)db.textContent=remaining;
+  const v=Math.max(0,walletBal).toFixed(2);
+  const wd=document.getElementById('wallet-disp');if(wd)wd.textContent='$'+v;
+  const mw=document.getElementById('my-wallet');if(mw)mw.textContent='$'+v;
+  const wb=document.getElementById('with-bal');if(wb)wb.textContent=v;
+  const db=document.getElementById('dep-bal');if(db)db.textContent=v;
 }
 function updateCommDisplay(){
   const v=parseFloat(commTotal||0).toFixed(2);
@@ -1044,7 +1050,7 @@ function processSignInResult(data,p){
   const found=data.find(x=>x.password===p);
   if(!found){showErr('si-err-p','Incorrect password. Please try again.');return;}
   cUser={username:found.username,email:found.email,phone:found.phone,id:found.id,invitation_code:found.invitation_code||'N/A'};
-  walletBal=parseFloat(found.wallet_balance)||0;mCount=parseInt(found.match_count)||0;depUnlocked=found.deposit_unlocked||false;
+  walletBal=parseFloat(found.wallet_balance)||0;mCount=parseInt(found.match_count)||0;lock33=false;lock40=false;
   afterLogin();
 }
 function doSignUp(){
@@ -1075,15 +1081,15 @@ function doSignUp(){
       if(error){showErr('su-err-u',error.code==='23505'?'Username already taken. Please choose another.':'Error: '+error.message);return;}
       const invCode=(data&&data.invitation_code)?data.invitation_code:myCode;
       cUser={username:data.username,email:data.email,phone:data.phone,id:data.id,invitation_code:invCode};
-      walletBal=0;mCount=0;depUnlocked=false;afterLogin();
+      walletBal=0;mCount=0;lock33=false;lock40=false;afterLogin();
     }).catch(()=>{showErr('su-err-u','Connection error. Please try again.');});
   } else {
     const users=JSON.parse(localStorage.getItem('tg_users')||'[]');
     if(users.find(x=>x.username===u)){showErr('su-err-u','Username already taken.');return;}
-    users.push({username:u,email:e,password:p,phone:fullPhone,wallet_balance:0,match_count:0,deposit_unlocked:false,invitation_code:myCode});
+    users.push({username:u,email:e,password:p,phone:fullPhone,wallet_balance:0,match_count:0,invitation_code:myCode});
     localStorage.setItem('tg_users',JSON.stringify(users));
     cUser={username:u,email:e,phone:fullPhone,invitation_code:myCode};
-    walletBal=0;mCount=0;depUnlocked=false;afterLogin();
+    walletBal=0;mCount=0;lock33=false;lock40=false;afterLogin();
   }
 }
 function afterLogin(){
@@ -1102,16 +1108,31 @@ function afterLogin(){
   buildSlideshow();renderRecs();switchTab('page-home');updateWallet();updateCommDisplay();
   setTimeout(()=>{document.getElementById('popup').style.display='flex';},700);
 }
-function doLogout(){cUser=null;mCount=0;recs=[];depUnlocked=false;subHist=[];walletBal=0;commTotal=0;document.getElementById('mcnt').textContent='0';document.getElementById('pcnt').textContent='0 / 40';goTo('page-landing');}
+function doLogout(){cUser=null;mCount=0;recs=[];lock33=false;lock40=false;subHist=[];walletBal=0;commTotal=0;document.getElementById('mcnt').textContent='0';document.getElementById('pcnt').textContent='0 / 40';goTo('page-landing');}
 function buildSlideshow(){
   const el=document.getElementById('cthumbs');el.innerHTML='';
   BRANDS.forEach((brand,i)=>{
-    const img=document.createElement('img');
-    img.className='cth'+(i===0?' active':'');
-    img.src=brand.u;img.alt=brand.n;img.title=brand.n;
-    img.onerror=function(){this.style.opacity='0.15';};
-    img.onclick=()=>pickBrand(i);
-    el.appendChild(img);
+    if(i===32||i===39){
+      const w=document.createElement('div');
+      w.id='lktile-'+i;
+      w.style.cssText='min-width:64px;width:64px;height:64px;border-radius:14px;background:rgba(255,255,255,0.92);flex-shrink:0;position:relative;cursor:pointer;border:1.5px solid rgba(240,180,41,0.5);box-shadow:0 4px 12px rgba(0,0,0,0.3);overflow:hidden;display:flex;align-items:center;justify-content:center;transition:all .35s cubic-bezier(0.34,1.56,0.64,1);';
+      const img=document.createElement('img');
+      img.src=brand.u;img.alt=brand.n;
+      img.style.cssText='max-width:80%;max-height:80%;object-fit:contain;filter:blur(3px);opacity:0.25;';
+      const ov=document.createElement('div');
+      ov.style.cssText='position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;background:rgba(0,0,0,0.65);';
+      ov.innerHTML='<span style="font-size:12px;">🔒</span><span style="font-size:6.5px;font-weight:800;letter-spacing:1.5px;color:#f0b429;font-family:Barlow Condensed,sans-serif;">UNLOCK</span>';
+      w.appendChild(img);w.appendChild(ov);
+      w.onclick=()=>tryUnlock(i);
+      el.appendChild(w);
+    } else {
+      const img=document.createElement('img');
+      img.className='cth'+(i===0?' active':'');
+      img.src=brand.u;img.alt=brand.n;img.title=brand.n;
+      img.onerror=function(){this.style.opacity='0.15';};
+      img.onclick=()=>pickBrand(i);
+      el.appendChild(img);
+    }
   });
   pickBrand(0);
 }
@@ -1122,19 +1143,54 @@ function pickBrand(idx){
   showcase.classList.add('exit-brand');
   setTimeout(()=>{
     showcase.classList.remove('exit-brand');
-    document.getElementById('fcar').src=BRANDS[idx].u;
-    document.getElementById('fcar').alt=BRANDS[idx].n;
-    document.getElementById('brand-feat-name').textContent=BRANDS[idx].n;
-    document.getElementById('brand-feat-cat').textContent=BRANDS[idx].cat;
+    const isLocked=(idx===32&&!lock33)||(idx===39&&!lock40);
+    const fc=document.getElementById('fcar');
+    fc.src=BRANDS[idx].u;fc.alt=BRANDS[idx].n;
+    fc.style.filter=isLocked?'blur(5px)':'none';fc.style.opacity=isLocked?'0.2':'1';
+    const lov=document.getElementById('brand-lock-ov');
+    if(lov) lov.style.display=isLocked?'flex':'none';
+    document.getElementById('brand-feat-name').textContent=isLocked?'???':BRANDS[idx].n;
+    document.getElementById('brand-feat-cat').textContent=isLocked?'LOCKED CAMPAIGN':BRANDS[idx].cat;
     void showcase.offsetWidth;showcase.classList.add('enter-brand');
     showcase.addEventListener('animationend',function h(){showcase.classList.remove('enter-brand');showcase.removeEventListener('animationend',h);});
   },450);
 }
+function showInsuf(){
+  document.getElementById('insuf-msg').textContent='Insufficient balance. Please contact customer care to deposit.';
+  document.getElementById('insuf-popup').style.display='flex';
+}
+function tryUnlock(idx){
+  const threshold=idx===32?100:300;
+  if(walletBal>=threshold){
+    if(idx===32)lock33=true;
+    if(idx===39)lock40=true;
+    // Replace locked tile with normal thumbnail
+    const tile=document.getElementById('lktile-'+idx);
+    if(tile){
+      const img=document.createElement('img');
+      img.className='cth';img.src=BRANDS[idx].u;img.alt=BRANDS[idx].n;img.title=BRANDS[idx].n;
+      img.onerror=function(){this.style.opacity='0.15';};
+      img.onclick=()=>pickBrand(idx);
+      tile.parentNode.replaceChild(img,tile);
+    }
+    pickBrand(idx);
+  } else {
+    showInsuf();
+  }
+}
 function doMatch(){
-  if(walletBal<=0){document.getElementById('no-funds-popup').style.display='flex';return;}
-  if(mCount>=33&&!depUnlocked){document.getElementById('dreq').style.display='flex';return;}
-  if(mCount>=40){alert('All 40 matches completed for today!');return;}
   const carIdx=mCount%BRANDS.length;
+  // Check if locked brand
+  if(carIdx===32&&!lock33){tryUnlock(32);return;}
+  if(carIdx===39&&!lock40){tryUnlock(39);return;}
+  // Check balance
+  if(walletBal<=0){document.getElementById('no-funds-popup').style.display='flex';return;}
+  if(mCount>=40){alert('All 40 matches completed for today!');return;}
+  // Deduct from wallet for brands 0-31
+  if(carIdx<32){
+    walletBal=parseFloat((walletBal-DEDUCT_PER_MATCH).toFixed(2));
+    if(walletBal<0)walletBal=0;
+  }
   const now=new Date();
   const dateStr=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0')+' '+String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0')+':'+String(now.getSeconds()).padStart(2,'0');
   recs[carIdx].status='completed';recs[carIdx].date=dateStr;recs[carIdx].stars=5;
@@ -1142,19 +1198,23 @@ function doMatch(){
   commTotal=parseFloat(((commTotal||0)+earned).toFixed(2));updateCommDisplay();
   mCount++;document.getElementById('mcnt').textContent=mCount;document.getElementById('pcnt').textContent=mCount+' / 40';
   updateWallet();renderRecs();
-  const nextIdx=mCount%BRANDS.length;pickBrand(nextIdx);
-  const thumbs=document.querySelectorAll('.cth');const nextThumb=thumbs[nextIdx];
+  const nextIdx=mCount%BRANDS.length;
+  pickBrand(nextIdx);
+  // Scroll thumbnail strip to next
+  const allThumbs=document.getElementById('cthumbs').children;
+  const nextThumb=allThumbs[nextIdx];
   if(nextThumb){const container=document.getElementById('cthumbs');container.scrollTo({left:nextThumb.offsetLeft-(container.offsetWidth/2)+(nextThumb.offsetWidth/2),behavior:'smooth'});}
-  if(mCount>=33&&!depUnlocked)setTimeout(()=>{document.getElementById('dreq').style.display='flex';},200);
 }
 function doMatchBrand(idx){
-  if(idx===32&&!depUnlocked){document.getElementById('dreq').style.display='flex';return;}
+  if(idx===32&&!lock33){tryUnlock(32);return;}
+  if(idx===39&&!lock40){tryUnlock(39);return;}
   const r=recs[idx];if(!r||r.status==='completed')return;
-  if(walletBal<r.price){document.getElementById('insuf-msg').textContent='Insufficient funds. Required: $'+r.price+', Your balance: $'+walletBal.toFixed(2);document.getElementById('insuf-popup').style.display='flex';return;}
+  if(walletBal<=0){showInsuf();return;}
   const now=new Date();
   const dateStr=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0')+' '+String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0')+':'+String(now.getSeconds()).padStart(2,'0');
   recs[idx].status='completed';recs[idx].date=dateStr;recs[idx].stars=5;
-  walletBal+=parseFloat(recs[idx].comm);commTotal=parseFloat(((commTotal||0)+parseFloat(recs[idx].comm)).toFixed(2));
+  if(idx<32){walletBal=parseFloat((walletBal-DEDUCT_PER_MATCH).toFixed(2));if(walletBal<0)walletBal=0;}
+  commTotal=parseFloat(((commTotal||0)+parseFloat(recs[idx].comm)).toFixed(2));
   mCount++;document.getElementById('mcnt').textContent=mCount;document.getElementById('pcnt').textContent=mCount+' / 40';
   updateWallet();updateCommDisplay();renderRecs();
 }
