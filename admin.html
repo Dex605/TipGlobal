@@ -2,470 +2,444 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTIiIGZpbGw9IiMwZTBhMWYiLz48dGV4dCB4PSIzMiIgeT0iMjgiIGZvbnQtZmFtaWx5PSJBcmlhbCBCbGFjayIgZm9udC1zaXplPSIxMiIgZm9udC13ZWlnaHQ9IjkwMCIgZmlsbD0iI2YwYjQyOSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+VElQPC90ZXh0Pjx0ZXh0IHg9IjMyIiB5PSI0MiIgZm9udC1mYW1pbHk9IkFyaWFsIEJsYWNrIiBmb250LXNpemU9IjEyIiBmb250LXdlaWdodD0iOTAwIiBmaWxsPSIjYTc4YmZhIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5BRE1JTjwvdGV4dD48cmVjdCB4PSI0IiB5PSI0NiIgd2lkdGg9IjU2IiBoZWlnaHQ9IjMiIHJ4PSIxLjUiIGZpbGw9IiNmMGI0MjkiLz48L3N2Zz4=">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTIiIGZpbGw9IiMwZTBhMWYiLz48dGV4dCB4PSIzMiIgeT0iMjgiIGZvbnQtZmFtaWx5PSJBcmlhbCBCbGFjayIgZm9udC1zaXplPSIxMiIgZm9udC13ZWlnaHQ9IjkwMCIgZmlsbD0iI2YwYjQyOSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+VElHPC90ZXh0Pjx0ZXh0IHg9IjMyIiB5PSI0MiIgZm9udC1mYW1pbHk9IkFyaWFsIEJsYWNrIiBmb250LXNpemU9IjEyIiBmb250LXdlaWdodD0iOTAwIiBmaWxsPSIjYTc4YmZhIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5BRE1JTjwvdGV4dD48L3N2Zz4=">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TIG Global — Admin</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-:root{
-  --bg:#06040f;--bg2:#0e0a1f;--bg3:#15102e;
-  --accent:#f0b429;--accent2:#a78bfa;
-  --glass:rgba(255,255,255,0.055);--border:rgba(255,255,255,0.08);--border2:rgba(240,180,41,0.25);
-  --text:#fff;--muted:rgba(255,255,255,0.52);--dim:rgba(255,255,255,0.24);
-  --green:#22c55e;--red:#ef4444;--blue:#60a5fa;
-}
+:root{--bg:#06040f;--bg2:#0e0a1f;--bg3:#15102e;--accent:#f0b429;--accent2:#a78bfa;--glass:rgba(255,255,255,0.055);--border:rgba(255,255,255,0.08);--border2:rgba(240,180,41,0.22);--text:#fff;--muted:rgba(255,255,255,0.52);--dim:rgba(255,255,255,0.24);--green:#22c55e;--red:#ef4444;--blue:#60a5fa;}
 body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
 
 /* LOGIN */
-#login-page{display:flex;align-items:center;justify-content:center;min-height:100vh;background:radial-gradient(ellipse at 50% 30%,rgba(167,139,250,0.12) 0%,var(--bg) 70%);}
-.login-card{background:var(--glass);backdrop-filter:blur(30px);border:1px solid var(--border2);border-radius:20px;padding:2.5rem 2rem;width:100%;max-width:360px;box-shadow:0 20px 60px rgba(0,0,0,0.5);}
-.login-logo{text-align:center;margin-bottom:1.5rem;}
-.login-title{text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:0.3rem;letter-spacing:1px;}
-.login-sub{text-align:center;font-size:0.8rem;color:var(--muted);margin-bottom:1.75rem;}
-.fl{display:block;font-size:0.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim);margin-bottom:6px;}
-.fi{width:100%;background:rgba(255,255,255,0.07);border:1px solid var(--border);border-radius:10px;padding:12px 16px;color:#fff;font-size:0.95rem;font-family:'Barlow',sans-serif;outline:none;margin-bottom:1rem;}
-.fi:focus{border-color:var(--accent);}
-.fi::placeholder{color:var(--dim);}
-.login-btn{width:100%;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;letter-spacing:2px;padding:13px;border:none;border-radius:10px;cursor:pointer;}
-.login-err{font-size:0.8rem;color:#f87171;text-align:center;margin-top:10px;display:none;}
+#login-page{display:flex;align-items:center;justify-content:center;min-height:100vh;background:radial-gradient(ellipse at 50% 30%,rgba(167,139,250,0.1) 0%,var(--bg) 70%);}
+.lcard{background:var(--glass);backdrop-filter:blur(30px);border:1px solid var(--border2);border-radius:20px;padding:2.5rem 2rem;width:100%;max-width:360px;box-shadow:0 20px 60px rgba(0,0,0,0.5);}
+.lcard-logo{text-align:center;margin-bottom:1.5rem;}
+.lcard-title{text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:0.3rem;letter-spacing:1px;}
+.lcard-sub{text-align:center;font-size:0.8rem;color:var(--muted);margin-bottom:1.75rem;}
+.lf{display:block;font-size:0.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim);margin-bottom:6px;}
+.li{width:100%;background:rgba(255,255,255,0.07);border:1px solid var(--border);border-radius:10px;padding:12px 16px;color:#fff;font-size:0.95rem;font-family:'Barlow',sans-serif;outline:none;margin-bottom:1rem;}
+.li:focus{border-color:var(--accent);}
+.li::placeholder{color:var(--dim);}
+.lbtn{width:100%;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;letter-spacing:2px;padding:13px;border:none;border-radius:10px;cursor:pointer;}
+.lerr{font-size:0.8rem;color:#f87171;text-align:center;margin-top:10px;display:none;}
 
 /* LAYOUT */
-#main-panel{display:none;min-height:100vh;}
-.topbar{background:var(--bg2);border-bottom:1px solid var(--border);height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;position:sticky;top:0;z-index:100;}
-.topbar-logo{display:flex;align-items:center;gap:8px;font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;font-weight:800;}
-.topbar-logo span{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.topbar-right{display:flex;align-items:center;gap:12px;}
-.topbar-nav{display:flex;gap:4px;}
-.tnav-btn{padding:7px 16px;border-radius:8px;font-size:0.82rem;font-weight:600;cursor:pointer;border:none;background:transparent;color:var(--muted);font-family:'Barlow',sans-serif;transition:all .15s;}
-.tnav-btn:hover{background:var(--glass);color:#fff;}
-.tnav-btn.active{background:rgba(240,180,41,0.12);color:var(--accent);border:1px solid var(--border2);}
-.signout-btn{padding:7px 14px;border-radius:8px;font-size:0.82rem;font-weight:600;cursor:pointer;border:1px solid rgba(239,68,68,0.3);background:transparent;color:#f87171;font-family:'Barlow',sans-serif;}
-.signout-btn:hover{background:rgba(239,68,68,0.1);}
+#main{display:none;min-height:100vh;}
+.topbar{background:var(--bg2);border-bottom:1px solid var(--border);height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;position:sticky;top:0;z-index:100;}
+.tb-logo{font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.tb-badge{font-size:0.6rem;background:rgba(240,180,41,0.15);color:var(--accent);border:1px solid var(--border2);padding:2px 7px;border-radius:20px;font-family:'Barlow',sans-serif;font-weight:700;letter-spacing:1px;margin-left:8px;-webkit-text-fill-color:var(--accent);}
+.tb-nav{display:flex;gap:4px;}
+.tnb{padding:7px 16px;border-radius:8px;font-size:0.82rem;font-weight:600;cursor:pointer;border:none;background:transparent;color:var(--muted);font-family:'Barlow',sans-serif;transition:all .15s;}
+.tnb:hover{background:var(--glass);color:#fff;}
+.tnb.active{background:rgba(240,180,41,0.12);color:var(--accent);border:1px solid var(--border2);}
+.so-btn{padding:7px 14px;border-radius:8px;font-size:0.82rem;font-weight:600;cursor:pointer;border:1px solid rgba(239,68,68,0.3);background:transparent;color:#f87171;font-family:'Barlow',sans-serif;}
+.so-btn:hover{background:rgba(239,68,68,0.1);}
 .content{padding:1.5rem;}
-.section{display:none;}
-.section.active{display:block;}
+.sec{display:none;}
+.sec.active{display:block;}
 
-/* STATS ROW */
+/* STATS */
 .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:1.5rem;}
-.stat-card{background:var(--glass);border:1px solid var(--border);border-radius:14px;padding:1rem 1.2rem;display:flex;align-items:center;gap:12px;}
+.stat{background:var(--glass);border:1px solid var(--border);border-radius:14px;padding:1rem 1.2rem;display:flex;align-items:center;gap:12px;}
 .stat-ic{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;}
-.ic-gold{background:rgba(240,180,41,0.15);}
-.ic-purple{background:rgba(167,139,250,0.15);}
-.ic-green{background:rgba(34,197,94,0.15);}
-.ic-blue{background:rgba(96,165,250,0.15);}
 .stat-val{font-family:'Barlow Condensed',sans-serif;font-size:1.6rem;font-weight:700;color:#fff;line-height:1;}
 .stat-lbl{font-size:0.72rem;color:var(--muted);margin-top:2px;}
 
-/* TABLE */
-.table-wrap{background:var(--glass);border:1px solid var(--border);border-radius:16px;overflow:hidden;}
-.table-toolbar{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.25rem;border-bottom:1px solid var(--border);gap:10px;flex-wrap:wrap;}
-.table-title{font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;color:#fff;letter-spacing:1px;}
-.toolbar-right{display:flex;gap:8px;align-items:center;}
-.search-wrap{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.06);border:1px solid var(--border);border-radius:8px;padding:6px 12px;}
-.search-wrap input{background:none;border:none;color:#fff;font-size:0.85rem;outline:none;width:200px;}
-.search-wrap input::placeholder{color:var(--dim);}
-.icon-btn{padding:6px 14px;border-radius:8px;font-size:0.8rem;font-weight:700;cursor:pointer;border:1px solid var(--border);background:var(--glass);color:var(--muted);font-family:'Barlow',sans-serif;}
-.icon-btn:hover{color:#fff;border-color:rgba(255,255,255,0.2);}
-.filter-tabs{display:flex;gap:4px;}
-.ftab{padding:5px 12px;border-radius:6px;font-size:0.78rem;font-weight:600;cursor:pointer;border:none;background:transparent;color:var(--muted);font-family:'Barlow',sans-serif;}
-.ftab.active{background:rgba(240,180,41,0.12);color:var(--accent);}
+/* MAIN TABLE */
+.tbl-wrap{background:var(--glass);border:1px solid var(--border);border-radius:16px;overflow:hidden;}
+.tbl-bar{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.25rem;border-bottom:1px solid var(--border);gap:10px;flex-wrap:wrap;}
+.tbl-title{font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;color:#fff;letter-spacing:1px;}
+.srch{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.06);border:1px solid var(--border);border-radius:8px;padding:6px 12px;}
+.srch input{background:none;border:none;color:#fff;font-size:0.85rem;outline:none;width:220px;}
+.srch input::placeholder{color:var(--dim);}
+.rbtn{padding:6px 14px;border-radius:8px;font-size:0.8rem;font-weight:700;cursor:pointer;border:1px solid var(--border);background:var(--glass);color:var(--muted);font-family:'Barlow',sans-serif;}
+.rbtn:hover{color:#fff;}
 .tbl-scroll{overflow-x:auto;}
-table{width:100%;border-collapse:collapse;min-width:900px;}
-thead{background:rgba(255,255,255,0.035);}
-th{text-align:left;padding:10px 14px;font-size:0.67rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);white-space:nowrap;}
-td{padding:11px 14px;font-size:0.84rem;border-bottom:1px solid rgba(255,255,255,0.04);vertical-align:middle;}
+table{width:100%;border-collapse:collapse;min-width:1400px;}
+thead{background:rgba(255,255,255,0.04);}
+th{text-align:left;padding:10px 12px;font-size:0.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);white-space:nowrap;border-bottom:1px solid var(--border);}
+th.edith{color:var(--accent);cursor:default;}
+th.edith::after{content:' ✎';font-size:0.6rem;}
+td{padding:10px 12px;font-size:0.83rem;border-bottom:1px solid rgba(255,255,255,0.035);vertical-align:middle;white-space:nowrap;}
 tr:last-child td{border-bottom:none;}
 tr:hover td{background:rgba(255,255,255,0.02);}
 .no-data{text-align:center;padding:2.5rem;color:var(--muted);font-size:0.88rem;}
-.badge{display:inline-block;padding:2px 9px;border-radius:20px;font-size:0.7rem;font-weight:700;white-space:nowrap;}
+
+/* EDITABLE CELLS */
+.ecell{cursor:pointer;border-radius:6px;padding:3px 7px;margin:-3px -7px;transition:background .15s;position:relative;}
+.ecell:hover{background:rgba(240,180,41,0.1);outline:1px dashed rgba(240,180,41,0.4);}
+.ecell:hover::after{content:'click to edit';position:absolute;top:-22px;left:0;font-size:0.62rem;color:var(--accent);background:var(--bg2);padding:2px 6px;border-radius:4px;border:1px solid var(--border2);white-space:nowrap;pointer-events:none;z-index:10;}
+.einput{background:rgba(255,255,255,0.1);border:1.5px solid var(--accent);color:#fff;padding:5px 9px;border-radius:7px;font-size:0.83rem;font-family:'Barlow',sans-serif;outline:none;width:110px;}
+.badge{display:inline-block;padding:2px 9px;border-radius:20px;font-size:0.7rem;font-weight:700;}
 .bg{background:rgba(34,197,94,0.12);color:#4ade80;}
 .by{background:rgba(240,180,41,0.12);color:var(--accent);}
 .br{background:rgba(239,68,68,0.12);color:#f87171;}
-.bb{background:rgba(96,165,250,0.12);color:var(--blue);}
-.acts{display:flex;gap:5px;flex-wrap:wrap;}
-.ab{padding:4px 10px;border-radius:6px;font-size:0.73rem;font-weight:700;cursor:pointer;border:none;font-family:'Barlow',sans-serif;white-space:nowrap;}
-.ab-green{background:rgba(34,197,94,0.15);color:#4ade80;border:1px solid rgba(34,197,94,0.2);}
-.ab-blue{background:rgba(96,165,250,0.1);color:var(--blue);border:1px solid rgba(96,165,250,0.2);}
-.ab-yellow{background:rgba(240,180,41,0.1);color:var(--accent);border:1px solid var(--border2);}
-.ab-red{background:rgba(239,68,68,0.1);color:#f87171;border:1px solid rgba(239,68,68,0.2);}
-.ab-approve{background:rgba(34,197,94,0.15);color:#4ade80;border:1px solid rgba(34,197,94,0.2);}
-.ab-reject{background:rgba(239,68,68,0.1);color:#f87171;border:1px solid rgba(239,68,68,0.2);}
+.act-btns{display:flex;gap:5px;}
+.ab{padding:4px 10px;border-radius:6px;font-size:0.73rem;font-weight:700;cursor:pointer;border:none;font-family:'Barlow',sans-serif;}
+.ab-red{background:rgba(239,68,68,0.12);color:#f87171;border:1px solid rgba(239,68,68,0.2);}
+.w-link{color:var(--blue);cursor:pointer;font-size:0.8rem;text-decoration:underline;text-underline-offset:2px;}
+.w-link:hover{color:#fff;}
 
-/* MODAL */
-.modal-ov{position:fixed;inset:0;background:rgba(0,0,0,0.72);z-index:999;display:none;align-items:center;justify-content:center;padding:1rem;}
+/* WITHDRAWAL MODAL */
+.modal-ov{position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:999;display:none;align-items:center;justify-content:center;padding:1rem;}
 .modal-ov.show{display:flex;}
-.modal{background:var(--bg2);border:1px solid var(--border2);border-radius:18px;padding:1.75rem;width:100%;max-width:400px;box-shadow:0 30px 80px rgba(0,0,0,0.5);}
-.modal-title{font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;font-weight:700;color:#fff;margin-bottom:0.3rem;letter-spacing:1px;}
+.modal{background:var(--bg2);border:1px solid var(--border2);border-radius:18px;padding:1.75rem;width:100%;max-width:560px;box-shadow:0 30px 80px rgba(0,0,0,0.5);max-height:80vh;overflow-y:auto;}
+.modal-title{font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;font-weight:700;color:#fff;margin-bottom:0.4rem;letter-spacing:1px;}
 .modal-sub{font-size:0.82rem;color:var(--muted);margin-bottom:1.25rem;}
-.minfo{background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:10px;padding:0.75rem 1rem;margin-bottom:1.25rem;}
-.minfo-name{font-weight:700;font-size:0.95rem;color:#fff;}
-.minfo-bal{font-size:0.82rem;color:var(--accent);margin-top:3px;}
-.fg{margin-bottom:1rem;}
-.fl2{display:block;font-size:0.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim);margin-bottom:6px;}
-.fi2{width:100%;background:rgba(255,255,255,0.07);border:1px solid var(--border);border-radius:10px;padding:11px 14px;color:#fff;font-size:0.95rem;font-family:'Barlow',sans-serif;outline:none;}
-.fi2:focus{border-color:var(--accent);}
-.mbtns{display:flex;gap:10px;margin-top:1rem;}
-.mb-confirm{flex:1;padding:11px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:none;border-radius:10px;font-weight:700;font-size:0.9rem;cursor:pointer;font-family:'Barlow Condensed',sans-serif;letter-spacing:1px;}
-.mb-cancel{flex:1;padding:11px;background:var(--glass);color:var(--muted);border:1px solid var(--border);border-radius:10px;font-weight:600;font-size:0.9rem;cursor:pointer;}
-.success-msg{display:none;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.25);border-radius:8px;padding:8px 12px;font-size:0.82rem;color:#4ade80;margin-top:10px;text-align:center;}
+.wtbl{width:100%;border-collapse:collapse;font-size:0.83rem;}
+.wtbl th{padding:8px 10px;font-size:0.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);border-bottom:1px solid var(--border);}
+.wtbl td{padding:9px 10px;border-bottom:1px solid rgba(255,255,255,0.04);}
+.mclose{width:100%;padding:11px;background:var(--glass);color:var(--muted);border:1px solid var(--border);border-radius:10px;font-weight:600;font-size:0.9rem;cursor:pointer;margin-top:1rem;}
+.wab{padding:4px 10px;border-radius:6px;font-size:0.72rem;font-weight:700;cursor:pointer;border:none;font-family:'Barlow',sans-serif;}
+.wab-g{background:rgba(34,197,94,0.15);color:#4ade80;border:1px solid rgba(34,197,94,0.2);}
+.wab-r{background:rgba(239,68,68,0.1);color:#f87171;border:1px solid rgba(239,68,68,0.2);}
+
+/* DEL MODAL */
+.del-modal{background:var(--bg2);border:1px solid rgba(239,68,68,0.3);border-radius:18px;padding:1.75rem;width:100%;max-width:360px;}
 
 /* SETTINGS */
-.settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.sg{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
 .sc{background:var(--glass);border:1px solid var(--border);border-radius:14px;padding:1.25rem;}
-.sc-title{font-family:'Barlow Condensed',sans-serif;font-size:0.88rem;font-weight:700;color:var(--dim);letter-spacing:2px;text-transform:uppercase;margin-bottom:1rem;}
-.srow{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);}
-.srow:last-child{border-bottom:none;}
+.sc-t{font-family:'Barlow Condensed',sans-serif;font-size:0.85rem;font-weight:700;color:var(--dim);letter-spacing:2px;text-transform:uppercase;margin-bottom:1rem;}
+.sr{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);}
+.sr:last-child{border-bottom:none;}
 .sl{font-size:0.84rem;color:var(--muted);}
 .sv{font-size:0.84rem;font-weight:700;color:var(--accent);}
+
+/* SAVE TOAST */
+.toast{position:fixed;bottom:2rem;right:2rem;background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.3);color:#4ade80;padding:10px 18px;border-radius:10px;font-size:0.85rem;font-weight:600;z-index:9999;display:none;backdrop-filter:blur(20px);}
 </style>
 </head>
 <body>
 
 <!-- LOGIN -->
 <div id="login-page">
-  <div class="login-card">
-    <div class="login-logo">
+  <div class="lcard">
+    <div class="lcard-logo">
       <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:800;background:linear-gradient(135deg,#f0b429,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">TIG GLOBAL</div>
       <div style="font-size:0.7rem;color:var(--muted);letter-spacing:4px;margin-top:2px;">ADMIN PANEL</div>
     </div>
-    <div class="login-title">Administrator Access</div>
-    <div class="login-sub">Restricted to authorised personnel only</div>
-    <label class="fl">Username</label>
-    <input class="fi" type="text" id="adm-user" placeholder="Admin username">
-    <label class="fl">Password</label>
-    <input class="fi" type="password" id="adm-pass" placeholder="Admin password" onkeydown="if(event.key==='Enter')doAdminLogin()">
-    <button class="login-btn" onclick="doAdminLogin()">SIGN IN</button>
-    <div class="login-err" id="login-err">Incorrect credentials. Please try again.</div>
+    <div class="lcard-title">Administrator Access</div>
+    <div class="lcard-sub">Restricted to authorised personnel only</div>
+    <label class="lf">Username</label>
+    <input class="li" type="text" id="au" placeholder="Admin username">
+    <label class="lf">Password</label>
+    <input class="li" type="password" id="ap" placeholder="Admin password" onkeydown="if(event.key==='Enter')login()">
+    <button class="lbtn" onclick="login()">SIGN IN</button>
+    <div class="lerr" id="lerr">Incorrect credentials.</div>
   </div>
 </div>
 
 <!-- MAIN -->
-<div id="main-panel">
+<div id="main">
   <div class="topbar">
-    <div class="topbar-logo"><span>TIG GLOBAL</span><div style="font-size:0.62rem;background:rgba(240,180,41,0.15);color:var(--accent);border:1px solid var(--border2);padding:2px 8px;border-radius:20px;font-family:'Barlow',sans-serif;font-weight:700;letter-spacing:1px;-webkit-text-fill-color:var(--accent);">ADMIN</div></div>
-    <div class="topbar-nav">
-      <button class="tnav-btn active" onclick="showSection('records',this)">Users & Withdrawals</button>
-      <button class="tnav-btn" onclick="showSection('dashboard',this)">Dashboard</button>
-      <button class="tnav-btn" onclick="showSection('settings',this)">Settings</button>
+    <div style="display:flex;align-items:center;">
+      <span class="tb-logo">TIG GLOBAL</span>
+      <span class="tb-badge">ADMIN</span>
     </div>
-    <button class="signout-btn" onclick="doAdminLogout()">Sign Out</button>
+    <div class="tb-nav">
+      <button class="tnb active" onclick="showSec('users',this)">Users</button>
+      <button class="tnb" onclick="showSec('dashboard',this)">Dashboard</button>
+      <button class="tnb" onclick="showSec('settings',this)">Settings</button>
+    </div>
+    <button class="so-btn" onclick="logout()">Sign Out</button>
   </div>
 
   <div class="content">
 
+    <!-- USERS TABLE -->
+    <div id="sec-users" class="sec active">
+      <div style="margin-bottom:1.25rem;">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:700;color:#fff;letter-spacing:1px;">Users <span id="ucount" style="font-size:1rem;color:var(--muted);font-weight:400;"></span></div>
+        <div style="font-size:0.82rem;color:var(--muted);">Click any highlighted cell to edit it directly</div>
+      </div>
+      <div class="tbl-wrap">
+        <div class="tbl-bar">
+          <span class="tbl-title">ALL USERS</span>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <div class="srch"><svg width="13" height="13" viewBox="0 0 24 24" fill="rgba(255,255,255,0.35)"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg><input type="text" id="srch" placeholder="Search..." oninput="filterUsers()"></div>
+            <button class="rbtn" onclick="loadUsers()">↻ Refresh</button>
+          </div>
+        </div>
+        <div class="tbl-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th class="edith">Password</th>
+                <th>Country</th>
+                <th class="edith">Wallet</th>
+                <th class="edith">Commission</th>
+                <th>Matches</th>
+                <th>Set</th>
+                <th class="edith">Deposits</th>
+                <th>Withdrawals</th>
+                <th>Inv. Code</th>
+                <th>Date Joined</th>
+                <th>Delete</th>
+              </tr>
+            </thead>
+            <tbody id="utbody"><tr><td colspan="14" class="no-data">Loading...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
     <!-- DASHBOARD -->
-    <div id="section-dashboard" class="section active">
+    <div id="sec-dashboard" class="sec">
       <div style="margin-bottom:1.25rem;">
         <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:700;color:#fff;letter-spacing:1px;">Dashboard</div>
         <div style="font-size:0.82rem;color:var(--muted);">Platform overview</div>
       </div>
       <div class="stats-row">
-        <div class="stat-card"><div class="stat-ic ic-gold">👥</div><div><div class="stat-val" id="stat-users">—</div><div class="stat-lbl">Total Users</div></div></div>
-        <div class="stat-card"><div class="stat-ic ic-purple">💰</div><div><div class="stat-val" id="stat-balance">—</div><div class="stat-lbl">Total Wallet Balance</div></div></div>
-        <div class="stat-card"><div class="stat-ic ic-green">✅</div><div><div class="stat-val" id="stat-funded">—</div><div class="stat-lbl">Funded Accounts</div></div></div>
-        <div class="stat-card"><div class="stat-ic ic-blue">⏳</div><div><div class="stat-val" id="stat-pending">—</div><div class="stat-lbl">Pending Withdrawals</div></div></div>
+        <div class="stat"><div class="stat-ic" style="background:rgba(240,180,41,0.15);">👥</div><div><div class="stat-val" id="s-users">—</div><div class="stat-lbl">Total Users</div></div></div>
+        <div class="stat"><div class="stat-ic" style="background:rgba(167,139,250,0.15);">💰</div><div><div class="stat-val" id="s-bal">—</div><div class="stat-lbl">Total Wallet Balance</div></div></div>
+        <div class="stat"><div class="stat-ic" style="background:rgba(34,197,94,0.15);">✅</div><div><div class="stat-val" id="s-funded">—</div><div class="stat-lbl">Funded Accounts</div></div></div>
+        <div class="stat"><div class="stat-ic" style="background:rgba(96,165,250,0.15);">⏳</div><div><div class="stat-val" id="s-pend">—</div><div class="stat-lbl">Pending Withdrawals</div></div></div>
       </div>
-      <div class="table-wrap">
-        <div class="table-toolbar"><span class="table-title">RECENT REGISTRATIONS</span><button class="icon-btn" onclick="loadDashboard()">↻ Refresh</button></div>
+      <div class="tbl-wrap">
+        <div class="tbl-bar"><span class="tbl-title">RECENT REGISTRATIONS</span><button class="rbtn" onclick="loadDash()">↻ Refresh</button></div>
         <div class="tbl-scroll"><table>
-          <thead><tr><th>Username</th><th>Email</th><th>Phone</th><th>Country</th><th>Wallet</th><th>Matches</th><th>Inv. Code</th><th>Joined</th></tr></thead>
-          <tbody id="dash-tbody"><tr><td colspan="8" class="no-data">Loading...</td></tr></tbody>
-        </table></div>
-      </div>
-    </div>
-
-    <!-- RECORDS (Users + Withdrawals combined) -->
-    <div id="section-records" class="section active">
-      <div style="margin-bottom:1.25rem;">
-        <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:700;color:#fff;letter-spacing:1px;">Users & Withdrawals</div>
-        <div style="font-size:0.82rem;color:var(--muted);">All registered users and withdrawal requests in one place</div>
-      </div>
-
-      <!-- USERS TABLE -->
-      <div class="table-wrap" style="margin-bottom:1.5rem;">
-        <div class="table-toolbar">
-          <span class="table-title">USERS <span id="user-count" style="color:var(--muted);font-weight:400;font-size:0.85rem;"></span></span>
-          <div class="toolbar-right">
-            <div class="search-wrap">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="rgba(255,255,255,0.35)"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-              <input type="text" id="user-search" placeholder="Search users..." oninput="filterUsers()">
-            </div>
-            <button class="icon-btn" onclick="loadUsers()">↻ Refresh</button>
-          </div>
-        </div>
-        <div class="tbl-scroll"><table>
-          <thead><tr><th>Username</th><th>Email</th><th>Phone</th><th>Country</th><th>Wallet Balance</th><th>Matches</th><th>Inv. Code</th><th>Joined</th><th>Actions</th></tr></thead>
-          <tbody id="users-tbody"><tr><td colspan="9" class="no-data">Loading...</td></tr></tbody>
-        </table></div>
-      </div>
-
-      <!-- WITHDRAWALS TABLE -->
-      <div class="table-wrap">
-        <div class="table-toolbar">
-          <div style="display:flex;align-items:center;gap:12px;">
-            <span class="table-title">WITHDRAWALS</span>
-            <div class="filter-tabs">
-              <button class="ftab active" onclick="filterWithdrawals('all',this)">All</button>
-              <button class="ftab" onclick="filterWithdrawals('pending',this)">Pending</button>
-              <button class="ftab" onclick="filterWithdrawals('approved',this)">Approved</button>
-              <button class="ftab" onclick="filterWithdrawals('rejected',this)">Rejected</button>
-            </div>
-          </div>
-          <button class="icon-btn" onclick="loadWithdrawals()">↻ Refresh</button>
-        </div>
-        <div class="tbl-scroll"><table>
-          <thead><tr><th>User</th><th>Amount</th><th>Wallet / Payment Info</th><th>Status</th><th>Requested</th><th>Processed</th><th>Actions</th></tr></thead>
-          <tbody id="with-tbody"><tr><td colspan="7" class="no-data">Loading...</td></tr></tbody>
+          <thead><tr><th>Username</th><th>Email</th><th>Country</th><th>Wallet</th><th>Matches</th><th>Inv. Code</th><th>Joined</th></tr></thead>
+          <tbody id="dtbody"><tr><td colspan="7" class="no-data">Loading...</td></tr></tbody>
         </table></div>
       </div>
     </div>
 
     <!-- SETTINGS -->
-    <div id="section-settings" class="section">
-      <div style="margin-bottom:1.25rem;">
-        <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:700;color:#fff;letter-spacing:1px;">Settings</div>
-        <div style="font-size:0.82rem;color:var(--muted);">Platform configuration reference</div>
-      </div>
-      <div class="settings-grid">
-        <div class="sc">
-          <div class="sc-title">Invitation Codes</div>
-          <div class="srow"><span class="sl">Code 1</span><span class="sv">TG7R4K</span></div>
-          <div class="srow"><span class="sl">Code 2</span><span class="sv">TGVIP88</span></div>
-          <div class="srow"><span class="sl">Code 3</span><span class="sv">GLOBAL01</span></div>
-        </div>
-        <div class="sc">
-          <div class="sc-title">Platform Rules</div>
-          <div class="srow"><span class="sl">Deduction per match</span><span class="sv">$6.25</span></div>
-          <div class="srow"><span class="sl">Brand 33 unlock</span><span class="sv">$100 balance</span></div>
-          <div class="srow"><span class="sl">Brand 40 unlock</span><span class="sv">$300 balance</span></div>
-          <div class="srow"><span class="sl">Sets per day</span><span class="sv">3</span></div>
-        </div>
-        <div class="sc">
-          <div class="sc-title">Admin Credentials</div>
-          <div class="srow"><span class="sl">Username</span><span class="sv">tgadmin</span></div>
-          <div class="srow"><span class="sl">Admin URL</span><span class="sv">/admin.html</span></div>
-        </div>
-        <div class="sc">
-          <div class="sc-title">Database</div>
-          <div class="srow"><span class="sl">Project</span><span class="sv">TipGlobal</span></div>
-          <div class="srow"><span class="sl">Tables</span><span class="sv">users, withdrawals</span></div>
-          <div class="srow"><span class="sl">Provider</span><span class="sv">Supabase</span></div>
-        </div>
+    <div id="sec-settings" class="sec">
+      <div style="margin-bottom:1.25rem;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:700;color:#fff;letter-spacing:1px;">Settings</div></div>
+      <div class="sg">
+        <div class="sc"><div class="sc-t">Invitation Codes</div><div class="sr"><span class="sl">Code 1</span><span class="sv">TG7R4K</span></div><div class="sr"><span class="sl">Code 2</span><span class="sv">TGVIP88</span></div><div class="sr"><span class="sl">Code 3</span><span class="sv">GLOBAL01</span></div></div>
+        <div class="sc"><div class="sc-t">Platform Rules</div><div class="sr"><span class="sl">Deduction per match</span><span class="sv">$6.25</span></div><div class="sr"><span class="sl">Brand 33 unlock + deduct</span><span class="sv">$100</span></div><div class="sr"><span class="sl">Brand 40 unlock + deduct</span><span class="sv">$300</span></div><div class="sr"><span class="sl">Sets per day</span><span class="sv">3</span></div></div>
+        <div class="sc"><div class="sc-t">Database</div><div class="sr"><span class="sl">Project</span><span class="sv">TIG Global</span></div><div class="sr"><span class="sl">Tables</span><span class="sv">users, withdrawals</span></div><div class="sr"><span class="sl">Provider</span><span class="sv">Supabase</span></div></div>
+        <div class="sc"><div class="sc-t">Admin</div><div class="sr"><span class="sl">Username</span><span class="sv">tgadmin</span></div><div class="sr"><span class="sl">Panel URL</span><span class="sv">/admin.html</span></div></div>
       </div>
     </div>
 
   </div>
 </div>
 
-<!-- ADD FUNDS MODAL -->
-<div class="modal-ov" id="funds-modal">
+<!-- WITHDRAWALS MODAL -->
+<div class="modal-ov" id="wmod">
   <div class="modal">
-    <div class="modal-title">ADD FUNDS</div>
-    <div class="modal-sub">Credit wallet balance for this user</div>
-    <div class="minfo"><div class="minfo-name" id="fm-name">—</div><div class="minfo-bal">Current balance: <strong id="fm-bal">$0</strong></div></div>
-    <div class="fg"><label class="fl2">Amount to Add ($)</label><input class="fi2" type="number" id="fm-amount" placeholder="Enter amount" min="1"></div>
-    <div class="fg"><label class="fl2">Note (optional)</label><input class="fi2" type="text" id="fm-note" placeholder="e.g. First deposit, Top-up"></div>
-    <div class="mbtns">
-      <button class="mb-confirm" onclick="confirmFunds()">CONFIRM</button>
-      <button class="mb-cancel" onclick="closeModal('funds-modal')">Cancel</button>
-    </div>
-    <div class="success-msg" id="fm-success">✓ Funds added successfully!</div>
+    <div class="modal-title">WITHDRAWALS</div>
+    <div class="modal-sub" id="wmod-sub">User withdrawal requests</div>
+    <table class="wtbl">
+      <thead><tr><th>Amount</th><th>Payment Info</th><th>Status</th><th>Date</th><th>Actions</th></tr></thead>
+      <tbody id="wmod-body"></tbody>
+    </table>
+    <button class="mclose" onclick="closeModal('wmod')">Close</button>
   </div>
 </div>
 
 <!-- DELETE MODAL -->
-<div class="modal-ov" id="del-modal">
-  <div class="modal">
+<div class="modal-ov" id="dmod">
+  <div class="del-modal">
     <div class="modal-title" style="color:#f87171;">DELETE USER</div>
-    <div class="modal-sub">This cannot be undone.</div>
-    <div class="minfo"><div class="minfo-name" id="dm-name">—</div></div>
-    <div class="mbtns">
-      <button class="mb-confirm" style="background:linear-gradient(135deg,#ef4444,#b91c1c);" onclick="confirmDelete()">DELETE</button>
-      <button class="mb-cancel" onclick="closeModal('del-modal')">Cancel</button>
+    <div style="font-size:0.85rem;color:var(--muted);margin:0.75rem 0 1.25rem;"><strong id="dmod-name" style="color:#fff;"></strong> will be permanently deleted.</div>
+    <div style="display:flex;gap:10px;">
+      <button style="flex:1;padding:11px;background:linear-gradient(135deg,#ef4444,#b91c1c);color:#fff;border:none;border-radius:10px;font-weight:700;cursor:pointer;" onclick="confirmDel()">DELETE</button>
+      <button style="flex:1;padding:11px;background:var(--glass);color:var(--muted);border:1px solid var(--border);border-radius:10px;font-weight:600;cursor:pointer;" onclick="closeModal('dmod')">Cancel</button>
     </div>
   </div>
 </div>
+
+<!-- SAVE TOAST -->
+<div class="toast" id="toast">✓ Saved</div>
 
 <script>
 const ADMIN_USER='tgadmin';
 const ADMIN_PASS='TGAdmin2025!';
 const SUPA_URL='https://dkbwxdiiwcowgqmdkyyh.supabase.co';
 const SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRrYnd4ZGlpd2Nvd2dxbWRreXloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2NjU5NzEsImV4cCI6MjA5NTI0MTk3MX0.AxxL0nzHPEaRZYh-4IwJMGDnhxDWyoW3cq9FMJ65UO8';
-let sb=null,allUsers=[],allWithdrawals=[],wFilter='all',fundUserId=null,fundUserBal=0,deleteId=null;
+let sb=null,allUsers=[],delId=null,wUserId=null;
 
-function doAdminLogin(){
-  const u=document.getElementById('adm-user').value.trim();
-  const p=document.getElementById('adm-pass').value;
-  if(u!==ADMIN_USER||p!==ADMIN_PASS){document.getElementById('login-err').style.display='block';return;}
-  try{sb=supabase.createClient(SUPA_URL,SUPA_KEY);}catch(e){document.getElementById('login-err').textContent='Connection error.';document.getElementById('login-err').style.display='block';return;}
+function login(){
+  const u=document.getElementById('au').value.trim();
+  const p=document.getElementById('ap').value;
+  if(u!==ADMIN_USER||p!==ADMIN_PASS){document.getElementById('lerr').style.display='block';return;}
+  try{sb=supabase.createClient(SUPA_URL,SUPA_KEY);}catch(e){document.getElementById('lerr').textContent='Connection error.';document.getElementById('lerr').style.display='block';return;}
   document.getElementById('login-page').style.display='none';
-  document.getElementById('main-panel').style.display='block';
-  loadUsers();loadWithdrawals();loadDashboard();
+  document.getElementById('main').style.display='block';
+  loadUsers();
 }
-function doAdminLogout(){
-  sb=null;allUsers=[];allWithdrawals=[];
+function logout(){
+  sb=null;allUsers=[];
   document.getElementById('login-page').style.display='flex';
-  document.getElementById('main-panel').style.display='none';
-  document.getElementById('adm-pass').value='';
-  document.getElementById('login-err').style.display='none';
+  document.getElementById('main').style.display='none';
+  document.getElementById('ap').value='';
+  document.getElementById('lerr').style.display='none';
 }
 
-function showSection(name,btn){
-  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-  document.querySelectorAll('.tnav-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById('section-'+name).classList.add('active');
+function showSec(name,btn){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.tnb').forEach(b=>b.classList.remove('active'));
+  document.getElementById('sec-'+name).classList.add('active');
   if(btn)btn.classList.add('active');
-  if(name==='records'){loadUsers();loadWithdrawals();}
-  if(name==='dashboard')loadDashboard();
+  if(name==='dashboard')loadDash();
+  if(name==='users')loadUsers();
 }
 
-// ── DASHBOARD ──
-async function loadDashboard(){
-  if(!sb)return;
-  const[{data:users},{data:withdrawals}]=await Promise.all([
-    sb.from('users').select('*').order('created_at',{ascending:false}),
-    sb.from('withdrawals').select('*').eq('status','pending')
-  ]);
-  allUsers=users||[];
-  const totalBal=allUsers.reduce((s,u)=>s+parseFloat(u.wallet_balance||0),0);
-  const funded=allUsers.filter(u=>parseFloat(u.wallet_balance||0)>0).length;
-  document.getElementById('stat-users').textContent=allUsers.length;
-  document.getElementById('stat-balance').textContent='$'+totalBal.toFixed(2);
-  document.getElementById('stat-funded').textContent=funded;
-  document.getElementById('stat-pending').textContent=(withdrawals||[]).length;
-  const recent=allUsers.slice(0,8);
-  document.getElementById('dash-tbody').innerHTML=recent.length?recent.map(u=>`<tr>
-    <td><strong>${u.username}</strong></td>
-    <td style="color:var(--muted)">${u.email}</td>
-    <td style="color:var(--muted)">${u.phone||'—'}</td>
-    <td style="font-size:0.82rem">${u.country||'—'}</td>
-    <td><span class="badge ${parseFloat(u.wallet_balance||0)>0?'bg':'br'}">$${parseFloat(u.wallet_balance||0).toFixed(2)}</span></td>
-    <td style="text-align:center">${u.match_count||0}</td>
-    <td style="color:var(--accent);font-size:0.8rem">${u.invitation_code||'—'}</td>
-    <td style="color:var(--dim);font-size:0.8rem">${u.created_at?new Date(u.created_at).toLocaleDateString():'—'}</td>
-  </tr>`).join(''):'<tr><td colspan="8" class="no-data">No users yet</td></tr>';
-}
-
-// ── USERS ──
+// ── LOAD USERS ──
 async function loadUsers(){
   if(!sb)return;
   const{data}=await sb.from('users').select('*').order('created_at',{ascending:false});
   allUsers=data||[];
-  document.getElementById('user-count').textContent='('+allUsers.length+')';
+  document.getElementById('ucount').textContent='('+allUsers.length+')';
   renderUsers(allUsers);
 }
+
 function renderUsers(list){
-  const b=document.getElementById('users-tbody');
-  if(!list.length){b.innerHTML='<tr><td colspan="8" class="no-data">No users found</td></tr>';return;}
+  const b=document.getElementById('utbody');
+  if(!list.length){b.innerHTML='<tr><td colspan="14" class="no-data">No users found</td></tr>';return;}
   b.innerHTML=list.map(u=>{
     const bal=parseFloat(u.wallet_balance||0);
+    const comm=parseFloat(u.commission||0);
+    const deps=parseFloat(u.total_deposits||0);
+    const balClass=bal>200?'bg':bal>0?'by':'br';
     return`<tr>
       <td><strong>${u.username}</strong></td>
-      <td style="color:var(--muted);font-size:0.82rem">${u.email}</td>
-      <td style="color:var(--muted);font-size:0.82rem">${u.phone||'—'}</td>
-      <td style="font-size:0.82rem">${u.country||'—'}</td>
-      <td><span class="badge ${bal>200?'bg':bal>0?'by':'br'}">$${bal.toFixed(2)}</span></td>
-      <td style="text-align:center;color:var(--muted)">${u.match_count||0}</td>
-      <td style="color:var(--accent);font-size:0.8rem;letter-spacing:1px">${u.invitation_code||'—'}</td>
-      <td style="color:var(--dim);font-size:0.8rem">${u.created_at?new Date(u.created_at).toLocaleDateString():'—'}</td>
-      <td><div class="acts">
-        <button class="ab ab-green" onclick="openFunds('${u.id}','${u.username}',${bal})">+ Funds</button>
-        <button class="ab ab-yellow" onclick="resetMatches('${u.id}','${u.username}')">Reset</button>
-        <button class="ab ab-red" onclick="openDelete('${u.id}','${u.username}')">Delete</button>
-      </div></td>
+      <td style="color:var(--muted);font-size:0.8rem;">${u.email}</td>
+      <td style="color:var(--muted);font-size:0.8rem;">${u.phone||'—'}</td>
+      <td><span class="ecell" onclick="editCell(this,'${u.id}','password','${u.password||''}','text')">••••••</span></td>
+      <td style="font-size:0.82rem;">${u.country||'—'}</td>
+      <td><span class="ecell" onclick="editCell(this,'${u.id}','wallet_balance',${bal},'number')"><span class="badge ${balClass}">$${bal.toFixed(2)}</span></span></td>
+      <td><span class="ecell" onclick="editCell(this,'${u.id}','commission',${comm},'number')"><span style="color:var(--accent2);font-weight:700;">$${comm.toFixed(2)}</span></span></td>
+      <td style="text-align:center;color:var(--muted);">${u.match_count||0}</td>
+      <td style="text-align:center;"><span style="color:var(--accent);font-weight:700;">${u.current_set||1}</span></td>
+      <td><span class="ecell" onclick="editCell(this,'${u.id}','total_deposits',${deps},'number')"><span style="color:#4ade80;font-weight:700;">$${deps.toFixed(2)}</span></span></td>
+      <td><span class="w-link" onclick="openWithdrawals('${u.id}','${u.username}')">View</span></td>
+      <td style="color:var(--accent);font-size:0.8rem;letter-spacing:1px;">${u.invitation_code||'—'}</td>
+      <td style="color:var(--dim);font-size:0.8rem;">${u.created_at?new Date(u.created_at).toLocaleDateString():'—'}</td>
+      <td><button class="ab ab-red" onclick="openDel('${u.id}','${u.username}')">Delete</button></td>
     </tr>`;
   }).join('');
 }
+
 function filterUsers(){
-  const q=document.getElementById('user-search').value.toLowerCase();
-  renderUsers(allUsers.filter(u=>(u.username||'').toLowerCase().includes(q)||(u.email||'').toLowerCase().includes(q)||(u.phone||'').includes(q)));
+  const q=document.getElementById('srch').value.toLowerCase();
+  renderUsers(allUsers.filter(u=>(u.username||'').toLowerCase().includes(q)||(u.email||'').toLowerCase().includes(q)||(u.phone||'').includes(q)||(u.country||'').toLowerCase().includes(q)));
 }
 
-// ── WITHDRAWALS ──
-async function loadWithdrawals(){
-  if(!sb)return;
-  const{data}=await sb.from('withdrawals').select('*').order('created_at',{ascending:false});
-  allWithdrawals=data||[];
-  renderWithdrawals(allWithdrawals);
+// ── INLINE EDIT ──
+function editCell(span,userId,field,current,type){
+  const input=document.createElement('input');
+  input.type=type;
+  input.value=field==='password'?current:current;
+  input.className='einput';
+  if(field==='password'){input.type='text';input.placeholder='New password';}
+
+  const save=async()=>{
+    const val=type==='number'?parseFloat(input.value)||0:input.value.trim();
+    if(val===current){renderCell(span,field,current);return;}
+    const{error}=await sb.from('users').update({[field]:val}).eq('id',userId);
+    if(error){alert('Save failed: '+error.message);renderCell(span,field,current);return;}
+    // Update local cache
+    const u=allUsers.find(x=>x.id===userId);
+    if(u)u[field]=val;
+    renderCell(span,field,val);
+    showToast();
+  };
+
+  input.onblur=save;
+  input.onkeydown=(e)=>{
+    if(e.key==='Enter'){input.blur();}
+    if(e.key==='Escape'){renderCell(span,field,current);}
+  };
+
+  span.innerHTML='';
+  span.appendChild(input);
+  input.focus();
+  input.select();
 }
-function renderWithdrawals(list){
-  const filtered=wFilter==='all'?list:list.filter(w=>w.status===wFilter);
-  const b=document.getElementById('with-tbody');
-  if(!filtered.length){b.innerHTML='<tr><td colspan="8" class="no-data">No withdrawal requests</td></tr>';return;}
-  b.innerHTML=filtered.map(w=>{
+
+function renderCell(span,field,val){
+  const n=parseFloat(val)||0;
+  if(field==='password'){span.innerHTML='••••••';}
+  else if(field==='wallet_balance'){const c=n>200?'bg':n>0?'by':'br';span.innerHTML=`<span class="badge ${c}">$${n.toFixed(2)}</span>`;}
+  else if(field==='commission'){span.innerHTML=`<span style="color:var(--accent2);font-weight:700;">$${n.toFixed(2)}</span>`;}
+  else if(field==='total_deposits'){span.innerHTML=`<span style="color:#4ade80;font-weight:700;">$${n.toFixed(2)}</span>`;}
+  else{span.innerHTML=val;}
+}
+
+function showToast(){
+  const t=document.getElementById('toast');
+  t.style.display='block';
+  setTimeout(()=>t.style.display='none',2000);
+}
+
+// ── WITHDRAWALS MODAL ──
+async function openWithdrawals(userId,username){
+  wUserId=userId;
+  document.getElementById('wmod-sub').textContent='Withdrawals for '+username;
+  document.getElementById('wmod-body').innerHTML='<tr><td colspan="5" style="padding:1rem;color:var(--muted);text-align:center;">Loading...</td></tr>';
+  document.getElementById('wmod').classList.add('show');
+  const{data}=await sb.from('withdrawals').select('*').eq('user_id',userId).order('created_at',{ascending:false});
+  const list=data||[];
+  if(!list.length){document.getElementById('wmod-body').innerHTML='<tr><td colspan="5" style="padding:1rem;color:var(--muted);text-align:center;">No withdrawals</td></tr>';return;}
+  document.getElementById('wmod-body').innerHTML=list.map(w=>{
     const sc=w.status==='approved'?'bg':w.status==='rejected'?'br':'by';
-    const actions=w.status==='pending'
-      ?`<button class="ab ab-approve" onclick="processW('${w.id}','approved','${w.user_id}',${w.amount})">Approve</button>
-         <button class="ab ab-reject" onclick="processW('${w.id}','rejected','${w.user_id}',${w.amount})">Reject</button>`
-      :`<span style="font-size:0.75rem;color:var(--dim)">Done</span>`;
+    const acts=w.status==='pending'
+      ?`<button class="wab wab-g" onclick="processW('${w.id}','approved',${w.amount},'${userId}')">Approve</button>
+         <button class="wab wab-r" onclick="processW('${w.id}','rejected',${w.amount},'${userId}')">Reject</button>`
+      :'<span style="color:var(--dim);font-size:0.75rem;">Processed</span>';
     return`<tr>
-      <td><strong>${w.username}</strong></td>
-      <td style="color:var(--muted);font-size:0.82rem">${w.user_email||'—'}</td>
-      <td style="color:var(--accent);font-weight:700">$${parseFloat(w.amount).toFixed(2)}</td>
-      <td style="font-size:0.8rem;color:var(--muted);max-width:160px;overflow:hidden;text-overflow:ellipsis">${w.wallet_address||'—'}</td>
+      <td style="color:var(--accent);font-weight:700;">$${parseFloat(w.amount).toFixed(2)}</td>
+      <td style="font-size:0.78rem;color:var(--muted);max-width:120px;overflow:hidden;text-overflow:ellipsis;">${w.wallet_address||'—'}</td>
       <td><span class="badge ${sc}">${w.status}</span></td>
-      <td style="font-size:0.8rem;color:var(--dim)">${w.created_at?new Date(w.created_at).toLocaleString():'—'}</td>
-      <td style="font-size:0.8rem;color:var(--dim)">${w.processed_at?new Date(w.processed_at).toLocaleString():'—'}</td>
-      <td><div class="acts">${actions}</div></td>
+      <td style="font-size:0.75rem;color:var(--dim);">${w.created_at?new Date(w.created_at).toLocaleString():'—'}</td>
+      <td style="display:flex;gap:5px;">${acts}</td>
     </tr>`;
   }).join('');
 }
-function filterWithdrawals(f,btn){
-  wFilter=f;
-  document.querySelectorAll('.ftab').forEach(t=>t.classList.remove('active'));
-  if(btn)btn.classList.add('active');
-  renderWithdrawals(allWithdrawals);
-}
-async function processW(wid,status,userId,amount){
-  if(!confirm('Are you sure you want to '+status+' this withdrawal?'))return;
-  await sb.from('withdrawals').update({status,processed_at:new Date().toISOString()}).eq('id',wid);
-  if(status==='rejected'&&userId){
-    const{data:u}=await sb.from('users').select('wallet_balance').eq('id',userId).single();
-    if(u) await sb.from('users').update({wallet_balance:parseFloat(u.wallet_balance||0)+parseFloat(amount)}).eq('id',userId);
-  }
-  loadWithdrawals();loadDashboard();
-}
 
-// ── FUNDS ──
-function openFunds(id,name,bal){
-  fundUserId=id;fundUserBal=bal;
-  document.getElementById('fm-name').textContent=name;
-  document.getElementById('fm-bal').textContent='$'+bal.toFixed(2);
-  document.getElementById('fm-amount').value='';
-  document.getElementById('fm-note').value='';
-  document.getElementById('fm-success').style.display='none';
-  document.getElementById('funds-modal').classList.add('show');
-}
-async function confirmFunds(){
-  const amt=parseFloat(document.getElementById('fm-amount').value);
-  if(!amt||amt<=0){alert('Please enter a valid amount.');return;}
-  const newBal=fundUserBal+amt;
-  await sb.from('users').update({wallet_balance:newBal}).eq('id',fundUserId);
-  document.getElementById('fm-success').style.display='block';
-  document.getElementById('fm-bal').textContent='$'+newBal.toFixed(2);
-  fundUserBal=newBal;
-  const u=allUsers.find(x=>x.id===fundUserId);if(u)u.wallet_balance=newBal;
-  renderUsers(allUsers);loadDashboard();
-  setTimeout(()=>document.getElementById('fm-success').style.display='none',3000);
+async function processW(wid,status,amount,userId){
+  await sb.from('withdrawals').update({status,processed_at:new Date().toISOString()}).eq('id',wid);
+  if(status==='rejected'){
+    const{data:u}=await sb.from('users').select('wallet_balance').eq('id',userId).single();
+    if(u){const nb=parseFloat(u.wallet_balance||0)+parseFloat(amount);await sb.from('users').update({wallet_balance:nb}).eq('id',userId);}
+  }
+  showToast();
+  openWithdrawals(userId,document.getElementById('wmod-sub').textContent.replace('Withdrawals for ',''));
+  loadUsers();
 }
 
 // ── DELETE ──
-function openDelete(id,name){deleteId=id;document.getElementById('dm-name').textContent=name;document.getElementById('del-modal').classList.add('show');}
-async function confirmDelete(){
-  if(!deleteId)return;
-  await sb.from('users').delete().eq('id',deleteId);
-  allUsers=allUsers.filter(u=>u.id!==deleteId);
-  closeModal('del-modal');renderUsers(allUsers);loadDashboard();deleteId=null;
+function openDel(id,name){delId=id;document.getElementById('dmod-name').textContent=name;document.getElementById('dmod').classList.add('show');}
+async function confirmDel(){
+  if(!delId)return;
+  await sb.from('users').delete().eq('id',delId);
+  allUsers=allUsers.filter(u=>u.id!==delId);
+  closeModal('dmod');renderUsers(allUsers);document.getElementById('ucount').textContent='('+allUsers.length+')';
+  delId=null;showToast();
 }
 
-// ── RESET ──
-async function resetMatches(id,name){
-  if(!confirm('Reset match count for '+name+'?'))return;
-  await sb.from('users').update({match_count:0}).eq('id',id);
-  const u=allUsers.find(x=>x.id===id);if(u)u.match_count=0;
-  renderUsers(allUsers);
+// ── DASHBOARD ──
+async function loadDash(){
+  if(!sb)return;
+  const[{data:users},{data:wd}]=await Promise.all([
+    sb.from('users').select('*').order('created_at',{ascending:false}),
+    sb.from('withdrawals').select('*').eq('status','pending')
+  ]);
+  const u=users||[];
+  document.getElementById('s-users').textContent=u.length;
+  document.getElementById('s-bal').textContent='$'+(u.reduce((s,x)=>s+parseFloat(x.wallet_balance||0),0)).toFixed(2);
+  document.getElementById('s-funded').textContent=u.filter(x=>parseFloat(x.wallet_balance||0)>0).length;
+  document.getElementById('s-pend').textContent=(wd||[]).length;
+  document.getElementById('dtbody').innerHTML=u.slice(0,8).map(x=>`<tr>
+    <td><strong>${x.username}</strong></td>
+    <td style="color:var(--muted)">${x.email}</td>
+    <td>${x.country||'—'}</td>
+    <td><span class="badge ${parseFloat(x.wallet_balance||0)>0?'bg':'br'}">$${parseFloat(x.wallet_balance||0).toFixed(2)}</span></td>
+    <td style="text-align:center">${x.match_count||0}</td>
+    <td style="color:var(--accent)">${x.invitation_code||'—'}</td>
+    <td style="color:var(--dim);font-size:0.8rem">${x.created_at?new Date(x.created_at).toLocaleDateString():'—'}</td>
+  </tr>`).join('')||'<tr><td colspan="7" class="no-data">No users yet</td></tr>';
 }
 
 function closeModal(id){document.getElementById(id).classList.remove('show');}
