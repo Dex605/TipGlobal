@@ -58,7 +58,8 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);over
 .btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
 .land-scroll{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:6px;animation:bounce 2s infinite;cursor:pointer;}
 .land-scroll span{font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--dim);}
-@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(8px);}}
+@keyframes celebRise{0%{opacity:0;transform:scale(0.6) translateY(30px);}15%{opacity:1;transform:scale(1.15) translateY(0);}80%{opacity:1;transform:scale(1) translateY(-40px);}100%{opacity:0;transform:scale(0.9) translateY(-80px);}}
+.celeb-item{position:fixed;z-index:9990;pointer-events:none;font-weight:900;animation:celebRise 3.5s ease-out forwards;text-shadow:0 0 24px rgba(240,180,41,0.9);}
 .land-details{background:var(--bg);position:relative;z-index:2;padding:3rem 1.5rem 4rem;}
 .ld-tag{font-family:'Barlow Condensed',sans-serif;font-size:0.72rem;letter-spacing:4px;text-transform:uppercase;color:var(--accent);margin-bottom:0.6rem;}
 .ld-title{font-family:'Playfair Display',serif;font-size:1.85rem;font-weight:700;color:#fff;margin-bottom:0.5rem;line-height:1.2;}
@@ -167,7 +168,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);over
 .brand-showcase{display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--glass);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);border:1px solid var(--border2);border-radius:24px;padding:2rem 2.5rem;width:calc(100% - 1rem);max-width:340px;box-shadow:0 20px 60px rgba(0,0,0,0.4),0 0 0 1px var(--border);min-height:300px;position:relative;overflow:hidden;}
 .brand-showcase::before{content:'';position:absolute;top:-60px;right:-60px;width:160px;height:160px;border-radius:50%;background:var(--glow);filter:blur(40px);pointer-events:none;opacity:0.5;}
 .brand-showcase::after{content:'';position:absolute;bottom:-60px;left:-60px;width:160px;height:160px;border-radius:50%;background:var(--glow2);filter:blur(40px);pointer-events:none;opacity:0.4;}
-.brand-logo-wrap{width:200px;height:200px;display:flex;align-items:center;justify-content:center;margin-bottom:1.2rem;position:relative;z-index:1;}
+.brand-logo-wrap{width:240px;height:240px;display:flex;align-items:center;justify-content:center;margin-bottom:1.2rem;position:relative;z-index:1;}
 .brand-logo-main{max-width:100%;max-height:100%;object-fit:contain;}
 .brand-feat-name{font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:700;color:#fff;letter-spacing:0.5px;text-align:center;position:relative;z-index:1;}
 .brand-feat-cat{font-size:0.72rem;color:var(--accent2);letter-spacing:3px;text-transform:uppercase;margin-top:5px;text-align:center;position:relative;z-index:1;}
@@ -626,7 +627,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);over
     <div class="sc" style="--glow:rgba(252,92,125,0.3);"><div class="sc::before" style="background:var(--glow2);"></div><div class="sch"><span class="scl">Commission</span></div><div class="scv" id="comm-disp" style="background:linear-gradient(135deg,var(--accent2),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">$0</div><div class="scd">Daily profit resets at midnight each day</div></div>
   </div>
   <div class="psec2">
-    <div class="phead"><span class="plbl">Campaigns</span><span class="pcnt" id="pcnt">0 / 40</span></div>
+    <div class="phead"><span class="plbl">Campaigns</span><span id="set-badge" style="font-family:'Barlow Condensed',sans-serif;font-size:0.8rem;font-weight:700;color:var(--accent);letter-spacing:2px;background:rgba(240,180,41,0.12);padding:3px 10px;border-radius:20px;border:1px solid rgba(240,180,41,0.25);">SET <span id="set-num">1</span> / 3</span><span class="pcnt" id="pcnt">0 / 40</span></div>
     <div class="cthumbs" id="cthumbs"></div>
   </div>
   <div class="farea">
@@ -645,7 +646,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);over
       </div>
     </div>
   </div>
-  <div class="mbtnw"><button class="mbtn" onclick="doMatch()">MATCH &nbsp;(<span id="mcnt">0</span> / 40)</button></div>
+  <div class="mbtnw"><button class="mbtn" onclick="doMatch()">MATCH &nbsp;— SET <span id="mcnt-set">1</span> &nbsp;(<span id="mcnt">0</span> / 40)</button></div>
   <div class="mtag">Partnering with global brands to shape the future of promotion</div>
   <div class="inotes"><h4>Important Notes</h4><p>Online Support Hours 08:00 to 21:00. For assistance please contact Online Customer Service.</p></div>
   <div class="bnav">
@@ -918,7 +919,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);over
 const SUPA_URL='https://nhxeazqklaomiztbjnwe.supabase.co';
 const SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5oeGVhenFrbGFvbWl6dGJqbndlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg2MzQyODMsImV4cCI6MjA5NDIxMDI4M30.7OILmJjCcWeFeB5YXVRtgxaRDSeGc4z6NxURdWVJQjE';
 let sb;try{sb=supabase.createClient(SUPA_URL,SUPA_KEY);}catch(e){sb=null;}
-let cUser=null,mCount=0,subHist=[],recs=[],lock33=false,lock40=false,rTab='all',walletBal=0,commTotal=0;
+let cUser=null,mCount=0,currentSet=1,subHist=[],recs=[],lock33=false,lock40=false,rTab='all',walletBal=0,commTotal=0;
 const DEDUCT_PER_MATCH=6.25;
 
 const BRANDS=[
@@ -1095,7 +1096,6 @@ function doSignUp(){
   }
 }
 function afterLogin(){
-  if(!walletBal)walletBal=80;
   const n=cUser.username,i=n[0].toUpperCase();
   document.getElementById('av1').textContent=i;document.getElementById('un1').textContent=n;
   document.getElementById('av2').textContent=i;document.getElementById('un2').textContent=n;
@@ -1110,7 +1110,7 @@ function afterLogin(){
   buildSlideshow();renderRecs();switchTab('page-home');updateWallet();updateCommDisplay();
   setTimeout(()=>{document.getElementById('popup').style.display='flex';},700);
 }
-function doLogout(){cUser=null;mCount=0;recs=[];lock33=false;lock40=false;subHist=[];walletBal=0;commTotal=0;document.getElementById('mcnt').textContent='0';document.getElementById('pcnt').textContent='0 / 40';goTo('page-landing');}
+function doLogout(){cUser=null;mCount=0;currentSet=1;recs=[];lock33=false;lock40=false;subHist=[];walletBal=0;commTotal=0;document.getElementById('mcnt').textContent='0';document.getElementById('pcnt').textContent='0 / 40';goTo('page-landing');}
 function buildSlideshow(){
   const el=document.getElementById('cthumbs');el.innerHTML='';
   BRANDS.forEach((brand,i)=>{
@@ -1163,12 +1163,31 @@ function showInsuf(){
   document.getElementById('insuf-msg').textContent='Insufficient balance. Please contact customer care to deposit.';
   document.getElementById('insuf-popup').style.display='flex';
 }
+function showCelebration(){
+  const items=['x3','🎉','x3','🎊','x3','⭐','x3','🎯','x3','✨'];
+  let timers=[];
+  function spawnItem(content,delay){
+    timers.push(setTimeout(()=>{
+      const el=document.createElement('div');
+      el.className='celeb-item';
+      el.textContent=content;
+      const isX3=content==='x3';
+      el.style.cssText=`left:${8+Math.random()*82}%;top:${15+Math.random()*65}%;font-size:${isX3?'2.2rem':'1.8rem'};color:${isX3?'#f0b429':'#fff'};font-family:'Barlow Condensed',sans-serif;letter-spacing:${isX3?'3px':'0'};`;
+      document.body.appendChild(el);
+      setTimeout(()=>el.remove(),3500);
+    },delay));
+  }
+  for(let wave=0;wave<5;wave++){
+    const baseDelay=wave*2000;
+    items.forEach((item,i)=>spawnItem(item,baseDelay+i*180));
+  }
+  timers.push(setTimeout(()=>{document.querySelectorAll('.celeb-item').forEach(el=>el.remove());},10500));
+}
 function tryUnlock(idx){
   const threshold=idx===32?100:300;
   if(walletBal>=threshold){
-    if(idx===32)lock33=true;
-    if(idx===39)lock40=true;
-    // Replace locked tile with normal thumbnail
+    if(idx===32){lock33=true;showCelebration();}
+    if(idx===39){lock40=true;showCelebration();}
     const tile=document.getElementById('lktile-'+idx);
     if(tile){
       const img=document.createElement('img');
@@ -1182,15 +1201,28 @@ function tryUnlock(idx){
     showInsuf();
   }
 }
+function updateSetDisplay(){
+  const sn=document.getElementById('set-num');if(sn)sn.textContent=currentSet;
+  const ms=document.getElementById('mcnt-set');if(ms)ms.textContent=currentSet;
+}
 function doMatch(){
   const carIdx=mCount%BRANDS.length;
-  // Check if locked brand
   if(carIdx===32&&!lock33){tryUnlock(32);return;}
   if(carIdx===39&&!lock40){tryUnlock(39);return;}
-  // Check balance
   if(walletBal<=0){document.getElementById('no-funds-popup').style.display='flex';return;}
-  if(mCount>=40){alert('All 40 matches completed for today!');return;}
-  // Deduct from wallet for brands 0-31
+  if(mCount>=40){
+    if(currentSet<3){
+      currentSet++;mCount=0;
+      updateSetDisplay();
+      document.getElementById('mcnt').textContent='0';
+      document.getElementById('pcnt').textContent='0 / 40';
+      buildSlideshow();
+      alert('Set '+(currentSet-1)+' complete! Starting Set '+currentSet+'...');
+    } else {
+      alert('All 3 sets completed for today!');
+    }
+    return;
+  }
   if(carIdx<32){
     walletBal=parseFloat((walletBal-DEDUCT_PER_MATCH).toFixed(2));
     if(walletBal<0)walletBal=0;
@@ -1204,7 +1236,6 @@ function doMatch(){
   updateWallet();renderRecs();
   const nextIdx=mCount%BRANDS.length;
   pickBrand(nextIdx);
-  // Scroll thumbnail strip to next
   const allThumbs=document.getElementById('cthumbs').children;
   const nextThumb=allThumbs[nextIdx];
   if(nextThumb){const container=document.getElementById('cthumbs');container.scrollTo({left:nextThumb.offsetLeft-(container.offsetWidth/2)+(nextThumb.offsetWidth/2),behavior:'smooth'});}
