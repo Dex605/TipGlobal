@@ -9,22 +9,22 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#07081c;
-  --bg2:#0e1035;
-  --bg3:#12143a;
-  --accent:#7c5cfc;
-  --accent2:#fc5c7d;
-  --gold:#f9cb28;
+  --bg:#06040f;
+  --bg2:#0e0a1f;
+  --bg3:#15102e;
+  --accent:#f0b429;
+  --accent2:#a78bfa;
+  --gold:#ffd166;
   --glass:rgba(255,255,255,0.055);
   --glass2:rgba(255,255,255,0.09);
-  --glass3:rgba(255,255,255,0.13);
+  --glass3:rgba(255,255,255,0.14);
   --border:rgba(255,255,255,0.08);
-  --border2:rgba(255,255,255,0.14);
+  --border2:rgba(240,180,41,0.25);
   --text:#fff;
-  --muted:rgba(255,255,255,0.5);
-  --dim:rgba(255,255,255,0.22);
-  --glow:rgba(124,92,252,0.35);
-  --glow2:rgba(252,92,125,0.3);
+  --muted:rgba(255,255,255,0.52);
+  --dim:rgba(255,255,255,0.24);
+  --glow:rgba(240,180,41,0.3);
+  --glow2:rgba(167,139,250,0.28);
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;}
@@ -33,18 +33,19 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);over
 
 /* ── LOGO ── */
 .tg-logo{display:inline-flex;align-items:center;gap:0;}
-.tg-tip{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;letter-spacing:1px;padding:3px 7px 3px 8px;border-radius:6px 0 0 6px;font-size:inherit;}
-.tg-g{background:rgba(255,255,255,0.12);color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;padding:3px 6px;border-radius:0 6px 6px 0;font-size:inherit;border:1px solid rgba(255,255,255,0.15);}
+.tg-tip{background:linear-gradient(135deg,#0ecfa4,#0aa882);color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;letter-spacing:1px;padding:3px 7px 3px 8px;border-radius:6px 0 0 6px;font-size:inherit;}
+.tg-g{background:rgba(245,166,35,0.18);color:var(--accent2);font-family:'Barlow Condensed',sans-serif;font-weight:800;padding:3px 6px;border-radius:0 6px 6px 0;font-size:inherit;border:1px solid rgba(245,166,35,0.35);}
 .tg-rest{font-family:'Barlow Condensed',sans-serif;font-weight:300;letter-spacing:5px;color:var(--muted);margin-left:8px;font-size:inherit;}
 
 /* ── LANDING ── */
-#page-landing{position:relative;min-height:100vh;overflow:hidden;background:var(--bg);}
+#page-landing{overflow-y:auto;min-height:100vh;background:var(--bg);}
+.land-hero{position:relative;height:100vh;overflow:hidden;}
 .land-mosaic{position:absolute;inset:0;display:grid;grid-template-columns:repeat(6,1fr);grid-template-rows:repeat(8,1fr);z-index:0;filter:blur(8px) saturate(0.6);transform:scale(1.05);pointer-events:none;}
-.mosaic-cell{display:flex;align-items:center;justify-content:center;padding:10px;opacity:0;transition:opacity 1.2s ease;}
+.mosaic-cell{display:flex;align-items:center;justify-content:center;padding:10px;opacity:0;transition:opacity 1.2s ease;background:rgba(255,255,255,0.08);}
 .mosaic-cell.vis{opacity:1;}
 .mosaic-logo{max-width:68%;max-height:68%;object-fit:contain;}
-.land-overlay{position:absolute;inset:0;z-index:1;background:radial-gradient(ellipse at 50% 40%,rgba(7,8,28,0.55) 0%,rgba(7,8,28,0.95) 75%);}
-.land-content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:2.5rem 2rem;text-align:center;}
+.land-overlay{position:absolute;inset:0;z-index:1;background:radial-gradient(ellipse at 50% 35%,rgba(20,10,50,0.6) 0%,rgba(6,4,15,0.96) 80%);}
+.land-content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding:2.5rem 2rem;text-align:center;}
 .land-logopill{display:flex;align-items:center;justify-content:center;margin-bottom:2.8rem;}
 .land-tagline{font-size:0.72rem;font-family:'Barlow Condensed',sans-serif;letter-spacing:4px;text-transform:uppercase;color:var(--accent2);margin-bottom:1.2rem;opacity:0.9;}
 .land-h1{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,7vw,5rem);font-weight:900;line-height:1.05;color:#fff;margin-bottom:1.2rem;max-width:680px;}
@@ -55,9 +56,17 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);over
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 40px var(--glow);}
 .btn-ghost{background:transparent;color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:14px 40px;border:1.5px solid var(--border2);border-radius:50px;cursor:pointer;transition:all .25s;backdrop-filter:blur(10px);}
 .btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
-.land-scroll{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:6px;animation:bounce 2s infinite;}
+.land-scroll{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:6px;animation:bounce 2s infinite;cursor:pointer;}
 .land-scroll span{font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--dim);}
 @keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(8px);}}
+.land-details{background:var(--bg);position:relative;z-index:2;padding:3rem 1.5rem 4rem;}
+.ld-tag{font-family:'Barlow Condensed',sans-serif;font-size:0.72rem;letter-spacing:4px;text-transform:uppercase;color:var(--accent);margin-bottom:0.6rem;}
+.ld-title{font-family:'Playfair Display',serif;font-size:1.85rem;font-weight:700;color:#fff;margin-bottom:0.5rem;line-height:1.2;}
+.ld-sub{font-size:0.9rem;color:var(--muted);margin-bottom:2.5rem;line-height:1.7;}
+.ld-step{display:flex;align-items:flex-start;gap:14px;background:var(--glass);border:1px solid var(--border2);border-radius:16px;padding:1.1rem 1.2rem;backdrop-filter:blur(20px);}
+.ld-brand-tile{background:rgba(255,255,255,0.92);border-radius:12px;padding:10px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);}
+.ld-brand-tile img{max-width:100%;max-height:100%;object-fit:contain;}
+.ld-cta{display:flex;flex-direction:column;gap:10px;}
 
 /* ── AUTH ── */
 #page-signin,#page-signup{background:var(--bg);position:relative;overflow-y:auto;}
@@ -117,7 +126,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);over
 .hintro p{font-size:0.87rem;color:var(--muted);line-height:1.8;margin-bottom:0.9rem;text-align:center;}
 .stitle{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:#fff;padding:1.5rem 1.5rem 1rem;}
 .wcard{margin:0 1.25rem 1.25rem;border-radius:16px;overflow:hidden;border:1px solid var(--border);background:var(--glass);backdrop-filter:blur(16px);}
-.wcard-img{width:100%;height:175px;object-fit:cover;opacity:0.7;}
+.wcard-img{width:100%;height:240px;object-fit:cover;opacity:0.85;}
 .wcard-body{padding:1rem 1.2rem;}
 .wcard-body h3{font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;font-weight:700;color:#fff;margin-bottom:0.4rem;letter-spacing:0.5px;}
 .wcard-body p{font-size:0.84rem;color:var(--muted);line-height:1.7;}
@@ -152,13 +161,13 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);over
 .pcnt{font-family:'Barlow Condensed',sans-serif;font-size:0.95rem;color:var(--accent2);font-weight:700;}
 .cthumbs{display:flex;gap:10px;overflow-x:auto;padding:10px 1rem 14px;scrollbar-width:none;align-items:flex-end;}
 .cthumbs::-webkit-scrollbar{display:none;}
-.cth{min-width:64px;width:64px;height:64px;border-radius:14px;object-fit:contain;padding:8px;cursor:pointer;border:1.5px solid var(--border);background:var(--glass);flex-shrink:0;transition:all .35s cubic-bezier(0.34,1.56,0.64,1);box-shadow:0 4px 12px rgba(0,0,0,0.3);}
+.cth{min-width:64px;width:64px;height:64px;border-radius:14px;object-fit:contain;padding:8px;cursor:pointer;border:1.5px solid var(--border);background:rgba(255,255,255,0.92);flex-shrink:0;transition:all .35s cubic-bezier(0.34,1.56,0.64,1);box-shadow:0 4px 12px rgba(0,0,0,0.3);}
 .cth.active{min-width:78px;width:78px;height:78px;border-color:var(--accent);box-shadow:0 0 0 2px var(--accent),0 12px 30px var(--glow);transform:translateY(-10px);}
 .farea{padding:1rem;display:flex;justify-content:center;background:var(--bg);min-height:350px;align-items:center;}
 .brand-showcase{display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--glass);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);border:1px solid var(--border2);border-radius:24px;padding:2rem 2.5rem;width:calc(100% - 1rem);max-width:340px;box-shadow:0 20px 60px rgba(0,0,0,0.4),0 0 0 1px var(--border);min-height:300px;position:relative;overflow:hidden;}
 .brand-showcase::before{content:'';position:absolute;top:-60px;right:-60px;width:160px;height:160px;border-radius:50%;background:var(--glow);filter:blur(40px);pointer-events:none;opacity:0.5;}
 .brand-showcase::after{content:'';position:absolute;bottom:-60px;left:-60px;width:160px;height:160px;border-radius:50%;background:var(--glow2);filter:blur(40px);pointer-events:none;opacity:0.4;}
-.brand-logo-wrap{width:150px;height:150px;display:flex;align-items:center;justify-content:center;margin-bottom:1.2rem;background:rgba(255,255,255,0.06);border-radius:20px;padding:16px;border:1px solid rgba(255,255,255,0.08);position:relative;z-index:1;}
+.brand-logo-wrap{width:150px;height:150px;display:flex;align-items:center;justify-content:center;margin-bottom:1.2rem;background:rgba(255,255,255,0.94);border-radius:20px;padding:20px;border:1px solid rgba(255,255,255,0.12);position:relative;z-index:1;}
 .brand-logo-main{max-width:100%;max-height:100%;object-fit:contain;}
 .brand-feat-name{font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:700;color:#fff;letter-spacing:0.5px;text-align:center;position:relative;z-index:1;}
 .brand-feat-cat{font-size:0.72rem;color:var(--accent2);letter-spacing:3px;text-transform:uppercase;margin-top:5px;text-align:center;position:relative;z-index:1;}
@@ -200,7 +209,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);over
 .rs-done{background:rgba(40,200,100,0.12);color:#4ade80;}
 .rs-pend{background:rgba(249,203,40,0.12);color:var(--gold);}
 .rec-card-body{display:flex;gap:12px;padding:12px 14px;align-items:center;}
-.rec-brand-logo-wrap{width:68px;height:68px;background:rgba(255,255,255,0.06);border-radius:12px;display:flex;align-items:center;justify-content:center;padding:8px;flex-shrink:0;border:1px solid var(--border);}
+.rec-brand-logo-wrap{width:68px;height:68px;background:rgba(255,255,255,0.92);border-radius:12px;display:flex;align-items:center;justify-content:center;padding:8px;flex-shrink:0;border:1px solid var(--border);}
 .rec-brand-logo{max-width:100%;max-height:100%;object-fit:contain;}
 .rec-car-info{flex:1;}
 .rec-car-name2{font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;color:#fff;margin-bottom:2px;}
@@ -364,7 +373,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);over
 .pop-x{position:absolute;top:10px;right:10px;z-index:10;width:30px;height:30px;border-radius:50%;background:var(--glass2);border:1px solid var(--border);color:#fff;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
 .pop-inner{padding:1.25rem;background:linear-gradient(160deg,var(--bg3),var(--bg2));}
 .pop-brands{display:flex;gap:8px;margin-bottom:12px;justify-content:center;}
-.pop-brand-logo{width:70px;height:70px;background:var(--glass);border:1px solid var(--border);border-radius:12px;display:flex;align-items:center;justify-content:center;padding:8px;}
+.pop-brand-logo{width:70px;height:70px;background:rgba(255,255,255,0.92);border:1px solid var(--border);border-radius:12px;display:flex;align-items:center;justify-content:center;padding:10px;}
 .pop-brand-logo img{max-width:100%;max-height:100%;object-fit:contain;}
 .pop-card{background:var(--glass2);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center;}
 .pop-logopill{display:flex;align-items:center;justify-content:center;margin-bottom:8px;font-size:1rem;}
@@ -391,22 +400,110 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);over
 
 <!-- ██ LANDING ██ -->
 <div id="page-landing" class="page active">
-  <div class="land-mosaic" id="land-mosaic"></div>
-  <div class="land-overlay"></div>
-  <div class="land-content">
-    <div class="land-logopill" style="font-size:1.45rem;">
-      <div class="tg-logo"><span class="tg-tip">TIP</span><span class="tg-g">G</span></div>
-      <span class="tg-rest" style="font-size:1.3rem;">LOBAL PTE.LTD</span>
+  <!-- HERO -->
+  <div class="land-hero">
+    <div class="land-mosaic" id="land-mosaic"></div>
+    <div class="land-overlay"></div>
+    <div class="land-content">
+      <div class="land-logopill" style="font-size:1.45rem;">
+        <div class="tg-logo"><span class="tg-tip">TIP</span><span class="tg-g">G</span></div>
+        <span class="tg-rest" style="font-size:1.3rem;">LOBAL PTE.LTD</span>
+      </div>
+      <div class="land-tagline">Global Brand Promotion Network</div>
+      <h1 class="land-h1">Promote Iconic Brands.<br><em>Earn Real Commissions.</em></h1>
+      <p class="land-sub">Be part of an elite network promoting Coca-Cola, Ferrari, Apple, Rolex and 36 more of the world's most valuable brands. Complete daily campaigns and watch your wallet grow.</p>
+      <div class="land-btns">
+        <button class="btn-primary" onclick="goTo('page-signup')">GET STARTED</button>
+        <button class="btn-ghost" onclick="document.getElementById('land-details').scrollIntoView({behavior:'smooth'})">LEARN MORE</button>
+      </div>
     </div>
-    <div class="land-tagline">Global Brand Promotion Platform</div>
-    <h1 class="land-h1">Promote World Brands.<br><em>Earn Real Money.</em></h1>
-    <p class="land-sub">Partner with Coca-Cola, Nike, Apple, Ferrari and 36 more global icons. Complete daily campaigns and earn dollar commissions directly to your wallet.</p>
-    <div class="land-btns">
-      <button class="btn-primary" onclick="goTo('page-signup')">GET STARTED</button>
-      <button class="btn-ghost" onclick="scrollAbout()">LEARN MORE</button>
+    <div class="land-scroll" onclick="document.getElementById('land-details').scrollIntoView({behavior:'smooth'})"><div style="font-size:1.2rem;">↓</div><span>Explore</span></div>
+  </div>
+
+  <!-- PARTNER BRANDS DETAILS -->
+  <div id="land-details" class="land-details" style="background:linear-gradient(180deg,var(--bg) 0%,var(--bg2) 100%);">
+    <div class="ld-tag">Our Partners</div>
+    <h2 class="ld-title">World's Most Iconic Brands</h2>
+    <p class="ld-sub">Every brand on our platform carries a legacy. Here are some of the names you will be promoting.</p>
+
+    <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:2.5rem;">
+      <div class="ld-step" style="flex-direction:column;gap:12px;">
+        <div style="display:flex;align-items:center;gap:14px;">
+          <div class="ld-brand-tile" style="width:60px;height:60px;flex-shrink:0;"><img src="https://cdn.simpleicons.org/cocacola/FF0000" alt="Coca-Cola"></div>
+          <div><div style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;color:#fff;letter-spacing:0.5px;">Coca-Cola</div><div style="font-size:0.72rem;color:var(--accent);letter-spacing:2px;text-transform:uppercase;">Beverages</div></div>
+        </div>
+        <p style="font-size:0.83rem;color:var(--muted);line-height:1.7;">Founded in 1886, Coca-Cola is the world's most recognised beverage brand, sold in over 200 countries. Its campaigns are among the most sought-after in global brand promotion.</p>
+      </div>
+      <div class="ld-step" style="flex-direction:column;gap:12px;">
+        <div style="display:flex;align-items:center;gap:14px;">
+          <div class="ld-brand-tile" style="width:60px;height:60px;flex-shrink:0;"><img src="https://cdn.simpleicons.org/nike/111111" alt="Nike"></div>
+          <div><div style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;color:#fff;letter-spacing:0.5px;">Nike</div><div style="font-size:0.72rem;color:var(--accent);letter-spacing:2px;text-transform:uppercase;">Sportswear</div></div>
+        </div>
+        <p style="font-size:0.83rem;color:var(--muted);line-height:1.7;">The world's largest athletic brand. Nike's "Just Do It" ethos has made it a cultural institution across sport, fashion and lifestyle in every corner of the globe.</p>
+      </div>
+      <div class="ld-step" style="flex-direction:column;gap:12px;">
+        <div style="display:flex;align-items:center;gap:14px;">
+          <div class="ld-brand-tile" style="width:60px;height:60px;flex-shrink:0;"><img src="https://cdn.simpleicons.org/apple/555555" alt="Apple"></div>
+          <div><div style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;color:#fff;letter-spacing:0.5px;">Apple</div><div style="font-size:0.72rem;color:var(--accent);letter-spacing:2px;text-transform:uppercase;">Technology</div></div>
+        </div>
+        <p style="font-size:0.83rem;color:var(--muted);line-height:1.7;">Consistently the world's most valuable brand, Apple defines how billions of people interact with technology. Promoting Apple means representing the pinnacle of design and innovation.</p>
+      </div>
+      <div class="ld-step" style="flex-direction:column;gap:12px;">
+        <div style="display:flex;align-items:center;gap:14px;">
+          <div class="ld-brand-tile" style="width:60px;height:60px;flex-shrink:0;"><img src="https://cdn.simpleicons.org/ferrari/D40000" alt="Ferrari"></div>
+          <div><div style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;color:#fff;letter-spacing:0.5px;">Ferrari</div><div style="font-size:0.72rem;color:var(--accent);letter-spacing:2px;text-transform:uppercase;">Automotive</div></div>
+        </div>
+        <p style="font-size:0.83rem;color:var(--muted);line-height:1.7;">Born in Maranello in 1947, Ferrari is not just a car — it is a statement of passion and excellence. Its brand value exceeds most Fortune 500 companies despite deliberately limited production.</p>
+      </div>
+      <div class="ld-step" style="flex-direction:column;gap:12px;">
+        <div style="display:flex;align-items:center;gap:14px;">
+          <div class="ld-brand-tile" style="width:60px;height:60px;flex-shrink:0;"><img src="https://cdn.simpleicons.org/louisvuitton/A67C52" alt="Louis Vuitton"></div>
+          <div><div style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;color:#fff;letter-spacing:0.5px;">Louis Vuitton</div><div style="font-size:0.72rem;color:var(--accent);letter-spacing:2px;text-transform:uppercase;">Luxury Fashion</div></div>
+        </div>
+        <p style="font-size:0.83rem;color:var(--muted);line-height:1.7;">Since 1854, Louis Vuitton has led the world in luxury. From Paris to Tokyo, its iconic monogram represents craftsmanship, heritage and timeless elegance at the very highest level.</p>
+      </div>
+      <div class="ld-step" style="flex-direction:column;gap:12px;">
+        <div style="display:flex;align-items:center;gap:14px;">
+          <div class="ld-brand-tile" style="width:60px;height:60px;flex-shrink:0;"><img src="https://cdn.simpleicons.org/netflix/E50914" alt="Netflix"></div>
+          <div><div style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;color:#fff;letter-spacing:0.5px;">Netflix</div><div style="font-size:0.72rem;color:var(--accent);letter-spacing:2px;text-transform:uppercase;">Entertainment</div></div>
+        </div>
+        <p style="font-size:0.83rem;color:var(--muted);line-height:1.7;">With over 260 million subscribers worldwide, Netflix revolutionised how the world consumes entertainment. Its campaigns reach every demographic across every continent simultaneously.</p>
+      </div>
+      <div class="ld-step" style="flex-direction:column;gap:12px;">
+        <div style="display:flex;align-items:center;gap:14px;">
+          <div class="ld-brand-tile" style="width:60px;height:60px;flex-shrink:0;"><img src="https://cdn.simpleicons.org/spotify/1DB954" alt="Spotify"></div>
+          <div><div style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;color:#fff;letter-spacing:0.5px;">Spotify</div><div style="font-size:0.72rem;color:var(--accent);letter-spacing:2px;text-transform:uppercase;">Entertainment</div></div>
+        </div>
+        <p style="font-size:0.83rem;color:var(--muted);line-height:1.7;">The world's largest music streaming platform connecting 600 million listeners to over 100 million tracks. Spotify campaigns resonate with the most engaged and youthful audiences globally.</p>
+      </div>
+      <div class="ld-step" style="flex-direction:column;gap:12px;">
+        <div style="display:flex;align-items:center;gap:14px;">
+          <div class="ld-brand-tile" style="width:60px;height:60px;flex-shrink:0;"><img src="https://cdn.simpleicons.org/amazon/FF9900" alt="Amazon"></div>
+          <div><div style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;color:#fff;letter-spacing:0.5px;">Amazon</div><div style="font-size:0.72rem;color:var(--accent);letter-spacing:2px;text-transform:uppercase;">E-Commerce</div></div>
+        </div>
+        <p style="font-size:0.83rem;color:var(--muted);line-height:1.7;">Started as an online bookstore in 1994, Amazon now powers a third of the world's internet through AWS and delivers to hundreds of millions of households around the planet every single day.</p>
+      </div>
+      <div class="ld-step" style="flex-direction:column;gap:12px;">
+        <div style="display:flex;align-items:center;gap:14px;">
+          <div class="ld-brand-tile" style="width:60px;height:60px;flex-shrink:0;"><img src="https://cdn.simpleicons.org/rolex/A37E2C" alt="Rolex"></div>
+          <div><div style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;color:#fff;letter-spacing:0.5px;">Rolex</div><div style="font-size:0.72rem;color:var(--accent);letter-spacing:2px;text-transform:uppercase;">Luxury Watches</div></div>
+        </div>
+        <p style="font-size:0.83rem;color:var(--muted);line-height:1.7;">The most recognised watch brand on earth. A Rolex is not measured in time — it is measured in legacy. Promoting Rolex places you in the company of champions, explorers and leaders.</p>
+      </div>
+      <div class="ld-step" style="flex-direction:column;gap:12px;">
+        <div style="display:flex;align-items:center;gap:14px;">
+          <div class="ld-brand-tile" style="width:60px;height:60px;flex-shrink:0;"><img src="https://cdn.simpleicons.org/nvidia/76B900" alt="NVIDIA"></div>
+          <div><div style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;color:#fff;letter-spacing:0.5px;">NVIDIA</div><div style="font-size:0.72rem;color:var(--accent);letter-spacing:2px;text-transform:uppercase;">Technology</div></div>
+        </div>
+        <p style="font-size:0.83rem;color:var(--muted);line-height:1.7;">The company powering the AI revolution. NVIDIA chips drive everything from autonomous vehicles to the world's largest language models. Promoting NVIDIA means standing at the frontier of what is next.</p>
+      </div>
+    </div>
+
+    <div class="ld-cta">
+      <button class="btn-primary" onclick="goTo('page-signup')">JOIN NOW — IT'S FREE</button>
+      <button class="btn-ghost" onclick="goTo('page-signin')">ALREADY HAVE AN ACCOUNT</button>
     </div>
   </div>
-  <div class="land-scroll" onclick="scrollAbout()"><div style="font-size:1.2rem;">↓</div><span>Explore</span></div>
 </div>
 
 <!-- ██ SIGN IN ██ -->
@@ -462,7 +559,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);over
     <div class="tnav-logo" onclick="goTo('page-home')"><div class="tg-logo" style="font-size:1.1rem;"><span class="tg-tip">TIP</span><span class="tg-g">G</span></div><span style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;letter-spacing:3px;color:var(--muted);margin-left:7px;font-weight:300;">LOBAL PTE.LTD</span></div>
   </div>
   <div class="hhero">
-    <img class="hhero-img" src="https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=800&auto=format&fit=crop&q=90" onerror="this.style.background='#0e1035'" alt="Singapore">
+    <img class="hhero-img" src="https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=1400&q=95&auto=format&fit=crop" onerror="this.style.background='#0e1035'" alt="Singapore">
     <div class="hhero-ov">
       <h2 class="hhero-title">Singapore's Premier<br>Global Brand Platform</h2>
       <button class="abt-btn" onclick="scrollAbout()">About Us &nbsp;›</button>
@@ -474,15 +571,15 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);over
   </div>
   <div class="stitle">Featured Campaigns</div>
   <div class="wcard">
-    <img class="wcard-img" src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=600&auto=format&fit=crop" alt="consumer brands">
+    <img class="wcard-img" src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200&q=90&auto=format&fit=crop" alt="consumer brands">
     <div class="wcard-body"><h3>CONSUMER GOODS</h3><p>Promote Coca-Cola, Pepsi, Starbucks, Nestle and more. Consumer goods campaigns reward consistent daily promoters with competitive commission rates.</p></div>
   </div>
   <div class="wcard">
-    <img class="wcard-img" src="https://images.unsplash.com/photo-1550355291-bbee04a92027?w=600&auto=format&fit=crop" alt="luxury brands">
+    <img class="wcard-img" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1200&q=90&auto=format&fit=crop" alt="luxury brands">
     <div class="wcard-body"><h3>LUXURY AND FASHION</h3><p>Work with Gucci, Louis Vuitton, Rolex, Chanel and Prada. Luxury campaigns offer premium placement in our high-value promoter tier.</p></div>
   </div>
   <div class="wcard">
-    <img class="wcard-img" src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&auto=format&fit=crop" alt="technology brands">
+    <img class="wcard-img" src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=1200&q=90&auto=format&fit=crop" alt="technology brands">
     <div class="wcard-body"><h3>TECHNOLOGY</h3><p>Promote Apple, Google, Microsoft, Samsung, NVIDIA and Intel. Tech brand campaigns keep you at the cutting edge of digital promotion.</p></div>
   </div>
   <div style="height:8px;"></div>
@@ -559,9 +656,8 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);over
     <div class="dr-ic">💎</div>
     <h3>Deposit Required</h3>
     <p>To continue with your remaining matches, please make a deposit to proceed.</p>
-    <div class="dr-amt">$50</div>
-    <p style="font-size:0.78rem;color:var(--dim);">Contact customer service to complete your deposit and unlock remaining matches.</p>
-    <div class="dr-btns">
+    <p style="font-size:0.85rem;color:var(--muted);margin-top:0.5rem;">Contact customer service to complete your deposit and unlock remaining matches.</p>
+    <div class="dr-btns" style="margin-top:1.5rem;">
       <button class="bdn" onclick="openSub('page-deposit');document.getElementById('dreq').style.display='none'">Deposit Now</button>
       <button class="bdc" onclick="document.getElementById('dreq').style.display='none'">Cancel</button>
     </div>
@@ -777,9 +873,9 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);over
     <button class="pop-x" onclick="document.getElementById('popup').style.display='none'">✕</button>
     <div class="pop-inner">
       <div class="pop-brands">
-        <div class="pop-brand-logo"><img src="https://logo.clearbit.com/coca-cola.com?size=80" onerror="this.style.opacity='0.1'" alt="Coca-Cola"></div>
-        <div class="pop-brand-logo"><img src="https://logo.clearbit.com/nike.com?size=80" onerror="this.style.opacity='0.1'" alt="Nike"></div>
-        <div class="pop-brand-logo"><img src="https://logo.clearbit.com/apple.com?size=80" onerror="this.style.opacity='0.1'" alt="Apple"></div>
+        <div class="pop-brand-logo"><img src="https://cdn.simpleicons.org/cocacola/FF0000" alt="Coca-Cola"></div>
+        <div class="pop-brand-logo"><img src="https://cdn.simpleicons.org/nike/111111" alt="Nike"></div>
+        <div class="pop-brand-logo"><img src="https://cdn.simpleicons.org/apple/555555" alt="Apple"></div>
       </div>
       <div class="pop-card">
         <div class="pop-logopill"><div class="tg-logo" style="font-size:0.9rem;"><span class="tg-tip">TIP</span><span class="tg-g">G</span></div><span style="font-family:'Barlow Condensed',sans-serif;font-size:0.72rem;color:var(--muted);margin-left:6px;letter-spacing:2px;">LOBAL PTE.LTD</span></div>
@@ -819,46 +915,46 @@ let sb;try{sb=supabase.createClient(SUPA_URL,SUPA_KEY);}catch(e){sb=null;}
 let cUser=null,mCount=0,subHist=[],recs=[],depUnlocked=false,rTab='all',walletBal=0,commTotal=0;
 
 const BRANDS=[
-  {n:'Coca-Cola',u:'https://logo.clearbit.com/coca-cola.com?size=200',cat:'Beverages'},
-  {n:'Nike',u:'https://logo.clearbit.com/nike.com?size=200',cat:'Sportswear'},
-  {n:'Toyota',u:'https://logo.clearbit.com/toyota.com?size=200',cat:'Automotive'},
-  {n:'Apple',u:'https://logo.clearbit.com/apple.com?size=200',cat:'Technology'},
-  {n:'Samsung',u:'https://logo.clearbit.com/samsung.com?size=200',cat:'Technology'},
-  {n:"McDonald's",u:'https://logo.clearbit.com/mcdonalds.com?size=200',cat:'Fast Food'},
-  {n:'Pepsi',u:'https://logo.clearbit.com/pepsi.com?size=200',cat:'Beverages'},
-  {n:'Adidas',u:'https://logo.clearbit.com/adidas.com?size=200',cat:'Sportswear'},
-  {n:'Amazon',u:'https://logo.clearbit.com/amazon.com?size=200',cat:'E-Commerce'},
-  {n:'Google',u:'https://logo.clearbit.com/google.com?size=200',cat:'Technology'},
-  {n:'Microsoft',u:'https://logo.clearbit.com/microsoft.com?size=200',cat:'Technology'},
-  {n:'BMW',u:'https://logo.clearbit.com/bmw.com?size=200',cat:'Automotive'},
-  {n:'Mercedes-Benz',u:'https://logo.clearbit.com/mercedes-benz.com?size=200',cat:'Automotive'},
-  {n:'Gucci',u:'https://logo.clearbit.com/gucci.com?size=200',cat:'Luxury Fashion'},
-  {n:'Louis Vuitton',u:'https://logo.clearbit.com/louisvuitton.com?size=200',cat:'Luxury Fashion'},
-  {n:'Netflix',u:'https://logo.clearbit.com/netflix.com?size=200',cat:'Entertainment'},
-  {n:'Spotify',u:'https://logo.clearbit.com/spotify.com?size=200',cat:'Entertainment'},
-  {n:'Starbucks',u:'https://logo.clearbit.com/starbucks.com?size=200',cat:'Beverages'},
-  {n:'Shell',u:'https://logo.clearbit.com/shell.com?size=200',cat:'Energy'},
-  {n:'Visa',u:'https://logo.clearbit.com/visa.com?size=200',cat:'Finance'},
-  {n:'Mastercard',u:'https://logo.clearbit.com/mastercard.com?size=200',cat:'Finance'},
-  {n:'PayPal',u:'https://logo.clearbit.com/paypal.com?size=200',cat:'Finance'},
-  {n:'Rolex',u:'https://logo.clearbit.com/rolex.com?size=200',cat:'Luxury Watches'},
-  {n:'Chanel',u:'https://logo.clearbit.com/chanel.com?size=200',cat:'Luxury Fashion'},
-  {n:'Prada',u:'https://logo.clearbit.com/prada.com?size=200',cat:'Luxury Fashion'},
-  {n:'Ferrari',u:'https://logo.clearbit.com/ferrari.com?size=200',cat:'Automotive'},
-  {n:'Lamborghini',u:'https://logo.clearbit.com/lamborghini.com?size=200',cat:'Automotive'},
-  {n:'Porsche',u:'https://logo.clearbit.com/porsche.com?size=200',cat:'Automotive'},
-  {n:'Audi',u:'https://logo.clearbit.com/audi.com?size=200',cat:'Automotive'},
-  {n:'Volkswagen',u:'https://logo.clearbit.com/vw.com?size=200',cat:'Automotive'},
-  {n:'Sony',u:'https://logo.clearbit.com/sony.com?size=200',cat:'Electronics'},
-  {n:'Red Bull',u:'https://logo.clearbit.com/redbull.com?size=200',cat:'Beverages'},
-  {n:'Nestle',u:'https://logo.clearbit.com/nestle.com?size=200',cat:'Food and Beverages'},
-  {n:'Unilever',u:'https://logo.clearbit.com/unilever.com?size=200',cat:'Consumer Goods'},
-  {n:'Heineken',u:'https://logo.clearbit.com/heineken.com?size=200',cat:'Beverages'},
-  {n:'Intel',u:'https://logo.clearbit.com/intel.com?size=200',cat:'Technology'},
-  {n:'NVIDIA',u:'https://logo.clearbit.com/nvidia.com?size=200',cat:'Technology'},
-  {n:'Zara',u:'https://logo.clearbit.com/zara.com?size=200',cat:'Fashion'},
-  {n:'H and M',u:'https://logo.clearbit.com/hm.com?size=200',cat:'Fashion'},
-  {n:'IKEA',u:'https://logo.clearbit.com/ikea.com?size=200',cat:'Home and Living'}
+  {n:'Coca-Cola',u:'https://cdn.simpleicons.org/cocacola/FF0000',fb:'coca-cola.com',cat:'Beverages'},
+  {n:'Nike',u:'https://cdn.simpleicons.org/nike/111111',fb:'nike.com',cat:'Sportswear'},
+  {n:'Toyota',u:'https://cdn.simpleicons.org/toyota/EB0A1E',fb:'toyota.com',cat:'Automotive'},
+  {n:'Apple',u:'https://cdn.simpleicons.org/apple/555555',fb:'apple.com',cat:'Technology'},
+  {n:'Samsung',u:'https://cdn.simpleicons.org/samsung/1428A0',fb:'samsung.com',cat:'Technology'},
+  {n:"McDonald's",u:'https://cdn.simpleicons.org/mcdonalds/FFC72C',fb:'mcdonalds.com',cat:'Fast Food'},
+  {n:'Pepsi',u:'https://cdn.simpleicons.org/pepsi/004B93',fb:'pepsi.com',cat:'Beverages'},
+  {n:'Adidas',u:'https://cdn.simpleicons.org/adidas/333333',fb:'adidas.com',cat:'Sportswear'},
+  {n:'Amazon',u:'https://cdn.simpleicons.org/amazon/FF9900',fb:'amazon.com',cat:'E-Commerce'},
+  {n:'Google',u:'https://cdn.simpleicons.org/google/4285F4',fb:'google.com',cat:'Technology'},
+  {n:'Microsoft',u:'https://cdn.simpleicons.org/microsoft/737373',fb:'microsoft.com',cat:'Technology'},
+  {n:'BMW',u:'https://cdn.simpleicons.org/bmw/1C69D3',fb:'bmw.com',cat:'Automotive'},
+  {n:'Mercedes-Benz',u:'https://cdn.simpleicons.org/mercedes/333333',fb:'mercedes-benz.com',cat:'Automotive'},
+  {n:'Gucci',u:'https://cdn.simpleicons.org/gucci/333333',fb:'gucci.com',cat:'Luxury Fashion'},
+  {n:'Louis Vuitton',u:'https://cdn.simpleicons.org/louisvuitton/A67C52',fb:'louisvuitton.com',cat:'Luxury Fashion'},
+  {n:'Netflix',u:'https://cdn.simpleicons.org/netflix/E50914',fb:'netflix.com',cat:'Entertainment'},
+  {n:'Spotify',u:'https://cdn.simpleicons.org/spotify/1DB954',fb:'spotify.com',cat:'Entertainment'},
+  {n:'Starbucks',u:'https://cdn.simpleicons.org/starbucks/006241',fb:'starbucks.com',cat:'Beverages'},
+  {n:'Shell',u:'https://cdn.simpleicons.org/shell/DD1D1D',fb:'shell.com',cat:'Energy'},
+  {n:'Visa',u:'https://cdn.simpleicons.org/visa/1A1F71',fb:'visa.com',cat:'Finance'},
+  {n:'Mastercard',u:'https://cdn.simpleicons.org/mastercard/EB001B',fb:'mastercard.com',cat:'Finance'},
+  {n:'PayPal',u:'https://cdn.simpleicons.org/paypal/003087',fb:'paypal.com',cat:'Finance'},
+  {n:'Rolex',u:'https://cdn.simpleicons.org/rolex/A37E2C',fb:'rolex.com',cat:'Luxury Watches'},
+  {n:'Chanel',u:'https://cdn.simpleicons.org/chanel/333333',fb:'chanel.com',cat:'Luxury Fashion'},
+  {n:'Prada',u:'https://www.google.com/s2/favicons?sz=256&domain=prada.com',fb:'prada.com',cat:'Luxury Fashion'},
+  {n:'Ferrari',u:'https://cdn.simpleicons.org/ferrari/D40000',fb:'ferrari.com',cat:'Automotive'},
+  {n:'Lamborghini',u:'https://cdn.simpleicons.org/lamborghini/D5A021',fb:'lamborghini.com',cat:'Automotive'},
+  {n:'Porsche',u:'https://cdn.simpleicons.org/porsche/AD9161',fb:'porsche.com',cat:'Automotive'},
+  {n:'Audi',u:'https://cdn.simpleicons.org/audi/BB0A14',fb:'audi.com',cat:'Automotive'},
+  {n:'Volkswagen',u:'https://cdn.simpleicons.org/volkswagen/151F5E',fb:'vw.com',cat:'Automotive'},
+  {n:'Sony',u:'https://cdn.simpleicons.org/sony/333333',fb:'sony.com',cat:'Electronics'},
+  {n:'Red Bull',u:'https://cdn.simpleicons.org/redbull/DB0A16',fb:'redbull.com',cat:'Beverages'},
+  {n:'Nestle',u:'https://cdn.simpleicons.org/nestle/009FDF',fb:'nestle.com',cat:'Food and Beverages'},
+  {n:'Unilever',u:'https://cdn.simpleicons.org/unilever/1F36C7',fb:'unilever.com',cat:'Consumer Goods'},
+  {n:'Heineken',u:'https://cdn.simpleicons.org/heineken/007A33',fb:'heineken.com',cat:'Beverages'},
+  {n:'Intel',u:'https://cdn.simpleicons.org/intel/0068B5',fb:'intel.com',cat:'Technology'},
+  {n:'NVIDIA',u:'https://cdn.simpleicons.org/nvidia/76B900',fb:'nvidia.com',cat:'Technology'},
+  {n:'Zara',u:'https://cdn.simpleicons.org/zara/333333',fb:'zara.com',cat:'Fashion'},
+  {n:'H and M',u:'https://cdn.simpleicons.org/hm/E50010',fb:'hm.com',cat:'Fashion'},
+  {n:'IKEA',u:'https://cdn.simpleicons.org/ikea/0058A3',fb:'ikea.com',cat:'Home and Living'}
 ];
 
 // Build animated brand logo mosaic for landing page
@@ -966,8 +1062,9 @@ function doSignUp(){
   if(!ph||!/^\d{6,}$/.test(ph.replace(/\s/g,''))){showErr('su-err-ph','Please enter a valid phone number.');return;}
   if(p.length<6){showErr('su-err-p','Password must be at least 6 characters.');return;}
   if(p!==p2){showErr('su-err-p2','Passwords do not match.');return;}
+  const VALID_CODES=['TG7R4K','TGVIP88','GLOBAL01'];
   if(!c){showErr('su-err-c','Please enter your invitation code.');return;}
-  if(c!=='TG7R4K'){showErr('su-err-c','Invalid invitation code. Please check and try again.');return;}
+  if(!VALID_CODES.includes(c)){showErr('su-err-c','Invalid invitation code. Please check and try again.');return;}
   if(!t){showErr('su-err-t','Please accept the Terms and Conditions to continue.');return;}
   const fullPhone=cc+ph;const myCode=genCode();
   if(sb){
