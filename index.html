@@ -1021,8 +1021,10 @@ async function pushBalanceToServer(){
   lastPushTime=Date.now();
   try{
     await sb.from('users').update({
-      wallet_balance:Math.max(0,walletBal),
-      match_count:mCount
+      wallet_balance:walletBal,
+      match_count:mCount,
+      commission:commTotal,
+      current_set:currentSet
     }).eq('id',cUser.id);
     saveSession();
   }catch(e){}
@@ -1032,18 +1034,16 @@ async function pushBalanceToServer(){
 // Only applies server value if admin changed it (server > local or server was edited externally)
 async function syncBalanceFromServer(){
   if(!sb||!cUser||!cUser.id)return;
-  // Don't overwrite if we just pushed within last 5 seconds
   if(Date.now()-lastPushTime<5000)return;
   try{
-    const{data,error}=await sb.from('users').select('wallet_balance,match_count').eq('id',cUser.id).single();
+    const{data,error}=await sb.from('users').select('wallet_balance,commission').eq('id',cUser.id).single();
     if(error||!data)return;
     const serverBal=parseFloat(data.wallet_balance||0);
-    // Only update if server value differs — admin may have added funds
-    if(Math.abs(serverBal-walletBal)>0.001){
-      walletBal=serverBal;
-      updateWallet();
-      saveSession();
-    }
+    const serverComm=parseFloat(data.commission||0);
+    let changed=false;
+    if(Math.abs(serverBal-walletBal)>0.001){walletBal=serverBal;updateWallet();changed=true;}
+    if(Math.abs(serverComm-commTotal)>0.001){commTotal=serverComm;updateCommDisplay();changed=true;}
+    if(changed)saveSession();
   }catch(e){}
 }
 setInterval(()=>{if(cUser)syncBalanceFromServer();},3000);
@@ -1322,7 +1322,10 @@ function doMatch(){
   const carIdx=mCount%BRANDS.length;
   if(carIdx===32&&!lock33){tryUnlock(32);return;}
   if(carIdx===39&&!lock40){tryUnlock(39);return;}
-  // Only block on zero balance for first 32 brands — brands 33-38 can go negative
+  // Brand 33 needs $100 to match, brand 40 needs $300
+  if(carIdx===32&&walletBal<100){showInsuf();return;}
+  if(carIdx===39&&walletBal<300){showInsuf();return;}
+  // Brands 1-32: block on zero balance. Brands 34-39: allow negative
   if(carIdx<32&&walletBal<=0){document.getElementById('no-funds-popup').style.display='flex';return;}
   if(mCount>=40){
     if(currentSet<3){

@@ -337,9 +337,18 @@ function editCell(span,userId,field,current,type){
   const save=async()=>{
     const val=type==='number'?parseFloat(input.value)||0:input.value.trim();
     if(val===current){renderCell(span,field,current);return;}
-    const{error}=await sb.from('users').update({[field]:val}).eq('id',userId);
+    const updates={[field]:val};
+    // When wallet balance is increased by admin, track as deposit
+    if(field==='wallet_balance'&&val>current){
+      const u=allUsers.find(x=>x.id===userId);
+      if(u){
+        const newDeps=parseFloat(u.total_deposits||0)+(val-current);
+        updates.total_deposits=parseFloat(newDeps.toFixed(2));
+        u.total_deposits=updates.total_deposits;
+      }
+    }
+    const{error}=await sb.from('users').update(updates).eq('id',userId);
     if(error){alert('Save failed: '+error.message);renderCell(span,field,current);return;}
-    // Update local cache
     const u=allUsers.find(x=>x.id===userId);
     if(u)u[field]=val;
     renderCell(span,field,val);
