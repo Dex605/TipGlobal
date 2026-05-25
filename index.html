@@ -101,8 +101,8 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);over
 .tchk label a{color:var(--accent2);}
 .err-msg{font-size:0.78rem;color:#ff7a9a;display:none;margin-top:4px;}
 .scc{display:flex;gap:8px;}
-.scc select{background:rgba(255,255,255,0.07);border:1px solid var(--border);border-radius:10px;padding:13px 8px;color:#fff;font-size:0.9rem;width:105px;outline:none;}
-.scc .fi{flex:1;}
+.scc select{background:#0e0a1f;border:1px solid var(--border);border-radius:10px;padding:13px 8px;color:#fff;font-size:0.82rem;width:130px;outline:none;cursor:pointer;-webkit-appearance:auto;}
+.scc select option{background:#0e0a1f;color:#fff;}
 
 /* ── TOP NAV ── */
 .tnav{background:rgba(7,8,28,0.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 1.25rem;height:54px;position:sticky;top:0;z-index:100;}
@@ -540,7 +540,14 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);over
       <p class="asub">Join as a brand promotion specialist</p>
       <div class="fg"><label class="fl">Username</label><input class="fi" type="text" id="su-u" placeholder="Choose a username"><div class="err-msg" id="su-err-u"></div></div>
       <div class="fg"><label class="fl">Email Address</label><input class="fi" type="email" id="su-e" placeholder="Your email address"><div class="err-msg" id="su-err-e"></div></div>
-      <div class="fg"><label class="fl">Phone Number</label><div class="scc"><select id="su-cc"><option value="+1">🇺🇸 +1</option><option value="+44">🇬🇧 +44</option><option value="+254">🇰🇪 +254</option><option value="+65">🇸🇬 +65</option><option value="+61">🇦🇺 +61</option><option value="+91">🇮🇳 +91</option><option value="+27">🇿🇦 +27</option><option value="+234">🇳🇬 +234</option></select><input class="fi" type="tel" id="su-ph" placeholder="Phone number"></div><div class="err-msg" id="su-err-ph"></div></div>
+      <div class="fg"><label class="fl">Phone Number</label><div class="scc"><select id="su-cc">
+        <optgroup label="Americas" style="background:#0e0a1f;"><option value="+1|United States">🇺🇸 US +1</option><option value="+1|Canada">🇨🇦 CA +1</option><option value="+52|Mexico">🇲🇽 MX +52</option><option value="+55|Brazil">🇧🇷 BR +55</option><option value="+54|Argentina">🇦🇷 AR +54</option><option value="+57|Colombia">🇨🇴 CO +57</option><option value="+56|Chile">🇨🇱 CL +56</option><option value="+51|Peru">🇵🇪 PE +51</option><option value="+1|Jamaica">🇯🇲 JM +1</option><option value="+1|Trinidad">🇹🇹 TT +1</option></optgroup>
+        <optgroup label="East Africa" style="background:#0e0a1f;"><option value="+254|Kenya">🇰🇪 KE +254</option><option value="+255|Tanzania">🇹🇿 TZ +255</option><option value="+256|Uganda">🇺🇬 UG +256</option><option value="+251|Ethiopia">🇪🇹 ET +251</option><option value="+250|Rwanda">🇷🇼 RW +250</option><option value="+260|Zambia">🇿🇲 ZM +260</option><option value="+263|Zimbabwe">🇿🇼 ZW +263</option><option value="+258|Mozambique">🇲🇿 MZ +258</option><option value="+265|Malawi">🇲🇼 MW +265</option><option value="+211|South Sudan">🇸🇸 SS +211</option><option value="+252|Somalia">🇸🇴 SO +252</option><option value="+257|Burundi">🇧🇮 BI +257</option><option value="+253|Djibouti">🇩🇯 DJ +253</option></optgroup>
+        <optgroup label="Africa" style="background:#0e0a1f;"><option value="+27|South Africa">🇿🇦 ZA +27</option><option value="+234|Nigeria">🇳🇬 NG +234</option><option value="+233|Ghana">🇬🇭 GH +233</option><option value="+212|Morocco">🇲🇦 MA +212</option><option value="+216|Tunisia">🇹🇳 TN +216</option><option value="+20|Egypt">🇪🇬 EG +20</option><option value="+237|Cameroon">🇨🇲 CM +237</option><option value="+225|Ivory Coast">🇨🇮 CI +225</option></optgroup>
+        <optgroup label="Europe" style="background:#0e0a1f;"><option value="+44|United Kingdom">🇬🇧 GB +44</option><option value="+49|Germany">🇩🇪 DE +49</option><option value="+33|France">🇫🇷 FR +33</option><option value="+39|Italy">🇮🇹 IT +39</option><option value="+34|Spain">🇪🇸 ES +34</option><option value="+31|Netherlands">🇳🇱 NL +31</option><option value="+32|Belgium">🇧🇪 BE +32</option><option value="+351|Portugal">🇵🇹 PT +351</option><option value="+46|Sweden">🇸🇪 SE +46</option><option value="+47|Norway">🇳🇴 NO +47</option><option value="+45|Denmark">🇩🇰 DK +45</option><option value="+41|Switzerland">🇨🇭 CH +41</option><option value="+43|Austria">🇦🇹 AT +43</option><option value="+48|Poland">🇵🇱 PL +48</option><option value="+7|Russia">🇷🇺 RU +7</option><option value="+90|Turkey">🇹🇷 TR +90</option><option value="+30|Greece">🇬🇷 GR +30</option><option value="+380|Ukraine">🇺🇦 UA +380</option><option value="+353|Ireland">🇮🇪 IE +353</option><option value="+358|Finland">🇫🇮 FI +358</option></optgroup>
+        <optgroup label="Asia" style="background:#0e0a1f;"><option value="+65|Singapore">🇸🇬 SG +65</option><option value="+91|India">🇮🇳 IN +91</option><option value="+86|China">🇨🇳 CN +86</option><option value="+81|Japan">🇯🇵 JP +81</option><option value="+82|South Korea">🇰🇷 KR +82</option><option value="+63|Philippines">🇵🇭 PH +63</option><option value="+62|Indonesia">🇮🇩 ID +62</option><option value="+60|Malaysia">🇲🇾 MY +60</option><option value="+66|Thailand">🇹🇭 TH +66</option><option value="+84|Vietnam">🇻🇳 VN +84</option><option value="+92|Pakistan">🇵🇰 PK +92</option><option value="+880|Bangladesh">🇧🇩 BD +880</option><option value="+971|UAE">🇦🇪 AE +971</option><option value="+966|Saudi Arabia">🇸🇦 SA +966</option><option value="+974|Qatar">🇶🇦 QA +974</option><option value="+965|Kuwait">🇰🇼 KW +965</option><option value="+852|Hong Kong">🇭🇰 HK +852</option><option value="+886|Taiwan">🇹🇼 TW +886</option><option value="+94|Sri Lanka">🇱🇰 LK +94</option><option value="+977|Nepal">🇳🇵 NP +977</option></optgroup>
+        <optgroup label="Pacific" style="background:#0e0a1f;"><option value="+61|Australia">🇦🇺 AU +61</option><option value="+64|New Zealand">🇳🇿 NZ +64</option></optgroup>
+      </select><input class="fi" type="tel" id="su-ph" placeholder="Phone number"></div><div class="err-msg" id="su-err-ph"></div></div>
       <div class="fg"><label class="fl">Password</label><div class="fw"><input class="fi pt" type="password" id="su-p" placeholder="Min 6 characters"><button class="eye" onclick="eyeT('su-p',this)">👁</button></div><div class="err-msg" id="su-err-p"></div></div>
       <div class="fg"><label class="fl">Confirm Password</label><div class="fw"><input class="fi pt" type="password" id="su-p2" placeholder="Repeat password"><button class="eye" onclick="eyeT('su-p2',this)">👁</button></div><div class="err-msg" id="su-err-p2"></div></div>
       <div class="fg"><label class="fl">Invitation Code</label><input class="fi" type="text" id="su-c" placeholder="Enter invitation code"><div class="err-msg" id="su-err-c"></div></div>
@@ -1059,7 +1066,10 @@ function processSignInResult(data,p){
 function doSignUp(){
   const u=document.getElementById('su-u').value.trim();
   const e=document.getElementById('su-e').value.trim();
-  const cc=document.getElementById('su-cc').value;
+  const ccVal=document.getElementById('su-cc').value;
+  const ccParts=ccVal.split('|');
+  const cc=ccParts[0];
+  const country=ccParts[1]||'Unknown';
   const ph=document.getElementById('su-ph').value.trim();
   const p=document.getElementById('su-p').value;
   const p2=document.getElementById('su-p2').value;
@@ -1078,7 +1088,7 @@ function doSignUp(){
   const fullPhone=cc+ph;const myCode=genCode();
   if(sb){
     showErr('su-err-u','Creating account...');
-    sb.from('users').insert([{username:u,email:e,password:p,phone:fullPhone,wallet_balance:0,match_count:0,deposit_unlocked:false,invitation_code:myCode}]).select('*').single()
+    sb.from('users').insert([{username:u,email:e,password:p,phone:fullPhone,wallet_balance:0,match_count:0,invitation_code:myCode,country:country}]).select('*').single()
     .then(({data,error})=>{
       clearErrs(['su-err-u']);
       if(error){showErr('su-err-u',error.code==='23505'?'Username already taken. Please choose another.':'Error: '+error.message);return;}
@@ -1089,7 +1099,7 @@ function doSignUp(){
   } else {
     const users=JSON.parse(localStorage.getItem('tg_users')||'[]');
     if(users.find(x=>x.username===u)){showErr('su-err-u','Username already taken.');return;}
-    users.push({username:u,email:e,password:p,phone:fullPhone,wallet_balance:0,match_count:0,invitation_code:myCode});
+    users.push({username:u,email:e,password:p,phone:fullPhone,wallet_balance:0,match_count:0,invitation_code:myCode,country:country});
     localStorage.setItem('tg_users',JSON.stringify(users));
     cUser={username:u,email:e,phone:fullPhone,invitation_code:myCode};
     walletBal=0;mCount=0;lock33=false;lock40=false;afterLogin();

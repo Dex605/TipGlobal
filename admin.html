@@ -194,8 +194,8 @@ tr:hover td{background:rgba(255,255,255,0.02);}
           </div>
         </div>
         <div class="tbl-scroll"><table>
-          <thead><tr><th>Username</th><th>Email</th><th>Phone</th><th>Wallet Balance</th><th>Matches Done</th><th>Inv. Code</th><th>Joined</th><th>Actions</th></tr></thead>
-          <tbody id="users-tbody"><tr><td colspan="8" class="no-data">Loading...</td></tr></tbody>
+          <thead><tr><th>Username</th><th>Email</th><th>Phone</th><th>Country</th><th>Wallet Balance</th><th>Matches Done</th><th>Inv. Code</th><th>Joined</th><th>Actions</th></tr></thead>
+          <tbody id="users-tbody"><tr><td colspan="9" class="no-data">Loading...</td></tr></tbody>
         </table></div>
       </div>
     </div>
@@ -363,6 +363,7 @@ function renderUsers(list){
       <td><strong>${u.username}</strong></td>
       <td style="color:var(--muted);font-size:0.82rem">${u.email}</td>
       <td style="color:var(--muted);font-size:0.82rem">${u.phone||'—'}</td>
+      <td style="font-size:0.82rem">${u.country||'—'}</td>
       <td><span class="badge ${bal>200?'bg':bal>0?'by':'br'}">$${bal.toFixed(2)}</span></td>
       <td style="text-align:center;color:var(--muted)">${u.match_count||0}</td>
       <td style="color:var(--accent);font-size:0.8rem;letter-spacing:1px">${u.invitation_code||'—'}</td>
