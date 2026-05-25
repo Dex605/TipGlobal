@@ -1352,7 +1352,6 @@ function doMatch(){
   const nextThumb=allThumbs[nextIdx];
   if(nextThumb){const container=document.getElementById('cthumbs');container.scrollTo({left:nextThumb.offsetLeft-(container.offsetWidth/2)+(nextThumb.offsetWidth/2),behavior:'smooth'});}
 }
-}
 function doMatchBrand(idx){
   if(idx===32&&!lock33){tryUnlock(32);return;}
   if(idx===39&&!lock40){tryUnlock(39);return;}
