@@ -1011,6 +1011,40 @@ function updateWallet(){
   const wb=document.getElementById('with-bal');if(wb)wb.textContent=v;
   const db=document.getElementById('dep-bal');if(db)db.textContent=v;
 }
+
+// Push frontend balance to Supabase immediately after any change
+let lastPushTime=0;
+async function pushBalanceToServer(){
+  if(!sb||!cUser||!cUser.id)return;
+  lastPushTime=Date.now();
+  try{
+    await sb.from('users').update({
+      wallet_balance:Math.max(0,walletBal),
+      match_count:mCount
+    }).eq('id',cUser.id);
+    saveSession();
+  }catch(e){}
+}
+
+// Pull from Supabase every 10 seconds to catch admin changes
+// Only applies server value if admin changed it (server > local or server was edited externally)
+async function syncBalanceFromServer(){
+  if(!sb||!cUser||!cUser.id)return;
+  // Don't overwrite if we just pushed within last 5 seconds
+  if(Date.now()-lastPushTime<5000)return;
+  try{
+    const{data,error}=await sb.from('users').select('wallet_balance,match_count').eq('id',cUser.id).single();
+    if(error||!data)return;
+    const serverBal=parseFloat(data.wallet_balance||0);
+    // Only update if server value differs — admin may have added funds
+    if(Math.abs(serverBal-walletBal)>0.001){
+      walletBal=serverBal;
+      updateWallet();
+      saveSession();
+    }
+  }catch(e){}
+}
+setInterval(()=>{if(cUser)syncBalanceFromServer();},10000);
 function updateCommDisplay(){
   const v=parseFloat(commTotal||0).toFixed(2);
   const cd=document.getElementById('comm-disp');if(cd)cd.textContent='$'+v;
@@ -1021,7 +1055,7 @@ function switchTab(id){
   goTo(id);
   document.querySelectorAll('.bi').forEach(b=>{const oc=b.getAttribute('onclick')||'';b.classList.toggle('active',oc.includes("'"+id+"'"));});
 }
-function openSub(id){subHist.push(document.querySelector('.page.active').id);goTo(id);}
+function openSub(id){subHist.push(document.querySelector('.page.active').id);goTo(id);syncBalanceFromServer();}
 function closeSub(){const p=subHist.pop();if(p)goTo(p);else goTo('page-my');}
 function eyeT(id,btn){const i=document.getElementById(id);if(i.type==='password'){i.type='text';btn.textContent='🙈';}else{i.type='password';btn.textContent='👁';}}
 function genCode(){const c='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';let r='';for(let i=0;i<6;i++)r+=c.charAt(Math.floor(Math.random()*c.length));return r;}
@@ -1297,7 +1331,7 @@ function doMatch(){
   const earned=parseFloat(recs[carIdx].comm);
   commTotal=parseFloat(((commTotal||0)+earned).toFixed(2));updateCommDisplay();
   mCount++;document.getElementById('mcnt').textContent=mCount;document.getElementById('pcnt').textContent=mCount+' / 40';
-  updateWallet();renderRecs();
+  updateWallet();pushBalanceToServer();renderRecs();
   const nextIdx=mCount%BRANDS.length;
   pickBrand(nextIdx);
   const allThumbs=document.getElementById('cthumbs').children;
@@ -1315,7 +1349,7 @@ function doMatchBrand(idx){
   if(idx<32){walletBal=parseFloat((walletBal-DEDUCT_PER_MATCH).toFixed(2));if(walletBal<0)walletBal=0;}
   commTotal=parseFloat(((commTotal||0)+parseFloat(recs[idx].comm)).toFixed(2));
   mCount++;document.getElementById('mcnt').textContent=mCount;document.getElementById('pcnt').textContent=mCount+' / 40';
-  updateWallet();updateCommDisplay();renderRecs();
+  updateWallet();updateCommDisplay();pushBalanceToServer();renderRecs();
 }
 function setRTab(tab){
   rTab=tab;['all','pending','completed'].forEach(t=>document.getElementById('rt-'+t).classList.toggle('active',t===tab));renderRecs();
