@@ -1051,7 +1051,7 @@ function doSignIn(){
     const found=users.find(x=>(x.email===u||x.phone===u)&&x.password===p);
     if(!found){showErr('si-err-g','Incorrect email/phone or password. Please try again.');return;}
     cUser={username:found.username,email:found.email,phone:found.phone,invitation_code:found.invitation_code||'N/A'};
-    walletBal=parseFloat(found.wallet_balance)||0;mCount=parseInt(found.match_count)||0;depUnlocked=found.deposit_unlocked||false;
+    walletBal=parseFloat(found.wallet_balance)||0;mCount=parseInt(found.match_count)||0;lock33=false;lock40=false;
     afterLogin();
   }
 }
@@ -1105,6 +1105,12 @@ function doSignUp(){
     walletBal=0;mCount=0;lock33=false;lock40=false;afterLogin();
   }
 }
+function saveSession(){
+  if(!cUser) return;
+  localStorage.setItem('tg_session',JSON.stringify({user:cUser,walletBal,mCount,commTotal,lock33,lock40,currentSet,lastActive:Date.now()}));
+}
+function clearSession(){localStorage.removeItem('tg_session');}
+
 function afterLogin(){
   const n=cUser.username,i=n[0].toUpperCase();
   document.getElementById('av1').textContent=i;document.getElementById('un1').textContent=n;
@@ -1118,9 +1124,57 @@ function afterLogin(){
     recs.push({brand,date:'Pending',status:'pending',price,comm,stars:0,idx});
   });
   buildSlideshow();renderRecs();switchTab('page-home');updateWallet();updateCommDisplay();
+  saveSession();
+  resetInactivity();
   setTimeout(()=>{document.getElementById('popup').style.display='flex';},700);
 }
-function doLogout(){cUser=null;mCount=0;currentSet=1;recs=[];lock33=false;lock40=false;subHist=[];walletBal=0;commTotal=0;document.getElementById('mcnt').textContent='0';document.getElementById('pcnt').textContent='0 / 40';goTo('page-landing');}
+function doLogout(){
+  cUser=null;mCount=0;currentSet=1;recs=[];lock33=false;lock40=false;subHist=[];walletBal=0;commTotal=0;
+  clearSession();
+  document.getElementById('mcnt').textContent='0';
+  document.getElementById('pcnt').textContent='0 / 40';
+  goTo('page-landing');
+}
+
+// ── INACTIVITY LOGOUT (1 hour) ──
+let inactivityTimer=null;
+function resetInactivity(){
+  clearTimeout(inactivityTimer);
+  inactivityTimer=setTimeout(()=>{
+    if(cUser){doLogout();}
+  },60*60*1000);
+}
+['click','keydown','touchstart','scroll'].forEach(ev=>document.addEventListener(ev,()=>{
+  if(cUser){saveSession();resetInactivity();}
+},true));
+
+// ── RESTORE SESSION ON REFRESH ──
+(function restoreSession(){
+  const raw=localStorage.getItem('tg_session');
+  if(!raw)return;
+  try{
+    const s=JSON.parse(raw);
+    if(!s||!s.user)return;
+    if(Date.now()-s.lastActive>60*60*1000){clearSession();return;}
+    cUser=s.user;walletBal=s.walletBal||0;mCount=s.mCount||0;
+    commTotal=s.commTotal||0;lock33=s.lock33||false;lock40=s.lock40||false;currentSet=s.currentSet||1;
+    // Reconnect Supabase
+    try{sb=supabase.createClient(SUPA_URL,SUPA_KEY);}catch(e){sb=null;}
+    recs=[];
+    BRANDS.forEach((brand,idx)=>{
+      const price=Math.floor(Math.random()*500+100);
+      const comm=(Math.random()*1+1.5).toFixed(2);
+      recs.push({brand,date:'Pending',status:'pending',price,comm,stars:0,idx});
+    });
+    const n=cUser.username,i=n[0].toUpperCase();
+    document.getElementById('av1').textContent=i;document.getElementById('un1').textContent=n;
+    document.getElementById('av2').textContent=i;document.getElementById('un2').textContent=n;
+    document.getElementById('ic2').textContent=cUser.invitation_code||'N/A';
+    document.getElementById('pu').textContent=n;document.getElementById('pp').textContent=cUser.phone||'N/A';
+    buildSlideshow();renderRecs();switchTab('page-home');updateWallet();updateCommDisplay();updateSetDisplay();
+    resetInactivity();
+  }catch(e){clearSession();}
+})();
 function buildSlideshow(){
   const el=document.getElementById('cthumbs');el.innerHTML='';
   BRANDS.forEach((brand,i)=>{

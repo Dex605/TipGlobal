@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTIiIGZpbGw9IiMwZTBhMWYiLz48dGV4dCB4PSIzMiIgeT0iMjgiIGZvbnQtZmFtaWx5PSJBcmlhbCBCbGFjayIgZm9udC1zaXplPSIxMiIgZm9udC13ZWlnaHQ9IjkwMCIgZmlsbD0iI2YwYjQyOSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+VElQPC90ZXh0Pjx0ZXh0IHg9IjMyIiB5PSI0MiIgZm9udC1mYW1pbHk9IkFyaWFsIEJsYWNrIiBmb250LXNpemU9IjEyIiBmb250LXdlaWdodD0iOTAwIiBmaWxsPSIjYTc4YmZhIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5BRE1JTjwvdGV4dD48cmVjdCB4PSI0IiB5PSI0NiIgd2lkdGg9IjU2IiBoZWlnaHQ9IjMiIHJ4PSIxLjUiIGZpbGw9IiNmMGI0MjkiLz48L3N2Zz4=">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tip Global — Admin</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -170,8 +171,8 @@ tr:hover td{background:rgba(255,255,255,0.02);}
       <div class="table-wrap">
         <div class="table-toolbar"><span class="table-title">RECENT REGISTRATIONS</span><button class="icon-btn" onclick="loadDashboard()">↻ Refresh</button></div>
         <div class="tbl-scroll"><table>
-          <thead><tr><th>Username</th><th>Email</th><th>Phone</th><th>Wallet Balance</th><th>Matches</th><th>Inv. Code</th><th>Joined</th></tr></thead>
-          <tbody id="dash-tbody"><tr><td colspan="7" class="no-data">Loading...</td></tr></tbody>
+          <thead><tr><th>Username</th><th>Email</th><th>Phone</th><th>Country</th><th>Wallet</th><th>Matches</th><th>Inv. Code</th><th>Joined</th></tr></thead>
+          <tbody id="dash-tbody"><tr><td colspan="8" class="no-data">Loading...</td></tr></tbody>
         </table></div>
       </div>
     </div>
@@ -339,11 +340,12 @@ async function loadDashboard(){
     <td><strong>${u.username}</strong></td>
     <td style="color:var(--muted)">${u.email}</td>
     <td style="color:var(--muted)">${u.phone||'—'}</td>
+    <td style="font-size:0.82rem">${u.country||'—'}</td>
     <td><span class="badge ${parseFloat(u.wallet_balance||0)>0?'bg':'br'}">$${parseFloat(u.wallet_balance||0).toFixed(2)}</span></td>
     <td style="text-align:center">${u.match_count||0}</td>
     <td style="color:var(--accent);font-size:0.8rem">${u.invitation_code||'—'}</td>
     <td style="color:var(--dim);font-size:0.8rem">${u.created_at?new Date(u.created_at).toLocaleDateString():'—'}</td>
-  </tr>`).join(''):'<tr><td colspan="7" class="no-data">No users yet</td></tr>';
+  </tr>`).join(''):'<tr><td colspan="8" class="no-data">No users yet</td></tr>';
 }
 
 // ── USERS ──
