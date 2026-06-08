@@ -1066,7 +1066,16 @@ function updateCommDisplay(){
   const cd=document.getElementById('comm-disp');if(cd)cd.textContent='$'+v;
   const mc=document.getElementById('my-comm');if(mc)mc.textContent='$'+v;
 }
-function goTo(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);}
+let platformLocked=false;
+async function checkLock(){
+  if(!sb)return;
+  try{const{data}=await sb.from('settings').select('value').eq('key','platform_locked').single();platformLocked=(data?.value==='true');}catch(e){}
+}
+function goTo(id){
+  if((id==='page-signin'||id==='page-signup')&&platformLocked){document.getElementById('lock-overlay').style.display='flex';return;}
+  document.getElementById('lock-overlay').style.display='none';
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);
+}
 function switchTab(id){
   goTo(id);
   document.querySelectorAll('.bi').forEach(b=>{const oc=b.getAttribute('onclick')||'';b.classList.toggle('active',oc.includes("'"+id+"'"));});
@@ -1449,6 +1458,18 @@ function scrollAbout(){document.getElementById('about-sec')?document.getElementB
 buildMosaic('land-mosaic');
 buildMosaic('auth-mosaic-si');
 buildMosaic('auth-mosaic-su');
+</script>
+<!-- PLATFORM LOCK OVERLAY -->
+<div id="lock-overlay" style="display:none;position:fixed;inset:0;background:var(--bg);z-index:99999;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:2rem;">
+  <div style="font-size:3.5rem;margin-bottom:1.2rem;">🔒</div>
+  <div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:#fff;margin-bottom:0.6rem;">Platform Unavailable</div>
+  <div style="font-size:0.92rem;color:var(--muted);max-width:320px;line-height:1.7;">Registration and login are currently closed. Please check back later.</div>
+  <button onclick="document.getElementById('lock-overlay').style.display='none'" style="margin-top:1.8rem;background:transparent;border:1px solid var(--border);color:var(--dim);padding:9px 24px;border-radius:20px;cursor:pointer;font-size:0.82rem;font-family:'Barlow',sans-serif;">← Back</button>
+</div>
+
+<script>
+// Check lock on load
+checkLock();
 </script>
 </body>
 </html>
