@@ -564,6 +564,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);over
 <div id="page-home" class="page">
   <div class="tnav">
     <div class="tnav-logo" onclick="goTo('page-home')"><div class="tg-logo" style="font-size:1.1rem;"><span class="tg-tip">TIG</span><span class="tg-g">G</span></div><span style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;letter-spacing:3px;color:var(--muted);margin-left:7px;font-weight:300;">LOBAL PTE</span></div>
+    <button onclick="switchTab('page-starting')" style="background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:0.85rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:8px 20px;border:none;border-radius:20px;cursor:pointer;box-shadow:0 4px 16px var(--glow);">Start</button>
   </div>
   <div class="hhero">
     <img class="hhero-img" src="https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=1400&q=95&auto=format&fit=crop" onerror="this.style.background='#0e1035'" alt="Singapore">
@@ -817,7 +818,8 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);over
   <div class="subhdr"><button class="subback" onclick="closeSub()">‹</button><span class="subtit">Contact Us</span><div class="subsp"></div></div>
   <div class="subbody" style="padding:0;">
     <div class="cc2"><div class="ccic cs">🎧</div><div><div class="cctit">Online Customer Service</div><div class="ccsub">Chat with our support team</div></div></div>
-    <div class="cc2" onclick="window.open('https://wa.me/16465274020','_blank')"><div class="ccic wa">💬</div><div><div class="cctit">WhatsApp Support</div><div class="ccsub">+1 646-527-4020</div></div></div>
+    <div class="cc2" onclick="window.open('https://wa.me/60166095183','_blank')"><div class="ccic wa">💬</div><div><div class="cctit">WhatsApp Support</div><div class="ccsub">+60 166-095-183</div></div></div>
+    <div class="cc2" onclick="window.open('https://t.me/+60166095183','_blank')"><div class="ccic" style="background:rgba(34,158,217,0.12);">✈️</div><div><div class="cctit">Telegram Support</div><div class="ccsub">+60 166-095-183</div></div></div>
     <div class="cc2"><div class="ccic em">📧</div><div><div class="cctit">Email Support</div><div class="ccsub">support@tipglobal.com</div></div></div>
     <div class="hbox"><h4>Support Hours</h4><p>Online Support Hours: 08:00 to 21:00<br>For any further questions, please contact Online Customer Service. Our team is ready to assist you.</p></div>
   </div>
@@ -906,9 +908,13 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);over
   <div class="cc-handle"></div>
   <div class="cc-title">Customer Care</div>
   <div class="cc-sub">Our team is here to help you 24/7</div>
-  <a class="cc-option" href="https://wa.me/16465274020" target="_blank">
+  <a class="cc-option" href="https://wa.me/60166095183" target="_blank">
     <div class="cc-option-ic" style="background:#25d366;"><svg width="24" height="24" viewBox="0 0 48 48" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M34 13.9A14.1 14.1 0 0010 29.5L8 40l10.8-2.8A14.1 14.1 0 0034 13.9zM24 36.2a11.7 11.7 0 01-6-1.65l-.43-.26-4.45 1.17 1.18-4.33-.28-.45A11.7 11.7 0 1124 36.2zm6.4-8.8c-.35-.18-2.07-1.02-2.39-1.14-.32-.12-.55-.18-.78.18-.23.35-.9 1.14-1.1 1.37-.2.23-.4.26-.75.09-.35-.18-1.48-.55-2.82-1.74-1.04-.93-1.75-2.08-1.95-2.43-.2-.35-.02-.54.15-.71.16-.16.35-.41.53-.62.17-.2.23-.35.35-.58.12-.23.06-.44-.03-.62-.09-.18-.78-1.88-1.07-2.57-.28-.68-.57-.58-.78-.59h-.67c-.23 0-.6.09-.92.44-.32.35-1.2 1.17-1.2 2.86 0 1.69 1.23 3.32 1.4 3.55.18.23 2.42 3.7 5.87 5.19.82.35 1.46.56 1.96.72.82.26 1.57.22 2.16.13.66-.1 2.04-.83 2.32-1.64.29-.8.29-1.49.2-1.63-.08-.15-.3-.23-.64-.4z" fill="white"/></svg></div>
     <div><div class="cc-option-text">WhatsApp</div><div class="cc-option-sub">Chat with us instantly</div></div>
+  </a>
+  <a class="cc-option" href="https://t.me/+60166095183" target="_blank">
+    <div class="cc-option-ic" style="background:#229ED9;"><svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.568 8.16c-.169 1.858-.896 6.728-.896 6.728-.084.554-.388.692-.388.692-.328.214-.808-.018-.808-.018s-1.31-.95-1.927-1.408c-.243-.18-.524-.41-.18-.788.343-.378 2.456-2.31 2.61-2.46.18-.18.27-.42-.18-.42-.45 0-1.62.798-3.66 2.1-.51.36-1.02.54-1.56.54-.51 0-1.53-.21-2.34-.45-.99-.3-.99-.93.21-1.32 0 0 4.32-1.86 5.82-2.46 1.5-.6 3.42-.18 3.3 1.262z"/></svg></div>
+    <div><div class="cc-option-text">Telegram</div><div class="cc-option-sub">Message us on Telegram</div></div>
   </a>
 </div>
 

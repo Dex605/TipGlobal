@@ -126,9 +126,21 @@ tr:hover td{background:rgba(255,255,255,0.02);}
     <label class="lf">Username</label>
     <input class="li" type="text" id="au" placeholder="Admin username">
     <label class="lf">Password</label>
-    <input class="li" type="password" id="ap" placeholder="Admin password" onkeydown="if(event.key==='Enter')login()">
+    <input class="li" type="password" id="ap" placeholder="Admin password">
+    <label class="lf">Authenticator Code</label>
+    <input class="li" type="text" id="atotp" placeholder="6-digit code from Google Authenticator" maxlength="6" pattern="[0-9]*" inputmode="numeric" onkeydown="if(event.key==='Enter')login()">
     <button class="lbtn" onclick="login()">SIGN IN</button>
     <div class="lerr" id="lerr">Incorrect credentials.</div>
+    <div style="text-align:center;margin-top:1.2rem;">
+      <span onclick="document.getElementById('qr-setup').style.display=document.getElementById('qr-setup').style.display==='none'?'block':'none'" style="font-size:0.78rem;color:var(--dim);cursor:pointer;text-decoration:underline;text-underline-offset:2px;">First time? Set up Authenticator</span>
+    </div>
+    <div id="qr-setup" style="display:none;margin-top:1rem;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:12px;padding:1.2rem;text-align:center;">
+      <div style="font-size:0.75rem;color:var(--muted);margin-bottom:0.75rem;line-height:1.6;">Open <strong style="color:#fff;">Google Authenticator</strong>, tap <strong style="color:#fff;">+</strong> → <strong style="color:#fff;">Scan QR code</strong></div>
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=otpauth%3A//totp/TIG%20Global%20Admin%3Amansterphones%40gmail.com%3Fsecret%3DT5FYBVHRBUYDVLZ4DQT56D77QKE4DLTS%26issuer%3DTIG%20Global%20Admin%26algorithm%3DSHA1%26digits%3D6%26period%3D30" style="width:180px;height:180px;border-radius:10px;background:#fff;padding:6px;" alt="QR Code">
+      <div style="font-size:0.68rem;color:var(--dim);margin-top:0.75rem;">Manual entry key:</div>
+      <div style="font-size:0.75rem;color:var(--accent);letter-spacing:2px;font-weight:700;margin-top:3px;">T5FY BVHR BUYD VLZ4 DQT5 6D77 QKE4 DLTS</div>
+      <div style="font-size:0.68rem;color:var(--dim);margin-top:6px;">Account: mansterphones@gmail.com</div>
+    </div>
   </div>
 </div>
 
@@ -256,14 +268,53 @@ tr:hover td{background:rgba(255,255,255,0.02);}
 <script>
 const ADMIN_USER='tgadmin';
 const ADMIN_PASS='TGAdmin2025!';
+const TOTP_SECRET='T5FYBVHRBUYDVLZ4DQT56D77QKE4DLTS';
 const SUPA_URL='https://dkbwxdiiwcowgqmdkyyh.supabase.co';
 const SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRrYnd4ZGlpd2Nvd2dxbWRreXloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2NjU5NzEsImV4cCI6MjA5NTI0MTk3MX0.AxxL0nzHPEaRZYh-4IwJMGDnhxDWyoW3cq9FMJ65UO8';
 let sb=null,allUsers=[],delId=null,wUserId=null;
 
-function login(){
+// Base32 decode
+function base32Decode(str){
+  const alphabet='ABCDEFGHIJKLMNOPQRSTUVWXYZ234567';
+  str=str.toUpperCase().replace(/=+$/,'');
+  let bits='';
+  for(const c of str){const i=alphabet.indexOf(c);if(i===-1)continue;bits+=i.toString(2).padStart(5,'0');}
+  const bytes=[];
+  for(let i=0;i+8<=bits.length;i+=8)bytes.push(parseInt(bits.substr(i,8),2));
+  return new Uint8Array(bytes);
+}
+// Generate TOTP code for a given time counter
+async function generateTOTP(secret,timeStep){
+  const key=base32Decode(secret);
+  const buf=new ArrayBuffer(8);
+  const view=new DataView(buf);
+  view.setUint32(4,timeStep,false);
+  const cryptoKey=await crypto.subtle.importKey('raw',key,{name:'HMAC',hash:'SHA-1'},false,['sign']);
+  const sig=await crypto.subtle.sign('HMAC',cryptoKey,buf);
+  const bytes=new Uint8Array(sig);
+  const offset=bytes[bytes.length-1]&0xf;
+  const code=((bytes[offset]&0x7f)<<24|(bytes[offset+1]&0xff)<<16|(bytes[offset+2]&0xff)<<8|(bytes[offset+3]&0xff))%1000000;
+  return code.toString().padStart(6,'0');
+}
+// Verify code allowing ±1 time step drift (30s window)
+async function verifyTOTPCode(code){
+  const now=Math.floor(Date.now()/1000/30);
+  for(let i=-1;i<=1;i++){
+    const expected=await generateTOTP(TOTP_SECRET,now+i);
+    if(expected===code)return true;
+  }
+  return false;
+}
+
+async function login(){
   const u=document.getElementById('au').value.trim();
   const p=document.getElementById('ap').value;
-  if(u!==ADMIN_USER||p!==ADMIN_PASS){document.getElementById('lerr').style.display='block';return;}
+  const code=document.getElementById('atotp').value.trim();
+  document.getElementById('lerr').style.display='none';
+  if(u!==ADMIN_USER||p!==ADMIN_PASS){document.getElementById('lerr').textContent='Incorrect username or password.';document.getElementById('lerr').style.display='block';return;}
+  if(!/^\d{6}$/.test(code)){document.getElementById('lerr').textContent='Enter the 6-digit authenticator code.';document.getElementById('lerr').style.display='block';return;}
+  const valid=await verifyTOTPCode(code);
+  if(!valid){document.getElementById('lerr').textContent='Invalid authenticator code. Please try again.';document.getElementById('lerr').style.display='block';return;}
   try{sb=supabase.createClient(SUPA_URL,SUPA_KEY);}catch(e){document.getElementById('lerr').textContent='Connection error.';document.getElementById('lerr').style.display='block';return;}
   document.getElementById('login-page').style.display='none';
   document.getElementById('main').style.display='block';
