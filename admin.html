@@ -127,8 +127,6 @@ tr:hover td{background:rgba(255,255,255,0.02);}
     <input class="li" type="text" id="au" placeholder="Admin username">
     <label class="lf">Password</label>
     <input class="li" type="password" id="ap" placeholder="Admin password">
-    <label class="lf">Authenticator Code</label>
-    <input class="li" type="text" id="atotp" placeholder="6-digit code from Google Authenticator" maxlength="6" pattern="[0-9]*" inputmode="numeric" onkeydown="if(event.key==='Enter')login()">
     <button class="lbtn" onclick="login()">SIGN IN</button>
     <div class="lerr" id="lerr">Incorrect credentials.</div>
     <div style="text-align:center;margin-top:1.2rem;">
@@ -334,12 +332,8 @@ async function verifyTOTPCode(code){
 async function login(){
   const u=document.getElementById('au').value.trim();
   const p=document.getElementById('ap').value;
-  const code=document.getElementById('atotp').value.trim();
   document.getElementById('lerr').style.display='none';
   if(u!==ADMIN_USER||p!==ADMIN_PASS){document.getElementById('lerr').textContent='Incorrect username or password.';document.getElementById('lerr').style.display='block';return;}
-  if(!/^\d{6}$/.test(code)){document.getElementById('lerr').textContent='Enter the 6-digit authenticator code.';document.getElementById('lerr').style.display='block';return;}
-  const valid=await verifyTOTPCode(code);
-  if(!valid){document.getElementById('lerr').textContent='Invalid authenticator code. Please try again.';document.getElementById('lerr').style.display='block';return;}
   try{sb=supabase.createClient(SUPA_URL,SUPA_KEY);}catch(e){document.getElementById('lerr').textContent='Connection error.';document.getElementById('lerr').style.display='block';return;}
   document.getElementById('login-page').style.display='none';
   document.getElementById('main').style.display='block';
