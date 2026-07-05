@@ -10,22 +10,22 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#06040f;
-  --bg2:#0e0a1f;
-  --bg3:#15102e;
-  --accent:#f0b429;
-  --accent2:#a78bfa;
-  --gold:#ffd166;
-  --glass:rgba(255,255,255,0.055);
-  --glass2:rgba(255,255,255,0.09);
-  --glass3:rgba(255,255,255,0.14);
+  --bg:#03100a;
+  --bg2:#071a0f;
+  --bg3:#0b2415;
+  --accent:#00c878;
+  --accent2:#4ade80;
+  --gold:#f0b429;
+  --glass:rgba(0,200,120,0.055);
+  --glass2:rgba(0,200,120,0.09);
+  --glass3:rgba(0,200,120,0.14);
   --border:rgba(255,255,255,0.08);
-  --border2:rgba(240,180,41,0.25);
+  --border2:rgba(0,200,120,0.28);
   --text:#fff;
   --muted:rgba(255,255,255,0.52);
   --dim:rgba(255,255,255,0.24);
-  --glow:rgba(240,180,41,0.3);
-  --glow2:rgba(167,139,250,0.28);
+  --glow:rgba(0,200,120,0.32);
+  --glow2:rgba(74,222,128,0.25);
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;}
@@ -34,7 +34,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);over
 
 /* ── LOGO ── */
 .tg-logo{display:inline-flex;align-items:center;gap:0;}
-.tg-tip{background:linear-gradient(135deg,#0ecfa4,#0aa882);color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;letter-spacing:1px;padding:3px 7px 3px 8px;border-radius:6px 0 0 6px;font-size:inherit;}
+.tg-tip{background:linear-gradient(135deg,#00c878,#00a066);color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;letter-spacing:1px;padding:3px 7px 3px 8px;border-radius:6px 0 0 6px;font-size:inherit;}
 .tg-g{background:rgba(245,166,35,0.18);color:var(--accent2);font-family:'Barlow Condensed',sans-serif;font-weight:800;padding:3px 6px;border-radius:0 6px 6px 0;font-size:inherit;border:1px solid rgba(245,166,35,0.35);}
 .tg-rest{font-family:'Barlow Condensed',sans-serif;font-weight:300;letter-spacing:5px;color:var(--muted);margin-left:8px;font-size:inherit;}
 
@@ -719,6 +719,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);over
   <div class="msect"><div class="msect-t">My Detail</div><div class="mlist">
     <div class="mi" onclick="openSub('page-personal')"><div class="mil"><div class="mic">✏️</div><span class="min">Personal Information</span></div><span class="mch">›</span></div>
     <div class="mi" onclick="openSub('page-payment')"><div class="mil"><div class="mic">🏦</div><span class="min">Payment Methods</span></div><span class="mch">›</span></div>
+    <div class="mi" onclick="openSub('page-bind')"><div class="mil"><div class="mic">🔐</div><span class="min">Manage Withdrawal Details</span></div><span class="mch">›</span></div>
   </div></div>
   <div class="msect"><div class="msect-t">Other</div><div class="mlist">
     <div class="mi" onclick="openSub('page-contact')"><div class="mil"><div class="mic">💬</div><span class="min">Contact Us</span></div><span class="mch">›</span></div>
@@ -818,13 +819,49 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);over
   </div>
 </div>
 
+<!-- BIND ACCOUNT -->
+<div id="page-bind" class="page" style="padding-bottom:20px;">
+  <div class="subhdr"><button class="subback" onclick="closeSub()">‹</button><span class="subtit">Manage Withdrawal Details</span><div class="subsp"></div></div>
+  <div class="subbody">
+
+    <!-- PIN SECTION -->
+    <div style="background:var(--glass);border:1px solid var(--border2);border-radius:16px;padding:1.25rem;margin-bottom:1rem;">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:0.95rem;font-weight:700;color:#fff;letter-spacing:1px;margin-bottom:0.4rem;">🔒 WITHDRAWAL PIN</div>
+      <div style="font-size:0.8rem;color:var(--muted);margin-bottom:1rem;">Set a 6-digit PIN to secure your withdrawals.</div>
+      <div class="field"><label class="fieldl">New PIN (6 digits)</label><input class="fieldi" type="password" id="bind-pin" placeholder="••••••" maxlength="6" inputmode="numeric" pattern="[0-9]*"></div>
+      <div class="field"><label class="fieldl">Confirm PIN</label><input class="fieldi" type="password" id="bind-pin2" placeholder="••••••" maxlength="6" inputmode="numeric" pattern="[0-9]*"></div>
+      <button onclick="saveBindPin()" style="width:100%;padding:12px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:none;border-radius:10px;font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:2px;cursor:pointer;">SAVE PIN</button>
+      <div id="bind-pin-msg" style="display:none;text-align:center;margin-top:8px;font-size:0.82rem;"></div>
+    </div>
+
+    <!-- WALLET SECTION -->
+    <div style="background:var(--glass);border:1px solid var(--border2);border-radius:16px;padding:1.25rem;">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:0.95rem;font-weight:700;color:#fff;letter-spacing:1px;margin-bottom:0.4rem;">💳 WALLET DETAILS</div>
+      <div style="font-size:0.8rem;color:var(--muted);margin-bottom:1rem;">We only support USDT TRC20 or ERC20 network for withdrawals.</div>
+      <div class="field">
+        <label class="fieldl">Withdrawal Type</label>
+        <select id="bind-type" style="width:100%;background:var(--glass2);border:1px solid var(--border);border-radius:10px;padding:12px 14px;color:#fff;font-size:0.9rem;outline:none;font-family:'Barlow',sans-serif;">
+          <option value="TRC20" style="background:#0a1a0e;">USDT — TRC20</option>
+          <option value="ERC20" style="background:#0a1a0e;">USDT — ERC20 (ETH)</option>
+          <option value="BTC" style="background:#0a1a0e;">Bitcoin — BTC</option>
+        </select>
+      </div>
+      <div class="field"><label class="fieldl">Wallet Name</label><input class="fieldi" type="text" id="bind-wname" placeholder="Enter wallet name (e.g. Binance, Trust Wallet)"></div>
+      <div class="field"><label class="fieldl">Wallet Address</label><input class="fieldi" type="text" id="bind-waddr" placeholder="Enter your wallet address"></div>
+      <button onclick="saveBindWallet()" style="width:100%;padding:12px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:none;border-radius:10px;font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:2px;cursor:pointer;">SUBMIT</button>
+      <div id="bind-wallet-msg" style="display:none;text-align:center;margin-top:8px;font-size:0.82rem;"></div>
+    </div>
+
+  </div>
+</div>
+
 <!-- CONTACT -->
 <div id="page-contact" class="page" style="padding-bottom:20px;">
   <div class="subhdr"><button class="subback" onclick="closeSub()">‹</button><span class="subtit">Contact Us</span><div class="subsp"></div></div>
   <div class="subbody" style="padding:0;">
     <div class="cc2"><div class="ccic cs">🎧</div><div><div class="cctit">Online Customer Service</div><div class="ccsub">Chat with our support team</div></div></div>
-    <div class="cc2" onclick="window.open('https://wa.me/60166095183','_blank')"><div class="ccic wa">💬</div><div><div class="cctit">WhatsApp Support</div><div class="ccsub">+60 166-095-183</div></div></div>
-    <div class="cc2" onclick="window.open('https://t.me/+60166095183','_blank')"><div class="ccic" style="background:rgba(34,158,217,0.12);">✈️</div><div><div class="cctit">Telegram Support</div><div class="ccsub">+60 166-095-183</div></div></div>
+    <div class="cc2" onclick="window.open('https://wa.me/447308463654','_blank')"><div class="ccic wa">💬</div><div><div class="cctit">WhatsApp Support</div><div class="ccsub">+44 7308 463654</div></div></div>
+    <div class="cc2" onclick="window.open('https://t.me/+447308463654','_blank')"><div class="ccic" style="background:rgba(34,158,217,0.12);">✈️</div><div><div class="cctit">Telegram Support</div><div class="ccsub">+44 7308 463654</div></div></div>
     <div class="cc2"><div class="ccic em">📧</div><div><div class="cctit">Email Support</div><div class="ccsub">support@tipglobal.com</div></div></div>
     <div class="hbox"><h4>Support Hours</h4><p>Online Support Hours: 08:00 to 21:00<br>For any further questions, please contact Online Customer Service. Our team is ready to assist you.</p></div>
   </div>
@@ -913,11 +950,11 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);over
   <div class="cc-handle"></div>
   <div class="cc-title">Customer Care</div>
   <div class="cc-sub">Our team is here to help you 24/7</div>
-  <a class="cc-option" href="https://wa.me/60166095183" target="_blank">
+  <a class="cc-option" href="https://wa.me/447308463654" target="_blank">
     <div class="cc-option-ic" style="background:#25d366;"><svg width="24" height="24" viewBox="0 0 48 48" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M34 13.9A14.1 14.1 0 0010 29.5L8 40l10.8-2.8A14.1 14.1 0 0034 13.9zM24 36.2a11.7 11.7 0 01-6-1.65l-.43-.26-4.45 1.17 1.18-4.33-.28-.45A11.7 11.7 0 1124 36.2zm6.4-8.8c-.35-.18-2.07-1.02-2.39-1.14-.32-.12-.55-.18-.78.18-.23.35-.9 1.14-1.1 1.37-.2.23-.4.26-.75.09-.35-.18-1.48-.55-2.82-1.74-1.04-.93-1.75-2.08-1.95-2.43-.2-.35-.02-.54.15-.71.16-.16.35-.41.53-.62.17-.2.23-.35.35-.58.12-.23.06-.44-.03-.62-.09-.18-.78-1.88-1.07-2.57-.28-.68-.57-.58-.78-.59h-.67c-.23 0-.6.09-.92.44-.32.35-1.2 1.17-1.2 2.86 0 1.69 1.23 3.32 1.4 3.55.18.23 2.42 3.7 5.87 5.19.82.35 1.46.56 1.96.72.82.26 1.57.22 2.16.13.66-.1 2.04-.83 2.32-1.64.29-.8.29-1.49.2-1.63-.08-.15-.3-.23-.64-.4z" fill="white"/></svg></div>
     <div><div class="cc-option-text">WhatsApp</div><div class="cc-option-sub">Chat with us instantly</div></div>
   </a>
-  <a class="cc-option" href="https://t.me/+60166095183" target="_blank">
+  <a class="cc-option" href="https://t.me/+447308463654" target="_blank">
     <div class="cc-option-ic" style="background:#229ED9;"><svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.568 8.16c-.169 1.858-.896 6.728-.896 6.728-.084.554-.388.692-.388.692-.328.214-.808-.018-.808-.018s-1.31-.95-1.927-1.408c-.243-.18-.524-.41-.18-.788.343-.378 2.456-2.31 2.61-2.46.18-.18.27-.42-.18-.42-.45 0-1.62.798-3.66 2.1-.51.36-1.02.54-1.56.54-.51 0-1.53-.21-2.34-.45-.99-.3-.99-.93.21-1.32 0 0 4.32-1.86 5.82-2.46 1.5-.6 3.42-.18 3.3 1.262z"/></svg></div>
     <div><div class="cc-option-text">Telegram</div><div class="cc-option-sub">Message us on Telegram</div></div>
   </a>
@@ -1091,7 +1128,10 @@ function switchTab(id){
   goTo(id);
   document.querySelectorAll('.bi').forEach(b=>{const oc=b.getAttribute('onclick')||'';b.classList.toggle('active',oc.includes("'"+id+"'"));});
 }
-function openSub(id){subHist.push(document.querySelector('.page.active').id);goTo(id);syncBalanceFromServer();}
+function openSub(id){
+  subHist.push(document.querySelector('.page.active').id);goTo(id);syncBalanceFromServer();
+  if(id==='page-bind') loadBindData();
+}
 function closeSub(){const p=subHist.pop();if(p)goTo(p);else goTo('page-my');}
 function eyeT(id,btn){const i=document.getElementById(id);if(i.type==='password'){i.type='text';btn.textContent='🙈';}else{i.type='password';btn.textContent='👁';}}
 function genCode(){const c='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';let r='';for(let i=0;i<6;i++)r+=c.charAt(Math.floor(Math.random()*c.length));return r;}
@@ -1452,6 +1492,39 @@ function savePaymentWallet(){
   const idx=users.findIndex(x=>x.username===cUser.username);
   if(idx>-1){users[idx].pmWallet=w;users[idx].pmAddress=a;localStorage.setItem('tg_users',JSON.stringify(users));}
   alert('Payment wallet saved successfully!');
+}
+async function loadBindData(){
+  if(!sb||!cUser?.id)return;
+  const{data}=await sb.from('users').select('wallet_type,wallet_name_field,wallet_address').eq('id',cUser.id).single();
+  if(!data)return;
+  if(data.wallet_type)document.getElementById('bind-type').value=data.wallet_type;
+  if(data.wallet_name_field)document.getElementById('bind-wname').value=data.wallet_name_field;
+  if(data.wallet_address)document.getElementById('bind-waddr').value=data.wallet_address;
+}
+async function saveBindPin(){
+  const p=document.getElementById('bind-pin').value.trim();
+  const p2=document.getElementById('bind-pin2').value.trim();
+  const msg=document.getElementById('bind-pin-msg');
+  msg.style.display='block';
+  if(!/^\d{6}$/.test(p)){msg.style.color='#f87171';msg.textContent='PIN must be exactly 6 digits.';return;}
+  if(p!==p2){msg.style.color='#f87171';msg.textContent='PINs do not match.';return;}
+  if(sb&&cUser?.id) await sb.from('users').update({withdrawal_pin:p}).eq('id',cUser.id);
+  msg.style.color='var(--accent)';msg.textContent='✓ PIN saved successfully!';
+  document.getElementById('bind-pin').value='';document.getElementById('bind-pin2').value='';
+}
+async function saveBindWallet(){
+  const type=document.getElementById('bind-type').value;
+  const name=document.getElementById('bind-wname').value.trim();
+  const addr=document.getElementById('bind-waddr').value.trim();
+  const msg=document.getElementById('bind-wallet-msg');
+  msg.style.display='block';
+  if(!name||!addr){msg.style.color='#f87171';msg.textContent='Please fill in all fields.';return;}
+  if(sb&&cUser?.id) await sb.from('users').update({wallet_type:type,wallet_name_field:name,wallet_address:addr}).eq('id',cUser.id);
+  // Save locally too
+  const users=JSON.parse(localStorage.getItem('tg_users')||'[]');
+  const idx=users.findIndex(x=>x.username===cUser?.username);
+  if(idx>-1){users[idx].wallet_type=type;users[idx].wallet_name_field=name;users[idx].wallet_address=addr;localStorage.setItem('tg_users',JSON.stringify(users));}
+  msg.style.color='var(--accent)';msg.textContent='✓ Wallet details saved successfully!';
 }
 async function doWithdraw(){
   const amt=parseFloat(document.getElementById('with-bal').textContent)||0;
