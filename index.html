@@ -1200,7 +1200,7 @@ function afterLogin(){
     recs.push({brand,date:'Pending',status:'pending',price,comm,stars:0,idx});
   });
   buildSlideshow();renderRecs();switchTab('page-home');updateWallet();updateCommDisplay();
-  saveSession();resetInactivity();subscribeBalance();
+  saveSession();resetInactivity();subscribeBalance();showChatFab();
   setTimeout(()=>{document.getElementById('popup').style.display='flex';},700);
 }
 function doLogout(){
@@ -1497,6 +1497,92 @@ buildMosaic('auth-mosaic-su');
 <script>
 // Check lock on load
 checkLock();
+</script>
+<!-- LIVE CHAT WIDGET -->
+<style>
+.chat-fab{position:fixed;bottom:70px;right:16px;width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;cursor:pointer;z-index:500;box-shadow:0 4px 20px var(--glow);display:none;align-items:center;justify-content:center;font-size:1.3rem;}
+.chat-fab.show{display:flex;}
+.chat-fab .chat-badge{position:absolute;top:-4px;right:-4px;background:#ef4444;color:#fff;font-size:0.6rem;font-weight:700;width:18px;height:18px;border-radius:50%;display:none;align-items:center;justify-content:center;}
+.chat-fab .chat-badge.show{display:flex;}
+.chat-win{position:fixed;bottom:130px;right:16px;width:300px;height:420px;background:var(--bg2);border:1px solid var(--border2);border-radius:18px;z-index:500;display:none;flex-direction:column;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.5);}
+.chat-win.show{display:flex;}
+.chat-hdr{background:linear-gradient(135deg,var(--accent),var(--accent2));padding:0.9rem 1rem;display:flex;align-items:center;justify-content:space-between;}
+.chat-hdr-title{font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;color:#fff;letter-spacing:1px;}
+.chat-hdr-sub{font-size:0.7rem;color:rgba(255,255,255,0.75);}
+.chat-close{background:none;border:none;color:#fff;font-size:1.2rem;cursor:pointer;line-height:1;}
+.chat-msgs{flex:1;overflow-y:auto;padding:0.75rem;display:flex;flex-direction:column;gap:8px;scrollbar-width:thin;}
+.chat-msgs::-webkit-scrollbar{width:4px;}
+.chat-msgs::-webkit-scrollbar-track{background:transparent;}
+.chat-msgs::-webkit-scrollbar-thumb{background:var(--border);}
+.chat-bubble{max-width:80%;padding:8px 12px;border-radius:12px;font-size:0.82rem;line-height:1.5;word-break:break-word;}
+.chat-bubble.user{background:var(--glass2);color:#fff;align-self:flex-end;border-bottom-right-radius:4px;}
+.chat-bubble.admin{background:linear-gradient(135deg,rgba(240,180,41,0.15),rgba(167,139,250,0.15));color:#fff;align-self:flex-start;border-bottom-left-radius:4px;border:1px solid var(--border2);}
+.chat-bubble .chat-time{font-size:0.65rem;color:var(--dim);margin-top:3px;}
+.chat-empty{text-align:center;color:var(--muted);font-size:0.82rem;margin:auto;padding:1rem;}
+.chat-input-row{display:flex;gap:6px;padding:0.75rem;border-top:1px solid var(--border);}
+.chat-input{flex:1;background:rgba(255,255,255,0.07);border:1px solid var(--border);border-radius:10px;color:#fff;font-family:'Barlow',sans-serif;font-size:0.83rem;padding:8px 12px;outline:none;resize:none;}
+.chat-input::placeholder{color:var(--dim);}
+.chat-send{background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;color:#fff;border-radius:10px;width:36px;height:36px;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+</style>
+
+<button class="chat-fab" id="chat-fab" onclick="toggleChat()">💬<span class="chat-badge" id="chat-badge">0</span></button>
+<div class="chat-win" id="chat-win">
+  <div class="chat-hdr">
+    <div><div class="chat-hdr-title">TIG Global Support</div><div class="chat-hdr-sub">We usually reply within an hour</div></div>
+    <button class="chat-close" onclick="toggleChat()">✕</button>
+  </div>
+  <div class="chat-msgs" id="chat-msgs"><div class="chat-empty">Send a message to start the conversation</div></div>
+  <div class="chat-input-row">
+    <textarea class="chat-input" id="chat-input" placeholder="Type a message..." rows="1" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMsg();}"></textarea>
+    <button class="chat-send" onclick="sendMsg()">➤</button>
+  </div>
+</div>
+
+<script>
+let chatOpen=false,chatChannel=null;
+function toggleChat(){
+  chatOpen=!chatOpen;
+  document.getElementById('chat-win').classList.toggle('show',chatOpen);
+  if(chatOpen){loadMsgs();document.getElementById('chat-badge').classList.remove('show');}
+}
+function showChatFab(){document.getElementById('chat-fab').classList.add('show');}
+async function loadMsgs(){
+  if(!sb||!cUser)return;
+  const{data}=await sb.from('messages').select('*').eq('username',cUser.username).order('created_at',{ascending:true});
+  renderMsgs(data||[]);
+  // Mark admin messages as read
+  await sb.from('messages').update({is_read:true}).eq('username',cUser.username).eq('sender','admin');
+  subscribeMsgs();
+}
+function renderMsgs(msgs){
+  const el=document.getElementById('chat-msgs');
+  if(!msgs.length){el.innerHTML='<div class="chat-empty">Send a message to start the conversation</div>';return;}
+  el.innerHTML=msgs.map(m=>`<div class="chat-bubble ${m.sender}">
+    ${m.sender==='admin'?'<div style="font-size:0.68rem;color:var(--accent);font-weight:700;margin-bottom:2px;">Support</div>':''}
+    ${m.message}
+    <div class="chat-time">${new Date(m.created_at).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}</div>
+  </div>`).join('');
+  el.scrollTop=el.scrollHeight;
+}
+function subscribeMsgs(){
+  if(chatChannel||!sb||!cUser)return;
+  chatChannel=sb.channel('chat-'+cUser.username)
+    .on('postgres_changes',{event:'INSERT',schema:'public',table:'messages',filter:'username=eq.'+cUser.username},
+    async(payload)=>{
+      const{data}=await sb.from('messages').select('*').eq('username',cUser.username).order('created_at',{ascending:true});
+      renderMsgs(data||[]);
+      if(!chatOpen){const b=document.getElementById('chat-badge');b.textContent='!';b.classList.add('show');}
+    }).subscribe();
+}
+async function sendMsg(){
+  const input=document.getElementById('chat-input');
+  const msg=input.value.trim();
+  if(!msg||!cUser||!sb)return;
+  input.value='';
+  await sb.from('messages').insert([{user_id:cUser.id||null,username:cUser.username,message:msg,sender:'user',is_read:false}]);
+  const{data}=await sb.from('messages').select('*').eq('username',cUser.username).order('created_at',{ascending:true});
+  renderMsgs(data||[]);
+}
 </script>
 </body>
 </html>
