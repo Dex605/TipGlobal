@@ -743,6 +743,42 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);over
   <div class="tabs2" style="margin:1rem 1.25rem;"><div class="t2 active">Deposit</div><div class="t2">History</div></div>
   <div class="subbody" style="padding-top:0;">
     <div class="amtc"><div class="amtl">Account Amount</div><div class="amtv"><em>$</em><span id="dep-bal">0</span></div></div>
+
+    <!-- DEPOSIT INSTRUCTIONS -->
+    <div style="background:var(--glass);border:1px solid var(--border2);border-radius:16px;padding:1.25rem;margin-bottom:1rem;text-align:center;">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim);margin-bottom:0.75rem;">SCAN TO DEPOSIT</div>
+
+      <!-- Binance Logo -->
+      <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:1rem;">
+        <img src="https://cdn.simpleicons.org/binance/F0B90B" style="width:28px;height:28px;" alt="Binance">
+        <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:800;color:#F0B90B;letter-spacing:2px;">BINANCE</span>
+      </div>
+
+      <!-- QR Code -->
+      <div style="background:#fff;border-radius:14px;padding:12px;display:inline-block;margin-bottom:1rem;">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=TGWoeBu1KncHrynvBqF5oFm7dbRo48FXee&margin=4" style="width:180px;height:180px;display:block;" alt="Deposit QR">
+      </div>
+
+      <!-- Network Badge -->
+      <div style="background:rgba(240,185,11,0.12);border:1px solid rgba(240,185,11,0.3);border-radius:20px;padding:4px 16px;display:inline-block;margin-bottom:1rem;">
+        <span style="font-size:0.75rem;font-weight:700;color:#F0B90B;letter-spacing:1px;">USDT — TRC20</span>
+      </div>
+
+      <!-- Wallet Address -->
+      <div style="font-size:0.7rem;color:var(--dim);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">Wallet Address</div>
+      <div style="background:rgba(255,255,255,0.06);border:1px solid var(--border);border-radius:10px;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:1rem;">
+        <span style="font-family:monospace;font-size:0.78rem;color:var(--accent);word-break:break-all;text-align:left;">TGWoeBu1KncHrynvBqF5oFm7dbRo48FXee</span>
+        <button onclick="navigator.clipboard.writeText('TGWoeBu1KncHrynvBqF5oFm7dbRo48FXee').then(()=>{this.textContent='✓';setTimeout(()=>this.textContent='Copy',1500)})" style="background:var(--accent);color:#fff;border:none;border-radius:6px;padding:4px 10px;font-size:0.75rem;font-weight:700;cursor:pointer;flex-shrink:0;">Copy</button>
+      </div>
+
+      <div style="font-size:0.78rem;color:var(--muted);line-height:1.7;text-align:left;background:rgba(255,150,0,0.06);border:1px solid rgba(255,150,0,0.2);border-radius:10px;padding:10px 12px;">
+        ⚠️ <strong style="color:#f0a500;">Important:</strong> Only send <strong>USDT on the TRC20 network</strong> to this address. Sending any other coin or using a different network will result in permanent loss of funds.
+      </div>
+    </div>
+
+    <div style="font-size:0.8rem;color:var(--muted);text-align:center;margin-bottom:1rem;line-height:1.6;">
+      After depositing, please contact customer support with your transaction ID to confirm and credit your account.
+    </div>
     <button class="bcs" onclick="openCC()">Contact Customer Service</button>
   </div>
 </div>
