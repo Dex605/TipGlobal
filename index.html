@@ -654,7 +654,9 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);over
         <div class="brand-feat-cat" id="brand-feat-cat">Category</div>
         <div style="width:100%;margin-top:1rem;position:relative;z-index:1;">
           <div style="font-size:0.7rem;color:var(--dim);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:5px;">Write a Review</div>
-          <textarea id="brand-review" placeholder="Share your experience with this brand..." style="width:100%;background:rgba(255,255,255,0.07);border:1px solid var(--border);border-radius:10px;color:#fff;font-family:'Barlow',sans-serif;font-size:0.82rem;padding:10px;outline:none;resize:none;height:64px;line-height:1.5;" oninput="saveReview()"></textarea>
+          <textarea id="brand-review" placeholder="Share your experience with this brand..." style="width:100%;background:rgba(255,255,255,0.07);border:1px solid var(--border);border-radius:10px;color:#fff;font-family:'Barlow',sans-serif;font-size:0.82rem;padding:10px;outline:none;resize:none;height:64px;line-height:1.5;"></textarea>
+          <button id="review-submit-btn" onclick="submitReview()" style="margin-top:8px;width:100%;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:none;border-radius:8px;padding:9px;font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:1.5px;font-size:0.78rem;text-transform:uppercase;cursor:pointer;">Submit Review</button>
+          <div id="review-status" style="font-size:0.74rem;color:var(--accent2);margin-top:6px;display:none;text-align:center;"></div>
         </div>
       </div>
     </div>
@@ -1363,7 +1365,9 @@ function pickBrand(idx){
     showcase.classList.remove('exit-brand');
     window._currentBrandIdx=idx;
     const rv=document.getElementById('brand-review');
-    if(rv&&cUser){const reviews=JSON.parse(localStorage.getItem('tg_reviews_'+cUser.username)||'{}');rv.value=reviews[idx]||'';}
+    if(rv) rv.value='';
+    const rs=document.getElementById('review-status');
+    if(rs) rs.style.display='none';
     const isLocked=(idx===32&&!lock33)||(idx===39&&!lock40);
     const fc=document.getElementById('fcar');
     fc.src=BRANDS[idx].u;fc.alt=BRANDS[idx].n;
@@ -1514,12 +1518,37 @@ function renderRecs(){
     </div>`;
   }).join('');
 }
-function saveReview(){
+async function submitReview(){
   const rv=document.getElementById('brand-review');
+  const rs=document.getElementById('review-status');
+  const btn=document.getElementById('review-submit-btn');
   if(!rv||!cUser)return;
-  const reviews=JSON.parse(localStorage.getItem('tg_reviews_'+cUser.username)||'{}');
-  reviews[window._currentBrandIdx||0]=rv.value;
-  localStorage.setItem('tg_reviews_'+cUser.username,JSON.stringify(reviews));
+  const text=rv.value.trim();
+  if(!text){
+    if(rs){rs.style.color='#f87171';rs.textContent='Please write something before submitting.';rs.style.display='block';}
+    return;
+  }
+  if(!sb){
+    if(rs){rs.style.color='#f87171';rs.textContent='Could not connect. Please try again.';rs.style.display='block';}
+    return;
+  }
+  const idx=window._currentBrandIdx||0;
+  const brand=BRANDS[idx];
+  if(btn){btn.disabled=true;btn.textContent='Submitting...';}
+  try{
+    await sb.from('reviews').insert([{
+      user_id:cUser.id||null,
+      username:cUser.username,
+      brand_idx:idx,
+      brand_name:brand.n,
+      review_text:text
+    }]);
+    rv.value='';
+    if(rs){rs.style.color='var(--accent2)';rs.textContent='✓ Review submitted. Thank you!';rs.style.display='block';setTimeout(()=>{rs.style.display='none';},3000);}
+  }catch(e){
+    if(rs){rs.style.color='#f87171';rs.textContent='Could not submit review. Please try again.';rs.style.display='block';}
+  }
+  if(btn){btn.disabled=false;btn.textContent='Submit Review';}
 }
 function savePaymentWallet(){
   const w=document.getElementById('pm-wallet').value.trim();const a=document.getElementById('pm-address').value.trim();
