@@ -152,6 +152,7 @@ tr:hover td{background:rgba(255,255,255,0.02);}
     <div class="tb-nav">
       <button class="tnb active" onclick="showSec('users',this)">Users</button>
       <button class="tnb" onclick="showSec('chats',this)">Chats <span id="chat-unread-badge" style="background:#ef4444;color:#fff;font-size:0.65rem;padding:1px 6px;border-radius:10px;display:none;"></span></button>
+      <button class="tnb" onclick="showSec('reviews',this)">Reviews</button>
       <button class="tnb" onclick="showSec('dashboard',this)">Dashboard</button>
       <button class="tnb" onclick="showSec('settings',this)">Settings</button>
     </div>
@@ -242,6 +243,22 @@ tr:hover td{background:rgba(255,255,255,0.02);}
             <input type="text" id="admin-reply-input" placeholder="Type a reply..." style="flex:1;background:rgba(255,255,255,0.07);border:1px solid var(--border);border-radius:10px;color:#fff;font-family:'Barlow',sans-serif;font-size:0.85rem;padding:9px 14px;outline:none;" onkeydown="if(event.key==='Enter')sendAdminReply()">
             <button onclick="sendAdminReply()" style="background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;color:#fff;border-radius:10px;padding:9px 20px;font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:1px;cursor:pointer;">SEND</button>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- REVIEWS -->
+    <div id="sec-reviews" class="sec">
+      <div style="margin-bottom:1.25rem;display:flex;align-items:center;justify-content:space-between;">
+        <div><div style="font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:700;color:#fff;letter-spacing:1px;">Reviews <span id="rvcount" style="font-size:1rem;color:var(--muted);font-weight:400;"></span></div><div style="font-size:0.82rem;color:var(--muted);">Reviews submitted by users</div></div>
+        <button class="rbtn" onclick="loadReviews()">↻ Refresh</button>
+      </div>
+      <div class="tbl-wrap">
+        <div class="tbl-scroll">
+          <table>
+            <thead><tr><th>Username</th><th>Brand</th><th>Review</th><th>Submitted</th></tr></thead>
+            <tbody id="rvbody"><tr><td colspan="4" class="no-data">Loading...</td></tr></tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -355,6 +372,29 @@ function showSec(name,btn){
   if(name==='dashboard')loadDash();
   if(name==='users')loadUsers();
   if(name==='chats')loadChats();
+  if(name==='reviews')loadReviews();
+}
+
+// ── LOAD REVIEWS ──
+async function loadReviews(){
+  if(!sb)return;
+  const b=document.getElementById('rvbody');
+  b.innerHTML='<tr><td colspan="4" class="no-data">Loading...</td></tr>';
+  const{data,error}=await sb.from('reviews').select('*').order('created_at',{ascending:false});
+  if(error){b.innerHTML='<tr><td colspan="4" class="no-data">Could not load reviews.</td></tr>';return;}
+  const list=data||[];
+  document.getElementById('rvcount').textContent='('+list.length+')';
+  renderReviews(list);
+}
+function renderReviews(list){
+  const b=document.getElementById('rvbody');
+  if(!list.length){b.innerHTML='<tr><td colspan="4" class="no-data">No reviews yet</td></tr>';return;}
+  b.innerHTML=list.map(r=>`<tr>
+    <td><strong>${r.username||'—'}</strong></td>
+    <td style="color:var(--muted);font-size:0.82rem;">${r.brand_name||'—'}</td>
+    <td style="font-size:0.85rem;max-width:420px;white-space:normal;line-height:1.5;">${(r.review_text||'').replace(/</g,'&lt;')}</td>
+    <td style="color:var(--dim);font-size:0.8rem;white-space:nowrap;">${r.created_at?new Date(r.created_at).toLocaleString():'—'}</td>
+  </tr>`).join('');
 }
 
 // ── LOAD USERS ──
